@@ -2,18 +2,18 @@
 <rss version="2.0">
     <channel>
         <title>Shichao's Blog</title>
-        <link>http://www.shichao-an.info/blog/blog/html/</link>
+        <link>http://blog.shichao-an.info/blog/html/</link>
         <description>Recording molecular stuff</description>
         <language>en-us</language>
         <pubDate>Wed, 05 Mar 2014 00:00:00 -0500</pubDate>
         
         <item>
-            <link>http://www.shichao-an.info/blog/blog/html/2014/03/05/suppressing_fedora.html</link>
-            <guid>http://www.shichao-an.info/blog/blog/html/2014/03/05/suppressing_fedora.html</guid>
+            <link>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</guid>
             <title><![CDATA[Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks]]></title>
             <description><![CDATA[<div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
 <h1>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks</h1>
-<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network for me is “nyu” with the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog for me to push the “Connect” button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that:</p>
+<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is “nyu” of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the “Connect” button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># cd /etc/sysconfig/network-scripts</span>
 <span class="c"># vim ifcfg-nyu</span>
 </pre></div>
@@ -35,7 +35,7 @@
 <span class="c"># ifup nyu</span>
 </pre></div>
 </div>
-<p>Then, the wireless network should work as expected. Try to logout or reboot to see if this surely works.</p>
+<p>Then, the wireless network should work as expected. Try to logout or reboot to see if it surely works.</p>
 </div>]]></description>
              <pubDate>Wed, 05 Mar 2014 00:00:00 -0500</pubDate>
         </item>
