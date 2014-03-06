@@ -19,7 +19,7 @@
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
-            <link rel="stylesheet" href="../../../_static/dark.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/flat.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
             <link rel="stylesheet" href="../../../_static/webfont.css" type="text/css">
         <link rel="stylesheet" href="../../../_static/style.css" type="text/css" /><link rel="shortcut icon" href="../../../_static/tinkerer.ico" /><!-- Load modernizr and JQuery -->
@@ -40,19 +40,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            // Adjusts document height if sidebar is taller
-            var documentwrapper = document.getElementsByTagName('article')[0];
-            var sidebar = document.getElementsByTagName('aside')[0];
-
-            if (sidebar.offsetHeight > documentwrapper.offsetHeight)
-            {
-                documentwrapper.style.minHeight = sidebar.offsetHeight + "px";
-            }
-
             // Scroll to content if on small screen
             if (screen.width < 480)
             {
-                $(document).scrollTop(documentwrapper.offsetTop - 44);
+                $(document).scrollTop(document.getElementsByTagName("article")[0].offsetTop - 44);
             }
         });
     </script></head>
@@ -61,28 +52,19 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-      <div id="container"><div class="header-container">
-    <header class="wrapper clearfix">
-        <div class="title">
-          <h1><a href="../../../index.html">Shichao&#39;s Blog</a></h1>
-          <h4>Recording molecular stuff</h4>
-        </div>
-        <nav>
-          <ul>
-            <li class="main-nav">
-              <a href="../../../index.html">Home</a>
-            </li>
-            <li class="main-nav">
-              <a href="../../../pages/about.html">About</a>
-            </li>
-            <li class="quicklink"><div class="rss">
-        <a href="../../../rss.html" title="Subscribe via RSS"><span class="webfont">B</span></a>
-    </div></li></ul>
-        </nav>
-    </header>
-</div>
-
-<div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+      <div id="container"><header>
+            <hgroup>
+              <h1><a href="../../../index.html">Shichao&#39;s Blog</a></h1><h2>Recording molecular stuff</h2></hgroup>
+          </header>
+      <nav>
+            <ul><li class="main-nav">
+                  <a href="../../../index.html">Home</a>
+                </li>
+              <li class="main-nav">
+                  <a href="../../../pages/about.html">About</a>
+                </li>
+              </ul>
+          </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
             <span>March 05, 2014</span>
         </div>
     <div class="section" id="hello-world">
@@ -95,8 +77,7 @@
         </div>
         
         
-        </div>
-    </article><aside class="sidebar"><section><div class="widget">
+        </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="#">Hello World!</a>
