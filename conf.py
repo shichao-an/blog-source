@@ -33,13 +33,13 @@ website = 'http://blog.shichao-an.info/blog/html/'
 disqus_shortname = None
 
 # Change your favicon (new favicon goes in _static directory)
-html_favicon = 'tinkerer.ico'
+html_favicon = 'favicon.ico'
 
 # Pick another Tinkerer theme or use your own
 html_theme = "flat"
 
 # Theme-specific options, see docs
-html_theme_options = { }
+html_theme_options = {}
 
 # Link to RSS service like FeedBurner if any, otherwise feed is
 # linked directly
