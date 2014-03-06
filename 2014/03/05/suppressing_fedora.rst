@@ -14,6 +14,10 @@ Create a new file named ``keys-nyu`` in this directory with your password::
 
     IEEE_8021X_PASSWORD='your_password'
 
+Don't forget to make it read-writable by root only::
+
+    # chmod 600 keys-nyu    
+
 Then restart your network interface associated with "nyu"::
 
     # ifdown nyu

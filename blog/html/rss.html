@@ -26,6 +26,10 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">'your_password'</span>
 </pre></div>
 </div>
+<p>Don’t forget to make it read-writable by root only:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># chmod 600 keys-nyu</span>
+</pre></div>
+</div>
 <p>Then restart your network interface associated with “nyu”:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># ifdown nyu</span>
 <span class="c"># ifup nyu</span>
