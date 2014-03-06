@@ -24,5 +24,5 @@ Then, the wireless network should work as expected. Try to logout or reboot to s
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Linux,Fedora 
 .. comments::
