@@ -23,7 +23,7 @@ author = 'Shichao An'
 copyright = '2014, ' + author
 
 # Change this to your blog root URL (required for RSS feed)
-website = 'http://www.shichao-an.info/blog/blog/html/'
+website = 'http://blog.shichao-an.info/blog/html/'
 
 # **************************************************************
 # More tweaks you can do
