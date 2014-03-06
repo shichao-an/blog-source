@@ -36,7 +36,7 @@ disqus_shortname = None
 html_favicon = 'tinkerer.ico'
 
 # Pick another Tinkerer theme or use your own
-html_theme = "modern5"
+html_theme = "responsive"
 
 # Theme-specific options, see docs
 html_theme_options = { }
