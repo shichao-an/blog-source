@@ -1,7 +1,7 @@
 Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks
 =========================================================================================
 
-This seems to be an unsolved bug (`#982429 <https://bugzilla.redhat.com/show_bug.cgi?id=982429>`_) still under discussion. Many give temporary solutions that modify the corresponding ``ifcfg-*`` file and specify the password, possibly in plaintext form. Some suggest encrypting the password using ``wpa_passphrase ESSID`` command. The problematic network for me is "nyu" with the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog for me to push the "Connect" button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So the I just followed the plaintext way to produce a temporary fix for that::
+This seems to be an unsolved bug (`#982429 <https://bugzilla.redhat.com/show_bug.cgi?id=982429>`_) still under discussion. Many give temporary solutions that modify the corresponding ``ifcfg-*`` file and specify the password, possibly in plaintext form. Some suggest encrypting the password using ``wpa_passphrase ESSID`` command. The problematic network for me is "nyu" with the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog for me to push the "Connect" button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that::
 
     # cd /etc/sysconfig/network-scripts
     # vim ifcfg-nyu
