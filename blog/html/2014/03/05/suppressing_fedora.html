@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Hello World! &mdash; Shichao&#39;s Blog</title>
+        <title>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -67,8 +67,27 @@
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
             <span>March 05, 2014</span>
         </div>
-    <div class="section" id="hello-world">
-<h1>Hello World!</h1>
+    <div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
+<h1>Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</h1>
+<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network for me is &#8220;nyu&#8221; with the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog for me to push the &#8220;Connect&#8221; button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So the I just followed the plaintext way to produce a temporary fix for that:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># cd /etc/sysconfig/network-scripts</span>
+<span class="c"># vim ifcfg-nyu</span>
+</pre></div>
+</div>
+<p>Comment or remove the following line:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD_FLAGS</span><span class="o">=</span><span class="n">user</span>
+</pre></div>
+</div>
+<p>Create a new file named <span class="docutils literal"><span class="pre">keys-nyu</span></span> in this directory with your password:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">&#39;your_password&#39;</span>
+</pre></div>
+</div>
+<p>Then restart your network interface associated with &#8220;nyu&#8221;:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># ifdown nyu</span>
+<span class="c"># ifup nyu</span>
+</pre></div>
+</div>
+<p>Then, the wireless network should work as expected. Try to logout or reboot to see if this surely works.</p>
 </div>
 
     <div class="postmeta">
@@ -79,9 +98,7 @@
         
         </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
-    <ul><li>
-            <a href="#">Hello World!</a>
-        </li></ul>
+    <ul></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
     <h1>Search</h1>
