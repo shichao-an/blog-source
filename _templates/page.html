@@ -3,5 +3,5 @@
 {% set css_files = css_files + ["_static/style.css"] %}
 {%- block linktags %}
   {{ super() }}
-  <link rel="canonical" href="http://blog.shichao-an.info/{{ pathto(pagename, 1) }}{{ file_suffix }}" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/{{ pathto(pagename, 1) }}{{ file_suffix }}" />
 {%- endblock %}
