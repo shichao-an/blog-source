@@ -23,7 +23,7 @@ author = 'Shichao An'
 copyright = '2014, ' + author
 
 # Change this to your blog root URL (required for RSS feed)
-website = 'http://127.0.0.1/blog/html/'
+website = 'http://www.shichao-an.info/blog/blog/html/'
 
 # **************************************************************
 # More tweaks you can do
@@ -36,7 +36,7 @@ disqus_shortname = None
 html_favicon = 'tinkerer.ico'
 
 # Pick another Tinkerer theme or use your own
-html_theme = "flat"
+html_theme = "modern5"
 
 # Theme-specific options, see docs
 html_theme_options = { }
