@@ -15,30 +15,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Home &mdash; Shichao&#39;s Blog</title>
-            <link rel="stylesheet" href="_static/normalize.css" type="text/css">
-            <link rel="stylesheet" href="_static/sphinx.css" type="text/css">
-            <link rel="stylesheet" href="_static/main.css" type="text/css">
-            <link rel="stylesheet" href="_static/flat.css" type="text/css">
-            <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-            <link rel="stylesheet" href="_static/webfont.css" type="text/css">
-        <link rel="stylesheet" href="_static/style.css" type="text/css" /><link rel="shortcut icon" href="_static/favicon.ico" /><!-- Load modernizr and JQuery -->
-        <script src="_static/vendor/modernizr-2.6.2.min.js"></script>
+        <title>setuid() and uid, euid and suid &mdash; Shichao&#39;s Blog</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/flat.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/webfont.css" type="text/css">
+        <link rel="stylesheet" href="../../../_static/style.css" type="text/css" /><link rel="shortcut icon" href="../../../_static/favicon.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
-        <script src="_static/plugins.js"></script>
-        <script src="_static/main.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
         
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/index.html" /><script type="text/javascript">
+  <link rel="next" title="Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks" href="../05/suppressing_fedora.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
+        URL_ROOT:    '../../../',
         VERSION:     '1.3.0',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="_static/underscore.js"></script><script type="text/javascript" src="_static/doctools.js"></script>
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -56,23 +56,23 @@
 
       <div id="container"><header>
             <hgroup>
-              <h1><a href="#">Shichao&#39;s Blog</a></h1><h2>Recording molecular stuff</h2></hgroup>
+              <h1><a href="../../../index.html">Shichao&#39;s Blog</a></h1><h2>Recording molecular stuff</h2></hgroup>
           </header>
       <nav>
             <ul><li class="main-nav">
-                  <a href="#">Home</a>
+                  <a href="../../../index.html">Home</a>
                 </li>
               <li class="main-nav">
-                  <a href="pages/about.html">About</a>
+                  <a href="../../../pages/about.html">About</a>
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
             <span>March 17, 2014</span>
         </div>
-        <div class="section" id="setuid-and-uid-euid-and-suid">
-<h1><a href="2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a></h1>
+    <div class="section" id="setuid-and-uid-euid-and-suid">
+<h1>setuid() and uid, euid and suid</h1>
 <p>We know that <span class="docutils literal"><span class="pre">setuid</span></span> bit allows the program to change its effective uid (euid) upon execution. I want to take a look at how <span class="docutils literal"><span class="pre">setuid()</span></span> system call works through this experiment.</p>
-<p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a know <span class="docutils literal"><span class="pre">setuid</span></span> executable) in the background (it will be suspended with a [stopped] output because it requires password from stdin) and get its PID (let’s assume it’s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
+<p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a know <span class="docutils literal"><span class="pre">setuid</span></span> executable) in the background (it will be suspended with a [stopped] output because it requires password from stdin) and get its PID (let&#8217;s assume it&#8217;s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ passwd &amp;
 $ echo $!  # 10401
 </pre></div>
@@ -82,7 +82,7 @@ $ echo $!  # 10401
 </pre></div>
 </div>
 <p>Open another terminal, the run the following command to get the line that represents the current real UID (<span class="docutils literal"><span class="pre">uid</span></span>), effective UID (<span class="docutils literal"><span class="pre">euid</span></span>), saved UID (<span class="docutils literal"><span class="pre">suid</span></span>) and file system UID (<span class="docutils literal"><span class="pre">fsuid</span></span>) of the previous <span class="docutils literal"><span class="pre">passwd</span></span> process:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ watch -n 1 grep -i 'uid' /proc/10401/task/10401/status
+<div class="highlight-python"><div class="highlight"><pre>$ watch -n 1 grep -i &#39;uid&#39; /proc/10401/task/10401/status
 Uid:    1000    0       0   0
 </pre></div>
 </div>
@@ -116,64 +116,27 @@ Detaching from program: /usr/bin/passwd, process 10401
 </pre></div>
 </div>
 </div>
-        <div class="postmeta">
+
+    <div class="postmeta">
         <div class="author">
             <span>Posted by Shichao An</span>
         </div>
         
         
-        </div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>March 05, 2014</span>
-        </div>
-        <div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
-<h1><a href="2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks</a></h1>
-<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is “nyu” of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the “Connect” button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># cd /etc/sysconfig/network-scripts</span>
-<span class="c"># vim ifcfg-nyu</span>
-</pre></div>
-</div>
-<p>Comment or remove the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD_FLAGS</span><span class="o">=</span><span class="n">user</span>
-</pre></div>
-</div>
-<p>Create a new file named <span class="docutils literal"><span class="pre">keys-nyu</span></span> in this directory with your password:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">'your_password'</span>
-</pre></div>
-</div>
-<p>Don’t forget to make it read-writable by root only:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># chmod 600 keys-nyu</span>
-</pre></div>
-</div>
-<p>Then restart your network interface associated with “nyu”:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ifdown nyu</span>
-<span class="c"># ifup nyu</span>
-</pre></div>
-</div>
-<p>Then, the wireless network should work as expected. Try to logout or reboot to see if it surely works.</p>
-</div>
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Shichao An</span>
-        </div>
-        
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/linux.html">Linux</a>, <a href="tags/fedora.html">Fedora</a></span>
-        </div>
-        </div><div class="archive_link">
-        <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
-    </div></article><aside class="sidebar"><section><div class="widget">
+        </div><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+            <a href="#">setuid() and uid, euid and suid</a>
         </li><li>
-            <a href="2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+            <a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">
     <h1>Search</h1>
-    <form action="search.html" method="get">
+    <form action="../../../search.html" method="get">
         <input type="text" name="q" />
         <button type="submit"><span class="webfont">L</span></button>
     </form>
