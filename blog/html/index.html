@@ -71,49 +71,41 @@
         </div>
         <div class="section" id="setuid-and-uid-euid-and-suid">
 <h1><a href="2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a></h1>
-<p>We know that <cite>setuid</cite> bit allows the program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through this experiment.</p>
+<p>We know that <cite>setuid</cite> bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through the following experiment.</p>
 <p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a known <cite>setuid</cite> executable) in the background (it will be suspended with a “[stopped]” output because it requires password from stdin) and get its PID (let’s assume it’s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ passwd &amp;
-$ echo $!  # 10401
-</pre></div>
+<div class="highlight-python"><pre>$ passwd &amp;
+$ echo $!  # 10401</pre>
 </div>
 <p>Then, run <span class="docutils literal"><span class="pre">gdb</span></span> to attach to this process:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ sudo gdb -p $!
-</pre></div>
+<div class="highlight-python"><pre>$ sudo gdb -p $!</pre>
 </div>
 <p>Open another terminal, the run the following command to get the line that represents the current real UID (<cite>uid</cite>), effective UID (<cite>euid</cite>), saved UID (<cite>suid</cite>) and file system UID (<cite>fsuid</cite>) of the previous <span class="docutils literal"><span class="pre">passwd</span></span> process:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ watch -n 1 grep -i 'uid' /proc/10401/task/10401/status
-Uid:    1000    0       0   0
-</pre></div>
+<div class="highlight-python"><pre>$ watch -n 1 grep -i 'uid' /proc/10401/task/10401/status
+Uid:    1000    0       0   0</pre>
 </div>
 <p>In the first terminal, you can call <cite>seteuid(1000)</cite> to change its <cite>euid</cite> to 1000:</p>
-<div class="highlight-python"><div class="highlight"><pre>(gdb) call seteuid(1000)
-$1 = 0
-</pre></div>
+<div class="highlight-python"><pre>(gdb) call seteuid(1000)
+$1 = 0</pre>
 </div>
 <p>Then the output of the <span class="docutils literal"><span class="pre">watch</span></span> command will become:</p>
-<div class="highlight-python"><div class="highlight"><pre>Uid:    1000    1000    0   1000
-</pre></div>
+<div class="highlight-python"><pre>Uid:    1000    1000    0   1000</pre>
 </div>
-<p>The <cite>euid</cite> is 1000 and the process becomes unprivileged, and you can see the USER field has been changed to the regular user instead of root:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ps -u -p 10401
-</pre></div>
+<p>As you see the <cite>euid</cite> is 1000 and the process becomes unprivileged. With the following command, you will notice that the USER field has been changed to the regular user instead of root:</p>
+<div class="highlight-python"><pre>$ ps -u -p 10401</pre>
 </div>
 <p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
-<p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call only modifies <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
-<div class="highlight-python"><div class="highlight"><pre>(gdb) call setuid(0)
-$2 = 0
-</pre></div>
+<p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call only modify <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
+<div class="highlight-python"><pre>(gdb) call setuid(0)
+$2 = 0</pre>
 </div>
-<p>At this time, when <cite>euid</cite> is 0, if you call <cite>setuid(1000)</cite> it will sets all the four fields to 1000 and the process will be permanently unprivileged.</p>
-<div class="highlight-python"><div class="highlight"><pre>(gdb) call setuid(1000)
+<p>At this time, when <cite>euid</cite> is 0, if you call <cite>setuid(1000)</cite> it will sets all the four fields to 1000 and the process will be permanently unprivileged. Further calls to <cite>setuid</cite> to change any field to other than 1000 will fail.</p>
+<div class="highlight-python"><pre>(gdb) call setuid(1000)
 $3 = 0
 (gdb) call setuid(0)
 $4 = -1
 (gdb) detach
 Detaching from program: /usr/bin/passwd, process 10401
-(gdb) quit
-</pre></div>
+(gdb) quit</pre>
 </div>
 </div>
         <div class="postmeta">

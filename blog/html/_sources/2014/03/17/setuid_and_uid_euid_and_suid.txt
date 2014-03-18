@@ -1,7 +1,7 @@
 setuid() and uid, euid and suid
 ===============================
 
-We know that `setuid` bit allows the program to change its effective uid (euid) upon execution. I want to take a look at how `setuid()` system call works through this experiment.
+We know that `setuid` bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how `setuid()` system call works through the following experiment.
 
 Open a terminal session and run the ``passwd`` command (a known `setuid` executable) in the background (it will be suspended with a "[stopped]" output because it requires password from stdin) and get its PID (let's assume it's 10401) with ``echo $!``:
 ::
@@ -31,19 +31,19 @@ Then the output of the ``watch`` command will become:
 
     Uid:    1000    1000    0	1000
 
-The `euid` is 1000 and the process becomes unprivileged, and you can see the USER field has been changed to the regular user instead of root:
+As you see the `euid` is 1000 and the process becomes unprivileged. With the following command, you will notice that the USER field has been changed to the regular user instead of root:
 ::
 
     $ ps -u -p 10401
 
 At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use `setresuid(u,e,s)` to change them at the same time. 
 
-To revert the `euid` back to 0, you can use either `setuid(0)` or `seteuid(0)`. This is because when `euid` is not 0, the `setuid(e)` system call only modifies `euid` and `fsuid` to `e` leaving the other two unchanged::
+To revert the `euid` back to 0, you can use either `setuid(0)` or `seteuid(0)`. This is because when `euid` is not 0, the `setuid(e)` system call only modify `euid` and `fsuid` to `e` leaving the other two unchanged::
 
     (gdb) call setuid(0)
     $2 = 0
 
-At this time, when `euid` is 0, if you call `setuid(1000)` it will sets all the four fields to 1000 and the process will be permanently unprivileged.
+At this time, when `euid` is 0, if you call `setuid(1000)` it will sets all the four fields to 1000 and the process will be permanently unprivileged. Further calls to `setuid` to change any field to other than 1000 will fail.
 ::
 
     (gdb) call setuid(1000)
