@@ -71,26 +71,26 @@
         </div>
     <div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
 <h1>Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</h1>
-<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is &#8220;nyu&#8221; of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the &#8220;Connect&#8221; button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># cd /etc/sysconfig/network-scripts</span>
-<span class="c"># vim ifcfg-nyu</span>
+<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is &#8220;nyu&#8221; of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the &#8220;Connect&#8221; button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that::</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># cd /etc/sysconfig/network-scripts</span>
+<span class="go"># vim ifcfg-nyu</span>
 </pre></div>
 </div>
 <p>Comment or remove the following line:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD_FLAGS</span><span class="o">=</span><span class="n">user</span>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">IEEE_8021X_PASSWORD_FLAGS</span><span class="o">=</span><span class="s">user</span>
 </pre></div>
 </div>
 <p>Create a new file named <span class="docutils literal"><span class="pre">keys-nyu</span></span> in this directory with your password:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">&#39;your_password&#39;</span>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">&#39;your_password&#39;</span>
 </pre></div>
 </div>
 <p>Don&#8217;t forget to make it read-writable by root only:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># chmod 600 keys-nyu</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># chmod 600 keys-nyu</span>
 </pre></div>
 </div>
-<p>Then restart your network interface associated with &#8220;nyu&#8221;:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># ifdown nyu</span>
-<span class="c"># ifup nyu</span>
+<p>Then restart your network interface associated with &#8220;nyu&#8221;::</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># ifdown nyu</span>
+<span class="go"># ifup nyu</span>
 </pre></div>
 </div>
 <p>Then, the wireless network should work as expected. Try to logout or reboot to see if it surely works.</p>

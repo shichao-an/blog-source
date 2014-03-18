@@ -1,6 +1,9 @@
 setuid() and uid, euid and suid
 ===============================
 
+.. highlight:: shell-session
+
+
 We know that `setuid` bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how `setuid()` system call works through the following experiment.
 
 Open a terminal session and run the ``passwd`` command (a known `setuid` executable) in the background (it will be suspended with a "[stopped]" output because it requires password from stdin) and get its PID (let's assume it's 10401) with ``echo $!``:
