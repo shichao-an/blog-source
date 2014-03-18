@@ -56,5 +56,5 @@ At this time, when `euid` is 0, if you call `setuid(1000)` it will sets all the 
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Linux,GDB 
 .. comments::
