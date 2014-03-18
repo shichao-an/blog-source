@@ -71,8 +71,8 @@
         </div>
         <div class="section" id="setuid-and-uid-euid-and-suid">
 <h1><a href="2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a></h1>
-<p>We know that <span class="docutils literal"><span class="pre">setuid</span></span> bit allows the program to change its effective uid (euid) upon execution. I want to take a look at how <span class="docutils literal"><span class="pre">setuid()</span></span> system call works through this experiment.</p>
-<p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a know <span class="docutils literal"><span class="pre">setuid</span></span> executable) in the background (it will be suspended with a [stopped] output because it requires password from stdin) and get its PID (let’s assume it’s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
+<p>We know that <cite>setuid</cite> bit allows the program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through this experiment.</p>
+<p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a known <cite>setuid</cite> executable) in the background (it will be suspended with a “[stopped]” output because it requires password from stdin) and get its PID (let’s assume it’s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ passwd &amp;
 $ echo $!  # 10401
 </pre></div>
@@ -81,12 +81,12 @@ $ echo $!  # 10401
 <div class="highlight-python"><div class="highlight"><pre>$ sudo gdb -p $!
 </pre></div>
 </div>
-<p>Open another terminal, the run the following command to get the line that represents the current real UID (<span class="docutils literal"><span class="pre">uid</span></span>), effective UID (<span class="docutils literal"><span class="pre">euid</span></span>), saved UID (<span class="docutils literal"><span class="pre">suid</span></span>) and file system UID (<span class="docutils literal"><span class="pre">fsuid</span></span>) of the previous <span class="docutils literal"><span class="pre">passwd</span></span> process:</p>
+<p>Open another terminal, the run the following command to get the line that represents the current real UID (<cite>uid</cite>), effective UID (<cite>euid</cite>), saved UID (<cite>suid</cite>) and file system UID (<cite>fsuid</cite>) of the previous <span class="docutils literal"><span class="pre">passwd</span></span> process:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ watch -n 1 grep -i 'uid' /proc/10401/task/10401/status
 Uid:    1000    0       0   0
 </pre></div>
 </div>
-<p>In the first terminal, you can call <span class="docutils literal"><span class="pre">`seteuid(1000)</span></span> to change the <span class="docutils literal"><span class="pre">euid</span></span> to 1000:</p>
+<p>In the first terminal, you can call <cite>seteuid(1000)</cite> to change its <cite>euid</cite> to 1000:</p>
 <div class="highlight-python"><div class="highlight"><pre>(gdb) call seteuid(1000)
 $1 = 0
 </pre></div>
@@ -95,17 +95,17 @@ $1 = 0
 <div class="highlight-python"><div class="highlight"><pre>Uid:    1000    1000    0   1000
 </pre></div>
 </div>
-<p>The <span class="docutils literal"><span class="pre">euid</span></span> is 1000 and the process becomes unprivileged, and you can see the USER field has been changed to the regular user instead of root:</p>
+<p>The <cite>euid</cite> is 1000 and the process becomes unprivileged, and you can see the USER field has been changed to the regular user instead of root:</p>
 <div class="highlight-python"><div class="highlight"><pre>$ ps -u -p 10401
 </pre></div>
 </div>
-<p>At this time, you can only change its effective UID to either that of the real UID or saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
-<p>To revert the <span class="docutils literal"><span class="pre">euid</span></span> back to 0, you can use either <span class="docutils literal"><span class="pre">setuid(0)</span></span> or <span class="docutils literal"><span class="pre">seteuid(0)</span></span>. This is because when <span class="docutils literal"><span class="pre">euid</span></span> is not 0, the <span class="docutils literal"><span class="pre">setuid(e)</span></span> system call only modifies <span class="docutils literal"><span class="pre">euid</span></span> and <span class="docutils literal"><span class="pre">fsuid</span></span> to e leaving the other two unchanged:</p>
+<p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
+<p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call only modifies <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
 <div class="highlight-python"><div class="highlight"><pre>(gdb) call setuid(0)
 $2 = 0
 </pre></div>
 </div>
-<p>At this time, when <span class="docutils literal"><span class="pre">euid</span></span> is 0, if you call <span class="docutils literal"><span class="pre">setuid(1000)</span></span> it will sets all the four fields to 1000 and the process will be permanently unprivileged.</p>
+<p>At this time, when <cite>euid</cite> is 0, if you call <cite>setuid(1000)</cite> it will sets all the four fields to 1000 and the process will be permanently unprivileged.</p>
 <div class="highlight-python"><div class="highlight"><pre>(gdb) call setuid(1000)
 $3 = 0
 (gdb) call setuid(0)
