@@ -6,3 +6,7 @@
   <link rel="canonical" href="http://blog.shichao-an.info/blog/html/{{ pagename }}{{ file_suffix }}" />
 {%- endblock %}
 {% set script_files = script_files + ["_static/google_analytics.js"] %}
+{%- block extrahead %}
+{{ super() }}
+<meta name="google-site-verification" content="sZ7ryxA3T79VgdPaCWmweUJEWiTktoITTM-MG0_jbEA" />
+{% endblock %}
