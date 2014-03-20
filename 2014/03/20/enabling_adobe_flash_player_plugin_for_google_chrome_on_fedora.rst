@@ -3,9 +3,9 @@ Enabling Adobe Flash Player plugin for Google Chrome on Fedora
 
 .. highlight:: shell-session
 
-The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as `www.bilibili.tv <http://www.bilibili.tv>`_. I have to install the Adobe Flash Player plugin and enable it for Google Chrome.
+The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as `www.bilibili.tv <http://www.bilibili.tv>`_). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.
 
-1. Install the repository from Adobe (assuming 64-bit)::
+1. Install the repository from Adobe (assuming 64-bit):::
 
     # yum install http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
     # rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux
@@ -23,6 +23,6 @@ The Google Chrome browser I use was installed from the third-party repository by
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Linux,Fedora 
 .. comments::
 
