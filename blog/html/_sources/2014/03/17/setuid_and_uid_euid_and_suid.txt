@@ -39,6 +39,8 @@ As you see the `euid` is 1000 and the process becomes unprivileged. With the fol
 
     $ ps -u -p 10401
 
+.. more::
+
 At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use `setresuid(u,e,s)` to change them at the same time. 
 
 To revert the `euid` back to 0, you can use either `setuid(0)` or `seteuid(0)`. This is because when `euid` is not 0, the `setuid(e)` system call will only modify `euid` and `fsuid` to `e` leaving the other two unchanged::

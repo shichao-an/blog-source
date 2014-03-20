@@ -38,7 +38,7 @@
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
-    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script><script type="text/javascript" src="../../../_static/disqus.js"></script>
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script><script type="text/javascript" src="../../../_static/disqus.js"></script><script type="text/javascript" src="../../../_static/google_analytics.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -99,7 +99,7 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ps -u -p 10401</span>
 </pre></div>
 </div>
-<p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
+<div id="more"> </div><p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
 <p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call will only modify <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call setuid(0)</span>
 <span class="go">$2 = 0</span>

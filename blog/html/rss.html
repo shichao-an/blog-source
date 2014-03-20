@@ -72,23 +72,7 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ps -u -p 10401</span>
 </pre></div>
 </div>
-<p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
-<p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call will only modify <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call setuid(0)</span>
-<span class="go">$2 = 0</span>
-</pre></div>
-</div>
-<p>At this time, when <cite>euid</cite> is 0, if you call <cite>setuid(1000)</cite> it will sets all the four fields to 1000 and the process will be permanently unprivileged. Further calls to <cite>setuid</cite> to change any field to other than 1000 will fail.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call setuid(1000)</span>
-<span class="go">$3 = 0</span>
-<span class="go">(gdb) call setuid(0)</span>
-<span class="go">$4 = -1</span>
-<span class="go">(gdb) detach</span>
-<span class="go">Detaching from program: /usr/bin/passwd, process 10401</span>
-<span class="go">(gdb) quit</span>
-</pre></div>
-</div>
-</div>]]></description>
+<p><a class="readmore" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html#more">Read more...</a></p></div>]]></description>
              <pubDate>Mon, 17 Mar 2014 00:00:00 -0400</pubDate>
         </item>
     
