@@ -27,3 +27,5 @@ Links
 * GitHub: `github.com/shichao-an <https://github.com/shichao-an>`_
 
 For more information, see `www.shichao-an.info <http://www.shichao-an.info/>`_. For old posts, see `blog.moleculea.com <http://blog.moleculea.com/>`_.
+
+.. comments::
