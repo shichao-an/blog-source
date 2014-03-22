@@ -30,7 +30,7 @@ website = 'http://blog.shichao-an.info/blog/html/'
 # **************************************************************
 
 # Add your Disqus shortname to enable comments powered by Disqus
-disqus_shortname = 'shichaoblog'
+disqus_shortname = ''
 
 # Change your favicon (new favicon goes in _static directory)
 html_favicon = 'favicon.ico'
