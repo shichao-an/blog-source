@@ -2,3 +2,9 @@
 
 {% set css_files = css_files + ["_static/style.css"] %}
 {% set script_files = script_files + ["_static/google_analytics.js"] %}
+
+{%- block linktags %}
+  {{ super() }}
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/{{ pagename }}{{ file_suffix }}" />
+{%- endblock %}
+
