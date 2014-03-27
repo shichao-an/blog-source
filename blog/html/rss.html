@@ -14,25 +14,21 @@
             <description><![CDATA[<div class="section" id="enabling-adobe-flash-player-plugin-for-google-chrome-on-fedora">
 <h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
 <p>The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as <a class="reference external" href="http://www.bilibili.tv">www.bilibili.tv</a>). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.</p>
-<ol class="arabic">
-<li><p class="first">Install the repository from Adobe (assuming 64-bit)::</p>
+<p>1. Install the repository from Adobe (assuming 64-bit):</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm</span>
 <span class="go"># rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Install the flash-plugin package::</p>
+<p>2. Install the flash-plugin package:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install flash-plugin</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Create symbolic link at Google Chrome’s default directory::</p>
+<p>3. Create symbolic link at Google Chrome’s default directory:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># ln -s /usr/lib64/mozilla/plugins/libflashplayer.so /opt/google/chrome/libflashplayer.so</span>
 </pre></div>
 </div>
-</li>
-<li><p class="first">Restart Google Chrome, go to “<a class="reference external" href="about:plugins">about:plugins</a>” page, toggle “Details” switch at upper right corner, disable PepperFlash plugin and enable the Adobe Flash Player plugin with location “/usr/lib64/flash-plugin/libflashplayer.so”</p>
-</li>
+<ol class="arabic simple" start="4">
+<li>Restart Google Chrome, go to “<a class="reference external" href="about:plugins">about:plugins</a>” page, toggle “Details” switch at upper right corner, disable PepperFlash plugin and enable the Adobe Flash Player plugin with location “/usr/lib64/flash-plugin/libflashplayer.so”</li>
 </ol>
 </div>]]></description>
              <pubDate>Thu, 20 Mar 2014 00:00:00 -0400</pubDate>
