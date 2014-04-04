@@ -13,58 +13,57 @@
             <title><![CDATA[Bash double brackets, test contructs and word splitting]]></title>
             <description><![CDATA[<div class="section" id="bash-double-brackets-test-contructs-and-word-splitting">
 <h1>Bash double brackets, test contructs and word splitting</h1>
-<p>We know that the double brackets constructs can be used in place of the <span class="docutils literal"><span class="pre">test</span></span> builtin (<span class="docutils literal"><span class="pre">[</span></span>) commonly used as single brackets to evaluate conditional expression. The double brackets are preferred in terms of writing less error-prone scripts, though it is not POSIX-compliant (not portable to many other shells).</p>
-<p>The primary difference of double brackets from test builtin is that word splitting and filename expansion are not performed within them. It is easier to understand filename expansion difference in this case, let’s take a look at the difference of word splitting.</p>
+<p>We know that the double brackets constructs can be used in place of the <span class="docutils literal"><span class="pre">test</span></span> builtin (<span class="docutils literal"><span class="pre">[</span></span>) commonly used as single brackets to evaluate conditional expressions. The double brackets are preferred in terms of writing less error-prone scripts, though it is not POSIX-compliant (not portable to many other shells).</p>
+<p>The primary difference of double brackets from the <span class="docutils literal"><span class="pre">test</span></span> builtin is that word splitting and filename expansion are not performed within them. It is easier to understand the filename expansion difference in this case, let’s take a look at the difference of word splitting.</p>
 <ol class="arabic">
-<li><p class="first">First, the following command fails because in test constructs the world splitting is performed after parameter expansion (and variable expansion, if any):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ bash -xc 'foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'
-+ '[' hello world = 'hello world' ']'
-bash: line 0: [: too many arguments
+<li><p class="first">First, the following command fails because in <span class="docutils literal"><span class="pre">test</span></span> constructs the world splitting is performed after parameter expansion (and variable expansion, if any):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ '[' hello world = 'hello world' ']'</span>
+<span class="go">bash: line 0: [: too many arguments</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">In the double brackes, the error will not occur because word splitting is not performed, like the following:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ bash -xc 'foobar=&quot;hello world&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;'
-+ foobar='hello world'
-+ [[ hello world = \h\e\l\l\o\ \w\o\r\l\d ]]
-+ echo yes
-yes
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar=&quot;hello world&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ foobar='hello world'</span>
+<span class="go">+ [[ hello world = \h\e\l\l\o\ \w\o\r\l\d ]]</span>
+<span class="go">+ echo yes</span>
+<span class="go">yes</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">We can supress word splitting in the <span class="docutils literal"><span class="pre">test</span></span> construct by setting IFS to null. This time, this command will succeed:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'
-+ IFS=
-+ foobar='hello world'
-+ '[' 'hello world' = 'hello world' ']'
-+ echo yes
-yes
+<li><p class="first">We can supress word splitting in the <span class="docutils literal"><span class="pre">test</span></span> construct by setting IFS to null, because when IFS is null, word splitting never occurs. This time, this command will succeed:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ IFS=</span>
+<span class="go">+ foobar='hello world'</span>
+<span class="go">+ '[' 'hello world' = 'hello world' ']'</span>
+<span class="go">+ echo yes</span>
+<span class="go">yes</span>
 </pre></div>
 </div>
 </li>
-<li><dl class="first docutils">
-<dt>Another feature to note is that double brackets treat unset variables and null variable (variable whose value is a null string, i.e. ‘’)  differently from the <span class="docutils literal"><span class="pre">test</span></span> construct. For example::</dt>
-<dd><p class="first last">$ bash -xc ‘IFS=””; foobar=””; [ $foobar = “hello world” ] &amp;&amp; echo “yes”’
-+ IFS=
-+ foobar=
-+ ‘[‘ = ‘hello world’ ‘]’
-$ bash -xc ‘IFS=””; foobar=””; [[ $foobar = “hello world” ]] &amp;&amp; echo “yes”’
-+ IFS=
-+ foobar=
-+ [[ ‘’ = helloworld ]]</p>
-</dd>
-</dl>
+<li><p class="first">Another feature to note is that double brackets treat unset variables and null variable (variable whose value is a null string, i.e. ‘’)  differently from the <span class="docutils literal"><span class="pre">test</span></span> construct. For example:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ IFS=</span>
+<span class="go">+ foobar=</span>
+<span class="go">+ '[' = 'hello world' ']'</span>
+<span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ IFS=</span>
+<span class="go">+ foobar=</span>
+<span class="go">+ [[ '' = \h\e\l\l\o\ \w\o\r\l\d ]]</span>
+</pre></div>
+</div>
 </li>
 </ol>
-<p>The unset or null variable is converted to null argument (‘’) as a result in double brackets, while in test constructs it is removed.</p>
+<p>The unset or null variable is converted to null argument (<span class="docutils literal"><span class="pre">''</span></span>) as a result in double brackets, while in <span class="docutils literal"><span class="pre">test</span></span> constructs it is removed.</p>
 <ol class="arabic" start="5">
-<li><p class="first">You may notice in the second step above that the xtrace output of the conditional expression to the right of the operator is “helloworld”. This is because when using operators <span class="docutils literal"><span class="pre">==</span></span>, <span class="docutils literal"><span class="pre">!=</span></span> and the POSIX version <span class="docutils literal"><span class="pre">=</span></span>, the string to the right is considered a pattern and pattern matching will be performed. The backslash indicates the each character is literal instead of pattern, because “hello world” is quoted. The following example makes the right string as pattern:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [[ $foobar = hello* ]] &amp;&amp; echo &quot;yes&quot;'
-+ IFS=
-+ foobar='hello world'
-+ [[ hello world = hello* ]]
-+ echo yes
-yes
+<li><p class="first">You may notice in the second step above that the xtrace output of the conditional expression to the right of the operator is <span class="docutils literal"><span class="pre">\h\e\l\l\o\</span> <span class="pre">\w\o\r\l\d</span></span>. This is because when using operators <span class="docutils literal"><span class="pre">==</span></span>, <span class="docutils literal"><span class="pre">!=</span></span> and the POSIX version <span class="docutils literal"><span class="pre">=</span></span>, the string to the right is considered a pattern and pattern matching will be performed. The backslash indicates the each character is literal instead of pattern, because “hello world” is quoted. The following example makes the right string as pattern:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [[ $foobar = hello* ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">+ IFS=</span>
+<span class="go">+ foobar='hello world'</span>
+<span class="go">+ [[ hello world = hello* ]]</span>
+<span class="go">+ echo yes</span>
+<span class="go">yes</span>
 </pre></div>
 </div>
 </li>
