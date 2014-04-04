@@ -36,6 +36,8 @@ The primary difference of double brackets from the ``test`` builtin is that word
     + IFS=
     + foobar=
     + '[' = 'hello world' ']'
+    bash: line 0: [: =: unary operator expected
+
     $ bash -xc 'IFS=""; foobar=""; [[ $foobar = "hello world" ]] && echo "yes"'
     + IFS=
     + foobar=

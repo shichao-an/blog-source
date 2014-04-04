@@ -107,6 +107,8 @@
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar=</span>
 <span class="go">+ &#39;[&#39; = &#39;hello world&#39; &#39;]&#39;</span>
+<span class="go">bash: line 0: [: =: unary operator expected</span>
+
 <span class="go">$ bash -xc &#39;IFS=&quot;&quot;; foobar=&quot;&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;&#39;</span>
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar=</span>
