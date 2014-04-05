@@ -7,7 +7,7 @@ We know that the double brackets constructs can be used in place of the ``test``
 
 The primary difference of double brackets from the ``test`` builtin is that word splitting and filename expansion are not performed within them. It is easier to understand the filename expansion difference in this case, let's take a look at the difference of word splitting.
 
-1. First, the following command fails because in ``test`` constructs the world splitting is performed after parameter expansion (and variable expansion, if any)::
+1. First, the following command fails because in ``test`` constructs the word splitting is performed after parameter expansion (and variable expansion, if any)::
 
     $ bash -xc 'foobar="hello world"; [ $foobar = "hello world" ] && echo "yes"'
     + '[' hello world = 'hello world' ']'
