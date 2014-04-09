@@ -35,6 +35,7 @@
 </li>
 <li><p class="first">Create an array of filenames ordered by their <cite>mtime</cite>. Clearly, globbing will not work because it is based on filename pattern matching. We have to use both command substitution and word splitting. Let’s try the following first:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filenames=($(ls -t))</span>
+<span class="go">$ declare -p filenames</span>
 <span class="go">declare -a filenames='([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)'</span>
 </pre></div>
 </div>
@@ -42,6 +43,7 @@
 <p>We need to hack a little on IFS variable. Let’s try what happens if we disable word splitting by setting IFS to null:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=</span>
 <span class="go">$ filenames=($(ls -t))</span>
+<span class="go">$ declare -p filenames</span>
 <span class="go">declare -a filenames='([0]=&quot;Foo Bar</span>
 <span class="go">Bar</span>
 <span class="go">Foo&quot;)'</span>

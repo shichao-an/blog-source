@@ -25,6 +25,7 @@ What if we want to create an array with specific orders, say by modification tim
 2. Create an array of filenames ordered by their `mtime`. Clearly, globbing will not work because it is based on filename pattern matching. We have to use both command substitution and word splitting. Let's try the following first::
 
     $ filenames=($(ls -t))
+    $ declare -p filenames
     declare -a filenames='([0]="Foo" [1]="Bar" [2]="Bar" [3]="Foo")'
 
    Clearly this is not the result we want since the whitespace-contained filename is corrupted.
@@ -33,6 +34,7 @@ What if we want to create an array with specific orders, say by modification tim
 
     $ IFS=
     $ filenames=($(ls -t))
+    $ declare -p filenames
     declare -a filenames='([0]="Foo Bar
     Bar
     Foo")'
