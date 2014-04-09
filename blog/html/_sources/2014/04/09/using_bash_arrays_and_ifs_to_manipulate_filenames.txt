@@ -1,6 +1,8 @@
 Using Bash arrays and IFS to manipulate filenames
 =================================================
 
+.. highlight:: shell-session
+
 Assume we want to work with files in a directory. The most intuitive way is to make use of filename expansion, using globbing. We can use the `for construct` and wildcard ``*`` to handle each file nice and clean, without worrying about those filenames that contain whitespaces (suppose that in all of the following context, the working directory contain three files: "Foo", "Bar", and "Foo Bar")::
 
     $ for file in *; do echo "$file"; done
@@ -25,9 +27,9 @@ What if we want to create an array with specific orders, say by modification tim
     $ filenames=($(ls -t))
     declare -a filenames='([0]="Foo" [1]="Bar" [2]="Bar" [3]="Foo")'
 
-  Clearly this is not the result we want since the whitespace-contained filename is corrupted.
+   Clearly this is not the result we want since the whitespace-contained filename is corrupted.
   
-  We need to hack a little on IFS variable. Let's try what happens if we disable word splitting by setting IFS to null::
+   We need to hack a little on IFS variable. Let's try what happens if we disable word splitting by setting IFS to null::
 
     $ IFS=
     $ filenames=($(ls -t))
@@ -35,16 +37,16 @@ What if we want to create an array with specific orders, say by modification tim
     Bar
     Foo")'
 
-  It seems it's getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.
+   It seems it's getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.
 
-  We know that the result of ``ls`` command is multiple lines of filenames. As the result of command substitution (i.e. ``$(ls -t)``), the filenames are separated by newlines (``\n``). The default IFS is a sequence of `` \t\n`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (``\n``) (as long as your filenames does not contain new lines), with ANSI C quoting (``$''``)::
+   We know that the result of ``ls`` command is multiple lines of filenames. As the result of command substitution (i.e. ``$(ls -t)``), the filenames are separated by newlines (``\n``). The default IFS is a sequence of `` \t\n`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (``\n``) (as long as your filenames does not contain new lines), with ANSI C quoting (``$''``)::
 
     $ IFS=$'\n'
     $ filenames=($(ls -t))
     $ declare -p filenames
     declare -a filenames='([0]="Foo Bar" [1]="Bar" [2]="Foo")'
 
-  In similar ways, we can get `n` most recently modified filenames, just make use of parameter expansion::
+   In similar ways, we can get `n` most recently modified filenames, just make use of parameter expansion::
 
     $ echo "${filenames[@]:0:2}"  # Print two most recently modified names
 

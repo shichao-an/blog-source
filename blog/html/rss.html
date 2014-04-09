@@ -14,55 +14,53 @@
             <description><![CDATA[<div class="section" id="using-bash-arrays-and-ifs-to-manipulate-filenames">
 <h1>Using Bash arrays and IFS to manipulate filenames</h1>
 <p>Assume we want to work with files in a directory. The most intuitive way is to make use of filename expansion, using globbing. We can use the <cite>for construct</cite> and wildcard <span class="docutils literal"><span class="pre">*</span></span> to handle each file nice and clean, without worrying about those filenames that contain whitespaces (suppose that in all of the following context, the working directory contain three files: “Foo”, “Bar”, and “Foo Bar”):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ for file in *; do echo &quot;$file&quot;; done
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ for file in *; do echo &quot;$file&quot;; done</span>
 </pre></div>
 </div>
 <p>We can also create an array from these filenames, using the following command:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ files=(*)
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ files=(*)</span>
 </pre></div>
 </div>
 <p>Then, we can take a look at both the attributes and the value of <cite>files</cite>:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ declare -p files
-declare -a files='([0]=&quot;Bar&quot; [1]=&quot;Foo&quot; [2]=&quot;Foo Bar&quot;)'
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ declare -p files</span>
+<span class="go">declare -a files='([0]=&quot;Bar&quot; [1]=&quot;Foo&quot; [2]=&quot;Foo Bar&quot;)'</span>
 </pre></div>
 </div>
 <p>What if we want to create an array with specific orders, say by modification time (mtime) of files. We have to use the <span class="docutils literal"><span class="pre">ls</span></span> with the <span class="docutils literal"><span class="pre">-t</span></span> switch.  Now there are several practical scenarios discussed as follows.</p>
 <ol class="arabic">
 <li><p class="first">Get the latest modified filename:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ filename=$(ls -t | head -1)
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filename=$(ls -t | head -1)</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">Create an array of filenames ordered by their mtime. Clearly, globbing will not work because it is based on filename pattern matching. We have to both command substitution and word splitting results. Let’s try the following first:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ filenames=($(ls -t))
-declare -a filenames='([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)'
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filenames=($(ls -t))</span>
+<span class="go">declare -a filenames='([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)'</span>
 </pre></div>
 </div>
-</li>
-</ol>
-<blockquote>
-<div><p>Clearly this is not the result we want since the whitespace-contained filename is corrupted.</p>
+<p>Clearly this is not the result we want since the whitespace-contained filename is corrupted.</p>
 <p>We need to hack a little on IFS variable. Let’s try what happens if we disable word splitting by setting IFS to null:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ IFS=
-$ filenames=($(ls -t))
-declare -a filenames='([0]=&quot;Foo Bar
-Bar
-Foo&quot;)'
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=</span>
+<span class="go">$ filenames=($(ls -t))</span>
+<span class="go">declare -a filenames='([0]=&quot;Foo Bar</span>
+<span class="go">Bar</span>
+<span class="go">Foo&quot;)'</span>
 </pre></div>
 </div>
 <p>It seems it’s getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.</p>
 <p>We know that the result of <span class="docutils literal"><span class="pre">ls</span></span> command is multiple lines of filenames. As the result of command substitution (i.e. <span class="docutils literal"><span class="pre">$(ls</span> <span class="pre">-t)</span></span>), the filenames are separated by newlines (<span class="docutils literal"><span class="pre">\n</span></span>). The default IFS is a sequence of `` tn`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (<span class="docutils literal"><span class="pre">\n</span></span>) (as long as your filenames does not contain new lines), with ANSI C quoting (<span class="docutils literal"><span class="pre">$''</span></span>):</p>
-<div class="highlight-python"><div class="highlight"><pre>$ IFS=$'\n'
-$ filenames=($(ls -t))
-$ declare -p filenames
-declare -a filenames='([0]=&quot;Foo Bar&quot; [1]=&quot;Bar&quot; [2]=&quot;Foo&quot;)'
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=$'\n'</span>
+<span class="go">$ filenames=($(ls -t))</span>
+<span class="go">$ declare -p filenames</span>
+<span class="go">declare -a filenames='([0]=&quot;Foo Bar&quot; [1]=&quot;Bar&quot; [2]=&quot;Foo&quot;)'</span>
 </pre></div>
 </div>
 <p>In similar ways, we can get <cite>n</cite> most recently modified filenames, just make use of parameter expansion:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ echo &quot;${filenames[@]:0:2}&quot;  # Print two most recently modified names
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ echo &quot;${filenames[@]:0:2}&quot;  # Print two most recently modified names</span>
 </pre></div>
 </div>
-</div></blockquote>
+</li>
+</ol>
 </div>]]></description>
              <pubDate>Wed, 09 Apr 2014 00:00:00 -0400</pubDate>
         </item>
