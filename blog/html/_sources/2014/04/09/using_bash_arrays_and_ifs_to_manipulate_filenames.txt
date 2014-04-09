@@ -16,13 +16,13 @@ Then, we can take a look at both the attributes and the value of `files`::
     $ declare -p files
     declare -a files='([0]="Bar" [1]="Foo" [2]="Foo Bar")'
 
-What if we want to create an array with specific orders, say by modification time (mtime) of files. We have to use the ``ls`` with the ``-t`` switch.  Now there are several practical scenarios discussed as follows.
+What if we want to create an array with specific orders, say by modification time (`mtime`) of files. We have to use the ``ls`` with the ``-t`` switch.  Now there are several practical scenarios discussed as follows.
 
 1. Get the latest modified filename::
     
     $ filename=$(ls -t | head -1)
 
-2. Create an array of filenames ordered by their mtime. Clearly, globbing will not work because it is based on filename pattern matching. We have to both command substitution and word splitting results. Let's try the following first::
+2. Create an array of filenames ordered by their `mtime`. Clearly, globbing will not work because it is based on filename pattern matching. We have to use both command substitution and word splitting. Let's try the following first::
 
     $ filenames=($(ls -t))
     declare -a filenames='([0]="Foo" [1]="Bar" [2]="Bar" [3]="Foo")'
@@ -39,7 +39,7 @@ What if we want to create an array with specific orders, say by modification tim
 
    It seems it's getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.
 
-   We know that the result of ``ls`` command is multiple lines of filenames. As the result of command substitution (i.e. ``$(ls -t)``), the filenames are separated by newlines (``\n``). The default IFS is a sequence of `` \t\n`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (``\n``) (as long as your filenames does not contain new lines), with ANSI C quoting (``$''``)::
+   We know that the result of ``ls`` command is multiple lines of filenames. As the result of command substitution (i.e. ``$(ls -t)``), the filenames are separated by newlines (``\n``). The default IFS is a sequence of ``\t\n`` (space, tab and newline), which means each of these characters will be used to delimit words. Here we need to suppress the effect of space; just set IFS to newline character (``\n``) (as long as your filenames does not contain newlines), with ANSI C quoting (``$''``)::
 
     $ IFS=$'\n'
     $ filenames=($(ls -t))
@@ -53,5 +53,5 @@ What if we want to create an array with specific orders, say by modification tim
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: Bash
 .. comments::

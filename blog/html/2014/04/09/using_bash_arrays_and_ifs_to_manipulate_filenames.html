@@ -86,14 +86,14 @@
 <span class="go">declare -a files=&#39;([0]=&quot;Bar&quot; [1]=&quot;Foo&quot; [2]=&quot;Foo Bar&quot;)&#39;</span>
 </pre></div>
 </div>
-<p>What if we want to create an array with specific orders, say by modification time (mtime) of files. We have to use the <span class="docutils literal"><span class="pre">ls</span></span> with the <span class="docutils literal"><span class="pre">-t</span></span> switch.  Now there are several practical scenarios discussed as follows.</p>
+<p>What if we want to create an array with specific orders, say by modification time (<cite>mtime</cite>) of files. We have to use the <span class="docutils literal"><span class="pre">ls</span></span> with the <span class="docutils literal"><span class="pre">-t</span></span> switch.  Now there are several practical scenarios discussed as follows.</p>
 <ol class="arabic">
 <li><p class="first">Get the latest modified filename:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filename=$(ls -t | head -1)</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Create an array of filenames ordered by their mtime. Clearly, globbing will not work because it is based on filename pattern matching. We have to both command substitution and word splitting results. Let&#8217;s try the following first:</p>
+<li><p class="first">Create an array of filenames ordered by their <cite>mtime</cite>. Clearly, globbing will not work because it is based on filename pattern matching. We have to use both command substitution and word splitting. Let&#8217;s try the following first:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filenames=($(ls -t))</span>
 <span class="go">declare -a filenames=&#39;([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)&#39;</span>
 </pre></div>
@@ -108,7 +108,7 @@
 </pre></div>
 </div>
 <p>It seems it&#8217;s getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.</p>
-<p>We know that the result of <span class="docutils literal"><span class="pre">ls</span></span> command is multiple lines of filenames. As the result of command substitution (i.e. <span class="docutils literal"><span class="pre">$(ls</span> <span class="pre">-t)</span></span>), the filenames are separated by newlines (<span class="docutils literal"><span class="pre">\n</span></span>). The default IFS is a sequence of `` tn`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (<span class="docutils literal"><span class="pre">\n</span></span>) (as long as your filenames does not contain new lines), with ANSI C quoting (<span class="docutils literal"><span class="pre">$''</span></span>):</p>
+<p>We know that the result of <span class="docutils literal"><span class="pre">ls</span></span> command is multiple lines of filenames. As the result of command substitution (i.e. <span class="docutils literal"><span class="pre">$(ls</span> <span class="pre">-t)</span></span>), the filenames are separated by newlines (<span class="docutils literal"><span class="pre">\n</span></span>). The default IFS is a sequence of <span class="docutils literal"><span class="pre">\t\n</span></span> (space, tab and newline), which means each of these characters will be used to delimit words. Here we need to suppress the effect of space; just set IFS to newline character (<span class="docutils literal"><span class="pre">\n</span></span>) (as long as your filenames does not contain newlines), with ANSI C quoting (<span class="docutils literal"><span class="pre">$''</span></span>):</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=$&#39;\n&#39;</span>
 <span class="go">$ filenames=($(ls -t))</span>
 <span class="go">$ declare -p filenames</span>
@@ -128,7 +128,11 @@
             <span>Posted by Shichao An</span>
         </div>
         
-        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/bash.html">Bash</a></span>
+        </div>
         </div><ul class="related clearfix">
             <li class="left"></li>
             <li class="right"><a href="../04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a> &raquo; </li>
