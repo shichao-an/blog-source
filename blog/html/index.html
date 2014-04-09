@@ -69,6 +69,70 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>April 09, 2014</span>
+        </div>
+        <div class="section" id="using-bash-arrays-and-ifs-to-manipulate-filenames">
+<h1><a href="2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a></h1>
+<p>Assume we want to work with files in a directory. The most intuitive way is to make use of filename expansion, using globbing. We can use the <cite>for construct</cite> and wildcard <span class="docutils literal"><span class="pre">*</span></span> to handle each file nice and clean, without worrying about those filenames that contain whitespaces (suppose that in all of the following context, the working directory contain three files: “Foo”, “Bar”, and “Foo Bar”):</p>
+<div class="highlight-python"><div class="highlight"><pre>$ for file in *; do echo &quot;$file&quot;; done
+</pre></div>
+</div>
+<p>We can also create an array from these filenames, using the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ files=(*)
+</pre></div>
+</div>
+<p>Then, we can take a look at both the attributes and the value of <cite>files</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ declare -p files
+declare -a files='([0]=&quot;Bar&quot; [1]=&quot;Foo&quot; [2]=&quot;Foo Bar&quot;)'
+</pre></div>
+</div>
+<p>What if we want to create an array with specific orders, say by modification time (mtime) of files. We have to use the <span class="docutils literal"><span class="pre">ls</span></span> with the <span class="docutils literal"><span class="pre">-t</span></span> switch.  Now there are several practical scenarios discussed as follows.</p>
+<ol class="arabic">
+<li><p class="first">Get the latest modified filename:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ filename=$(ls -t | head -1)
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create an array of filenames ordered by their mtime. Clearly, globbing will not work because it is based on filename pattern matching. We have to both command substitution and word splitting results. Let’s try the following first:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ filenames=($(ls -t))
+declare -a filenames='([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)'
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><p>Clearly this is not the result we want since the whitespace-contained filename is corrupted.</p>
+<p>We need to hack a little on IFS variable. Let’s try what happens if we disable word splitting by setting IFS to null:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ IFS=
+$ filenames=($(ls -t))
+declare -a filenames='([0]=&quot;Foo Bar
+Bar
+Foo&quot;)'
+</pre></div>
+</div>
+<p>It seems it’s getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.</p>
+<p>We know that the result of <span class="docutils literal"><span class="pre">ls</span></span> command is multiple lines of filenames. As the result of command substitution (i.e. <span class="docutils literal"><span class="pre">$(ls</span> <span class="pre">-t)</span></span>), the filenames are separated by newlines (<span class="docutils literal"><span class="pre">\n</span></span>). The default IFS is a sequence of `` tn`` (space, tab and newline), which means each character will be used to delimit words. Here we need to suppress the effect of space, just set IFS to newline character (<span class="docutils literal"><span class="pre">\n</span></span>) (as long as your filenames does not contain new lines), with ANSI C quoting (<span class="docutils literal"><span class="pre">$''</span></span>):</p>
+<div class="highlight-python"><div class="highlight"><pre>$ IFS=$'\n'
+$ filenames=($(ls -t))
+$ declare -p filenames
+declare -a filenames='([0]=&quot;Foo Bar&quot; [1]=&quot;Bar&quot; [2]=&quot;Foo&quot;)'
+</pre></div>
+</div>
+<p>In similar ways, we can get <cite>n</cite> most recently modified filenames, just make use of parameter expansion:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ echo &quot;${filenames[@]:0:2}&quot;  # Print two most recently modified names
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html#disqus_thread" data-disqus-identifier="2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>April 04, 2014</span>
         </div>
         <div class="section" id="bash-double-brackets-test-contructs-and-word-splitting">
@@ -270,6 +334,8 @@
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
+        </li><li>
             <a href="2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
         </li><li>
             <a href="2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
