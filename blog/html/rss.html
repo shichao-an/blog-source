@@ -5,8 +5,35 @@
         <link>http://blog.shichao-an.info/blog/html/</link>
         <description>Recording molecular stuff</description>
         <language>en-us</language>
-        <pubDate>Wed, 09 Apr 2014 00:00:00 -0400</pubDate>
+        <pubDate>Thu, 01 May 2014 00:00:00 -0400</pubDate>
         
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</guid>
+            <title><![CDATA[Get number of bits of a Python integer]]></title>
+            <description><![CDATA[<div class="section" id="get-number-of-bits-of-a-python-integer">
+<h1>Get number of bits of a Python integer</h1>
+<p>A Python integer is represented as either of 32-bit or 64-bit platform-specific signed integer type, without considering it as <a class="reference external" href="https://docs.python.org/2.7/c-api/int.html">an Python object</a>. As indicated in the documentation, whether it is 32-bit or 64-bit can be revealed by checking <span class="docutils literal"><span class="pre">sys.maxsize</span></span> (or <span class="docutils literal"><span class="pre">sys.maxint</span></span> on older CPython implementations such as 2.4), the value of which “is the largest positive integer supported by the platform’s Py_ssize_t type and is usually <span class="docutils literal"><span class="pre">2**31</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 32-bit platform and <span class="docutils literal"><span class="pre">2**63</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 64-bit platform”. <a class="reference external" href="https://docs.python.org/2/library/sys.html">[1]</a> <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.maxsize">[2]</a>.</p>
+<p>The following function return either 64 or 32 by leveraging the variable discussed above:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">get_int_bits</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxsize'</span><span class="p">):</span>
+        <span class="n">max_int</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxsize'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">max_int</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxint'</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">max_int</span> <span class="o">&gt;&gt;</span> <span class="mi">62</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">32</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">64</span>
+</pre></div>
+</div>
+<p>Check out the code on GitHub Git from <a class="reference external" href="https://gist.github.com/shichao-an/b447d24f0a5381b0fa92">this link</a>.</p>
+</div>]]></description>
+             <pubDate>Thu, 01 May 2014 00:00:00 -0400</pubDate>
+        </item>
+    
         <item>
             <link>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</guid>
