@@ -20,7 +20,7 @@ The following function helps determine number of bits of an integer and returns 
         else:
             return 64
 
-Check out the code on GitHub Git from `this link <https://gist.github.com/shichao-an/b447d24f0a5381b0fa92>`_.
+Check out the code on GitHub Gist from `this link <https://gist.github.com/shichao-an/b447d24f0a5381b0fa92>`_.
 
 .. author:: default
 .. categories:: none
