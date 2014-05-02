@@ -73,7 +73,7 @@
         </div>
     <div class="section" id="fixing-mongodb-against-unclean-shutdown">
 <h1>Fixing MongoDB against unclean shutdown</h1>
-<p>It&#8217;s been a while since I maintained one of my servers that hosted an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates &#8220;Unclean shutdown detected.&#8221;</p>
+<p>It&#8217;s been a while since I maintained one of my servers that host an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend, only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates &#8220;Unclean shutdown detected.&#8221;</p>
 <p>After a search on Google, here&#8217;s what I did to fix that:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># grep dbpath /etc/mongod.conf</span>
 <span class="go">dbpath=/var/lib/mongo</span>
@@ -94,7 +94,11 @@
             <span>Posted by Shichao An</span>
         </div>
         
-        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/mongodb.html">MongoDB</a>, <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/centos.html">CentOS</a></span>
+        </div>
         </div><ul class="related clearfix">
             <li class="left"></li>
             <li class="right"><a href="../01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a> &raquo; </li>

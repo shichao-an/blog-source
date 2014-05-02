@@ -3,7 +3,7 @@ Fixing MongoDB against unclean shutdown
 
 .. highlight:: shell-session
 
-It's been a while since I maintained one of my servers that hosted an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend only to find MongoDB is down. Running ``service mongod restart`` does not work. The MongoDB log indicates "Unclean shutdown detected."
+It's been a while since I maintained one of my servers that host an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend, only to find MongoDB is down. Running ``service mongod restart`` does not work. The MongoDB log indicates "Unclean shutdown detected."
 
 After a search on Google, here's what I did to fix that::
 
@@ -22,5 +22,5 @@ Finally note that this is an CentOS server. If you use MongoDB on Ubuntu, some n
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: MongoDB, Linux, CentOS
 .. comments::

@@ -73,7 +73,7 @@
         </div>
         <div class="section" id="fixing-mongodb-against-unclean-shutdown">
 <h1><a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a></h1>
-<p>It’s been a while since I maintained one of my servers that hosted an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates “Unclean shutdown detected.”</p>
+<p>It’s been a while since I maintained one of my servers that host an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend, only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates “Unclean shutdown detected.”</p>
 <p>After a search on Google, here’s what I did to fix that:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># grep dbpath /etc/mongod.conf</span>
 <span class="go">dbpath=/var/lib/mongo</span>
@@ -93,7 +93,11 @@
             <span>Posted by Shichao An</span>
         </div>
         
-        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/mongodb.html">MongoDB</a>, <a href="tags/linux.html">Linux</a>, <a href="tags/centos.html">CentOS</a></span>
+        </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html#disqus_thread" data-disqus-identifier="2014/05/02/fixing_mongodb_against_unclean_shutdown">Leave a comment</a>
         </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
