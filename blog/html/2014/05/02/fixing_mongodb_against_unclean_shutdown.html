@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Enabling Adobe Flash Player plugin for Google Chrome on Fedora &mdash; Shichao&#39;s Blog</title>
+        <title>Fixing MongoDB against unclean shutdown &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="setuid() and uid, euid and suid" href="../17/setuid_and_uid_euid_and_suid.html" /><link rel="prev" title="Bash double brackets, test contructs and word splitting" href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html" /><script type="text/javascript">
+  <link rel="next" title="Get number of bits of a Python integer" href="../01/get_number_of_bits_of_a_python_integer.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.3.0',
@@ -69,27 +69,24 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>March 20, 2014</span>
+            <span>May 02, 2014</span>
         </div>
-    <div class="section" id="enabling-adobe-flash-player-plugin-for-google-chrome-on-fedora">
-<h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
-<p>The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as <a class="reference external" href="http://www.bilibili.tv">www.bilibili.tv</a>). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.</p>
-<p>1. Install the repository from Adobe (assuming 64-bit):</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm</span>
-<span class="go"># rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux</span>
+    <div class="section" id="fixing-mongodb-against-unclean-shutdown">
+<h1>Fixing MongoDB against unclean shutdown</h1>
+<p>It&#8217;s been a while since I maintained one of my servers that hosted an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates &#8220;Unclean shutdown detected.&#8221;</p>
+<p>After a search on Google, here&#8217;s what I did to fix that:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># grep dbpath /etc/mongod.conf</span>
+<span class="go">dbpath=/var/lib/mongo</span>
+<span class="go"># rm /var/lib/mongo/mongod.lock</span>
+<span class="go"># mongod --repair --dbpath /var/lib/mongo</span>
 </pre></div>
 </div>
-<p>2. Install the flash-plugin package:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install flash-plugin</span>
+<p>At this point, you will see that MongoDB is running the repair process. If you immediately start MongoDB server after that, it still fails, because some permissions in /var/lib/mongo have been changed. You have to recover owner and group of those files back to &#8220;mongod&#8221; and then start the service:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># chown -R mongod:mongod /var/lib/mongo</span>
+<span class="go"># service mongod restart</span>
 </pre></div>
 </div>
-<p>3. Create symbolic link at Google Chrome&#8217;s default directory:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># ln -s /usr/lib64/mozilla/plugins/libflashplayer.so /opt/google/chrome/libflashplayer.so</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
-<li>Restart Google Chrome, go to &#8220;<a class="reference external" href="about:plugins">about:plugins</a>&#8221; page, toggle &#8220;Details&#8221; switch at upper right corner, disable PepperFlash plugin and enable the Adobe Flash Player plugin with location &#8220;/usr/lib64/flash-plugin/libflashplayer.so&#8221;</li>
-</ol>
+<p>Finally note that this is an CentOS server. If you use MongoDB on Ubuntu, some namings may be different.</p>
 </div>
 
     <div class="postmeta">
@@ -97,30 +94,26 @@
             <span>Posted by Shichao An</span>
         </div>
         
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/fedora.html">Fedora</a></span>
-        </div>
+        
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a></li>
-            <li class="right"><a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaoblog";    var disqus_identifier = "2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"></li>
+            <li class="right"><a href="../01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a> &raquo; </li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaoblog";    var disqus_identifier = "2014/05/02/fixing_mongodb_against_unclean_shutdown";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../../05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+            <a href="#">Fixing MongoDB against unclean shutdown</a>
         </li><li>
-            <a href="../../05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
+            <a href="../01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
         </li><li>
             <a href="../../04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
         </li><li>
             <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
         </li><li>
-            <a href="#">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+            <a href="../../03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
         </li><li>
-            <a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+            <a href="../../03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
         </li><li>
-            <a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+            <a href="../../03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox">

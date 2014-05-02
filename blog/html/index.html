@@ -69,6 +69,34 @@
                 </li>
               </ul>
           </nav><div class="main-container"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>May 02, 2014</span>
+        </div>
+        <div class="section" id="fixing-mongodb-against-unclean-shutdown">
+<h1><a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a></h1>
+<p>It’s been a while since I maintained one of my servers that hosted an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happend only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates “Unclean shutdown detected.”</p>
+<p>After a search on Google, here’s what I did to fix that:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># grep dbpath /etc/mongod.conf</span>
+<span class="go">dbpath=/var/lib/mongo</span>
+<span class="go"># rm /var/lib/mongo/mongod.lock</span>
+<span class="go"># mongod --repair --dbpath /var/lib/mongo</span>
+</pre></div>
+</div>
+<p>At this point, you will see that MongoDB is running the repair process. If you immediately start MongoDB server after that, it still fails, because some permissions in /var/lib/mongo have been changed. You have to recover owner and group of those files back to “mongod” and then start the service:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># chown -R mongod:mongod /var/lib/mongo</span>
+<span class="go"># service mongod restart</span>
+</pre></div>
+</div>
+<p>Finally note that this is an CentOS server. If you use MongoDB on Ubuntu, some namings may be different.</p>
+</div>
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html#disqus_thread" data-disqus-identifier="2014/05/02/fixing_mongodb_against_unclean_shutdown">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>May 01, 2014</span>
         </div>
         <div class="section" id="get-number-of-bits-of-a-python-integer">
@@ -373,6 +401,8 @@
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+        </li><li>
             <a href="2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
         </li><li>
             <a href="2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
