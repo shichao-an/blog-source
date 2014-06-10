@@ -122,6 +122,19 @@
 </pre></div>
 </div>
 <p>Check out the code on GitHub Gist from <a class="reference external" href="https://gist.github.com/shichao-an/b447d24f0a5381b0fa92">this link</a>.</p>
+<p><strong>Update Jun 10, 2014</strong></p>
+<p>After an exploration of the <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#int.bit_length">built-in types</a>, it is clear the <span class="docutils literal"><span class="pre">int.bit_length</span></span> can be used more easily than bit manipulation.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">get_int_bits</span><span class="p">():</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxsize'</span><span class="p">):</span>
+        <span class="n">max_int</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxsize'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">max_int</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="p">,</span> <span class="s">'maxint'</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">max_int</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
 </div>
         <div class="postmeta">
         <div class="author">
