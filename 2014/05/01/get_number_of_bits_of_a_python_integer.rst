@@ -24,7 +24,7 @@ Check out the code on GitHub Gist from `this link <https://gist.github.com/shich
 
 **Updated Jun 10, 2014**
 
-After an exploration of the `built-in types <https://docs.python.org/2/library/stdtypes.html#int.bit_length>`_, it is clear that ``int.bit_length`` can be used more easily than bit manipulation. ::
+After an exploration of the `built-in types <https://docs.python.org/2/library/stdtypes.html#int.bit_length>`_, it is clear that ``int.bit_length`` can be used more easily than bit manipulation.::
 
     import sys
      
