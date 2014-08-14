@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Enabling Adobe Flash Player plugin for Google Chrome on Fedora &mdash; Shichao&#39;s Blog</title>
+        <title>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="setuid() and uid, euid and suid" href="../17/setuid_and_uid_euid_and_suid.html" /><link rel="prev" title="Bash double brackets, test contructs and word splitting" href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html" /><script type="text/javascript">
+  <link rel="next" title="Wake and suspend machines on local Ethernet LAN" href="../10/wake_suspend_machines_local_ethernet.html" /><link rel="prev" title="Use Artistic Style with vim" href="../../../2014/01/16/artistic_style_vim.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.4.2',
@@ -69,27 +69,28 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>March 20, 2014</span>
+            <span>November 17, 2013</span>
         </div>
-    <div class="section" id="enabling-adobe-flash-player-plugin-for-google-chrome-on-fedora">
-<h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
-<p>The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as <a class="reference external" href="http://www.bilibili.tv">www.bilibili.tv</a>). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.</p>
-<p>1. Install the repository from Adobe (assuming 64-bit):</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm</span>
-<span class="go"># rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-adobe-linux</span>
+    <div class="section" id="synchronize-sleep-and-wakeup-of-machines-on-ethernet-lan-from-mac-using-sleepwatcher">
+<h1>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</h1>
+<p>The <a class="reference internal" href="../10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
+<p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don’t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
+<p>You can download and install SleepWatcher to monitor sleep and wakeup on Mac and write some scripts upon these events.</p>
+<ol class="arabic">
+<li><p class="first">Download <a class="reference external" href="http://www.bernhard-baehr.de/sleepwatcher_2.2.tgz">SleepWatcher</a> (version 2.2 as of writing)</p>
+</li>
+<li><p class="first">Install it following the ReadMe.rtf instructions</p>
+</li>
+<li><p class="first">After the SleepWatcher LaunchAgent or LaunchDaemon is loaded, run the following commands to add sleep and wakeup scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ echo &quot;/path/to/your/sleep_script.sh&quot; &gt; ~/.sleep
+$ echo &quot;sleep 5; /path/to/your/wakeup_script.sh&quot; &gt; ~/.wakeup
+$ chmod +x ~/.sleep ~/.wakeup
 </pre></div>
 </div>
-<p>2. Install the flash-plugin package:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install flash-plugin</span>
-</pre></div>
-</div>
-<p>3. Create symbolic link at Google Chrome&#8217;s default directory:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># ln -s /usr/lib64/mozilla/plugins/libflashplayer.so /opt/google/chrome/libflashplayer.so</span>
-</pre></div>
-</div>
-<ol class="arabic simple" start="4">
-<li>Restart Google Chrome, go to &#8220;<a class="reference external" href="about:plugins">about:plugins</a>&#8221; page, toggle &#8220;Details&#8221; switch at upper right corner, disable PepperFlash plugin and enable the Adobe Flash Player plugin with location &#8220;/usr/lib64/flash-plugin/libflashplayer.so&#8221;</li>
+</li>
 </ol>
+<p><cite>/path/to/your/sleep_script.sh</cite> and <cite>/path/to/your/wakeup_script.sh</cite> are scripts to suspend and wakeup the remote machine (reference the previous post). <cite>sleep 5</cite> performs a delay to make sure the network is up to avoid &#8220;send : No route to host&#8221; error.
+4. Test the setup by sleeping and waking up your Mac and check whether the remote machine does the same</p>
 </div>
 
     <div class="postmeta">
@@ -100,33 +101,33 @@
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/fedora.html">Fedora</a></span>
+                <a href="../../../tags/os_x.html">OS X</a>, <a href="../../../tags/network.html">Network</a></span>
         </div>
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a></li>
-            <li class="right"><a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"> &laquo; <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a></li>
+            <li class="right"><a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a> &raquo; </li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/11/17/sync_sleep_wakeup_ethernet_lan";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../../05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+            <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
-            <a href="../../05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
+            <a href="../../../2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
         </li><li>
-            <a href="../../04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
+            <a href="../../../2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
         </li><li>
-            <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
+            <a href="../../../2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
         </li><li>
-            <a href="#">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+            <a href="../../../2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
         </li><li>
-            <a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+            <a href="../../../2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
         </li><li>
-            <a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+            <a href="../../../2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li><li>
-            <a href="../../01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+            <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
-            <a href="../../../2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+            <a href="#">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
         </li><li>
-            <a href="../../../2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
+            <a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">

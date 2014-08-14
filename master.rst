@@ -12,5 +12,7 @@ Sitemap
    2014/03/17/setuid_and_uid_euid_and_suid
    2014/03/05/suppressing_fedora
    2014/01/16/artistic_style_vim
+   2013/11/17/sync_sleep_wakeup_ethernet_lan
+   2013/11/10/wake_suspend_machines_local_ethernet
    pages/about
 

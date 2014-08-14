@@ -457,6 +457,100 @@
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html#disqus_thread" data-disqus-identifier="2014/01/16/artistic_style_vim">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>November 17, 2013</span>
+        </div>
+        <h1><a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a></h1>
+<p>The <a class="reference internal" href="2013/11/10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
+<p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don’t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
+<p>You can download and install SleepWatcher to monitor sleep and wakeup on Mac and write some scripts upon these events.</p>
+<ol class="arabic">
+<li><p class="first">Download <a class="reference external" href="http://www.bernhard-baehr.de/sleepwatcher_2.2.tgz">SleepWatcher</a> (version 2.2 as of writing)</p>
+</li>
+<li><p class="first">Install it following the ReadMe.rtf instructions</p>
+</li>
+<li><p class="first">After the SleepWatcher LaunchAgent or LaunchDaemon is loaded, run the following commands to add sleep and wakeup scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ echo "/path/to/your/sleep_script.sh" &gt; ~/.sleep
+$ echo "sleep 5; /path/to/your/wakeup_script.sh" &gt; ~/.wakeup
+$ chmod +x ~/.sleep ~/.wakeup
+</pre></div>
+</div>
+</li>
+</ol>
+<p><cite>/path/to/your/sleep_script.sh</cite> and <cite>/path/to/your/wakeup_script.sh</cite> are scripts to suspend and wakeup the remote machine (reference the previous post). <cite>sleep 5</cite> performs a delay to make sure the network is up to avoid “send : No route to host” error.
+4. Test the setup by sleeping and waking up your Mac and check whether the remote machine does the same</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/os_x.html">OS X</a>, <a href="tags/network.html">Network</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html#disqus_thread" data-disqus-identifier="2013/11/17/sync_sleep_wakeup_ethernet_lan">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>November 10, 2013</span>
+        </div>
+        <h1><a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a></h1>
+<p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
+<div class="section" id="wake">
+<h2>Wake</h2>
+<p>To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).``</p>
+<p>On Debian/Ubuntu:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install etherwake</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install wakeonlan</span>
+</pre></div>
+</div>
+<p>On Fedora/RHEL:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install net-tools</span>
+</pre></div>
+</div>
+<p>On OS X:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install wakeonlan</span>
+</pre></div>
+</div>
+<p>To send magic Wake-on-LAN packets to A:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ etherwake 11:aa:22:bb:33:cc</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ether-wake 11:aa:22:bb:33:cc</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ wakeonlan 11:aa:22:bb:33:cc</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="suspend-hibernate">
+<h2>Suspend/hibernate</h2>
+<p class="readmorewrapper"><a class="readmore" href="2013/11/10/wake_suspend_machines_local_ethernet.html#more">Read more...</a></p> 
+ 
+ 
+ 
+ 
+ 
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/os_x.html">OS X</a>, <a href="tags/linux.html">Linux</a>, <a href="tags/network.html">Network</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html#disqus_thread" data-disqus-identifier="2013/11/10/wake_suspend_machines_local_ethernet">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div></article><aside class="sidebar"><section><div class="widget">
@@ -477,6 +571,10 @@
             <a href="2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li><li>
             <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+        </li><li>
+            <a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+        </li><li>
+            <a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
