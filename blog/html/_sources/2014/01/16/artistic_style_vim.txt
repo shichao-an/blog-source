@@ -35,3 +35,9 @@ In order to use the command in a simple manner, you can set options in the optio
 Open vim, gVim or MacVim, and after editing some C/C++ files, use the following command to reformat the source code::
 
     :%!astyle
+
+
+.. author:: default
+.. categories:: none
+.. tags:: Linux,Vim
+.. comments::
