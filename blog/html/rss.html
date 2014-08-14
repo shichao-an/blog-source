@@ -11,8 +11,7 @@
             <link>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</guid>
             <title><![CDATA[Fixing MongoDB against unclean shutdown]]></title>
-            <description><![CDATA[<div class="section" id="fixing-mongodb-against-unclean-shutdown">
-<h1>Fixing MongoDB against unclean shutdown</h1>
+            <description><![CDATA[<h1>Fixing MongoDB against unclean shutdown</h1>
 <p>It’s been a while since I maintained one of my servers that host an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happened, only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates “Unclean shutdown detected.”</p>
 <p>After a search on Google, here’s what I did to fix that:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># grep dbpath /etc/mongod.conf</span>
@@ -27,7 +26,7 @@
 </pre></div>
 </div>
 <p>Finally note that this is an CentOS server. If you use MongoDB on Ubuntu, some namings may be different.</p>
-</div>]]></description>
+]]></description>
              <pubDate>Fri, 02 May 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -35,8 +34,7 @@
             <link>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</guid>
             <title><![CDATA[Get number of bits of a Python integer]]></title>
-            <description><![CDATA[<div class="section" id="get-number-of-bits-of-a-python-integer">
-<h1>Get number of bits of a Python integer</h1>
+            <description><![CDATA[<h1>Get number of bits of a Python integer</h1>
 <p>A Python integer is represented as either of 32-bit or 64-bit signed integer type that is platform-specific, without considering it as <a class="reference external" href="https://docs.python.org/2.7/c-api/int.html">an Python object</a>. As indicated in the documentation, whether it is 32-bit or 64-bit can be revealed by checking <span class="docutils literal"><span class="pre">sys.maxsize</span></span> (or <span class="docutils literal"><span class="pre">sys.maxint</span></span> on older CPython implementations such as 2.4), the value of which “is the largest positive integer supported by the platform’s <span class="docutils literal"><span class="pre">Py_ssize_t</span></span> type and is usually <span class="docutils literal"><span class="pre">2**31</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 32-bit platform and <span class="docutils literal"><span class="pre">2**63</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 64-bit platform”. <a class="reference external" href="https://docs.python.org/2/library/sys.html">[1]</a> <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.maxsize">[2]</a>.</p>
 <p>The following function helps determine number of bits of an integer and returns either 64 or 32 by leveraging the variable discussed above:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
@@ -67,7 +65,7 @@
     <span class="k">return</span> <span class="n">max_int</span><span class="o">.</span><span class="n">bit_length</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span>
 </pre></div>
 </div>
-</div>]]></description>
+]]></description>
              <pubDate>Thu, 01 May 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -75,10 +73,9 @@
             <link>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</guid>
             <title><![CDATA[Using Bash arrays and IFS to manipulate filenames]]></title>
-            <description><![CDATA[<div class="section" id="using-bash-arrays-and-ifs-to-manipulate-filenames">
-<h1>Using Bash arrays and IFS to manipulate filenames</h1>
+            <description><![CDATA[<h1>Using Bash arrays and IFS to manipulate filenames</h1>
 <p>Assume we want to work with files in a directory. The most intuitive way is to make use of filename expansion, using globbing. We can use the <cite>for construct</cite> and wildcard <span class="docutils literal"><span class="pre">*</span></span> to handle each file nice and clean, without worrying about those filenames that contain whitespaces (suppose that in all of the following context, the working directory contain three files: “Foo”, “Bar”, and “Foo Bar”):</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ for file in *; do echo &quot;$file&quot;; done</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ for file in *; do echo "$file"; done</span>
 </pre></div>
 </div>
 <p>We can also create an array from these filenames, using the following command:</p>
@@ -87,7 +84,7 @@
 </div>
 <p>Then, we can take a look at both the attributes and the value of <cite>files</cite>:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ declare -p files</span>
-<span class="go">declare -a files='([0]=&quot;Bar&quot; [1]=&quot;Foo&quot; [2]=&quot;Foo Bar&quot;)'</span>
+<span class="go">declare -a files='([0]="Bar" [1]="Foo" [2]="Foo Bar")'</span>
 </pre></div>
 </div>
 <p>What if we want to create an array with specific orders, say by modification time (<cite>mtime</cite>) of files. We have to use the <span class="docutils literal"><span class="pre">ls</span></span> with the <span class="docutils literal"><span class="pre">-t</span></span> switch.  Now there are several practical scenarios discussed as follows.</p>
@@ -100,7 +97,7 @@
 <li><p class="first">Create an array of filenames ordered by their <cite>mtime</cite>. Clearly, globbing will not work because it is based on filename pattern matching. We have to use both command substitution and word splitting. Let’s try the following first:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ filenames=($(ls -t))</span>
 <span class="go">$ declare -p filenames</span>
-<span class="go">declare -a filenames='([0]=&quot;Foo&quot; [1]=&quot;Bar&quot; [2]=&quot;Bar&quot; [3]=&quot;Foo&quot;)'</span>
+<span class="go">declare -a filenames='([0]="Foo" [1]="Bar" [2]="Bar" [3]="Foo")'</span>
 </pre></div>
 </div>
 <p>Clearly this is not the result we want since the whitespace-contained filename is corrupted.</p>
@@ -108,9 +105,9 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=</span>
 <span class="go">$ filenames=($(ls -t))</span>
 <span class="go">$ declare -p filenames</span>
-<span class="go">declare -a filenames='([0]=&quot;Foo Bar</span>
+<span class="go">declare -a filenames='([0]="Foo Bar</span>
 <span class="go">Bar</span>
-<span class="go">Foo&quot;)'</span>
+<span class="go">Foo")'</span>
 </pre></div>
 </div>
 <p>It seems it’s getting worse this time. Since word splitting is not performed, the result of command substitution becomes an single word.</p>
@@ -118,16 +115,16 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ IFS=$'\n'</span>
 <span class="go">$ filenames=($(ls -t))</span>
 <span class="go">$ declare -p filenames</span>
-<span class="go">declare -a filenames='([0]=&quot;Foo Bar&quot; [1]=&quot;Bar&quot; [2]=&quot;Foo&quot;)'</span>
+<span class="go">declare -a filenames='([0]="Foo Bar" [1]="Bar" [2]="Foo")'</span>
 </pre></div>
 </div>
 <p>In similar ways, we can get <cite>n</cite> most recently modified filenames, just make use of parameter expansion:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ echo &quot;${filenames[@]:0:2}&quot;  # Print two most recently modified names</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ echo "${filenames[@]:0:2}"  # Print two most recently modified names</span>
 </pre></div>
 </div>
 </li>
 </ol>
-</div>]]></description>
+]]></description>
              <pubDate>Wed, 09 Apr 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -135,20 +132,19 @@
             <link>http://blog.shichao-an.info/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</guid>
             <title><![CDATA[Bash double brackets, test contructs and word splitting]]></title>
-            <description><![CDATA[<div class="section" id="bash-double-brackets-test-contructs-and-word-splitting">
-<h1>Bash double brackets, test contructs and word splitting</h1>
+            <description><![CDATA[<h1>Bash double brackets, test contructs and word splitting</h1>
 <p>We know that the double brackets constructs can be used in place of the <span class="docutils literal"><span class="pre">test</span></span> builtin (<span class="docutils literal"><span class="pre">[</span></span>) commonly used as single brackets to evaluate conditional expressions. The double brackets are preferred in terms of writing less error-prone scripts, though it is not POSIX-compliant (not portable to many other shells).</p>
 <p>The primary difference of double brackets from the <span class="docutils literal"><span class="pre">test</span></span> builtin is that word splitting and filename expansion are not performed within them. It is easier to understand the filename expansion difference in this case, let’s take a look at the difference of word splitting.</p>
 <ol class="arabic">
 <li><p class="first">First, the following command fails because in <span class="docutils literal"><span class="pre">test</span></span> constructs the word splitting is performed after parameter expansion (and variable expansion, if any):</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar="hello world"; [ $foobar = "hello world" ] &amp;&amp; echo "yes"'</span>
 <span class="go">+ '[' hello world = 'hello world' ']'</span>
 <span class="go">bash: line 0: [: too many arguments</span>
 </pre></div>
 </div>
 </li>
 <li><p class="first">In the double brackes, the error will not occur because word splitting is not performed, like the following:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar=&quot;hello world&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'foobar="hello world"; [[ $foobar = "hello world" ]] &amp;&amp; echo "yes"'</span>
 <span class="go">+ foobar='hello world'</span>
 <span class="go">+ [[ hello world = \h\e\l\l\o\ \w\o\r\l\d ]]</span>
 <span class="go">+ echo yes</span>
@@ -157,7 +153,7 @@
 </div>
 </li>
 <li><p class="first">We can supress word splitting in the <span class="docutils literal"><span class="pre">test</span></span> construct by setting IFS to null, because when IFS is null, word splitting never occurs. This time, this command will succeed:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=""; foobar="hello world"; [ $foobar = "hello world" ] &amp;&amp; echo "yes"'</span>
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar='hello world'</span>
 <span class="go">+ '[' 'hello world' = 'hello world' ']'</span>
@@ -167,13 +163,13 @@
 </div>
 </li>
 <li><p class="first">Another feature to note is that double brackets treat unset variables and null variable (variable whose value is a null string, i.e. ‘’)  differently from the <span class="docutils literal"><span class="pre">test</span></span> construct. For example:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;&quot;; [ $foobar = &quot;hello world&quot; ] &amp;&amp; echo &quot;yes&quot;'</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=""; foobar=""; [ $foobar = "hello world" ] &amp;&amp; echo "yes"'</span>
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar=</span>
 <span class="go">+ '[' = 'hello world' ']'</span>
 <span class="go">bash: line 0: [: =: unary operator expected</span>
 
-<span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;&quot;; [[ $foobar = &quot;hello world&quot; ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<span class="go">$ bash -xc 'IFS=""; foobar=""; [[ $foobar = "hello world" ]] &amp;&amp; echo "yes"'</span>
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar=</span>
 <span class="go">+ [[ '' = \h\e\l\l\o\ \w\o\r\l\d ]]</span>
@@ -184,7 +180,7 @@
 <p>The unset or null variable is converted to null argument (<span class="docutils literal"><span class="pre">''</span></span>) as a result in double brackets, while in <span class="docutils literal"><span class="pre">test</span></span> constructs it is removed.</p>
 <ol class="arabic" start="5">
 <li><p class="first">You may notice in the second step above that the xtrace output of the conditional expression to the right of the operator is <span class="docutils literal"><span class="pre">\h\e\l\l\o\</span> <span class="pre">\w\o\r\l\d</span></span>. This is because when using operators <span class="docutils literal"><span class="pre">==</span></span>, <span class="docutils literal"><span class="pre">!=</span></span> and the POSIX version <span class="docutils literal"><span class="pre">=</span></span>, the string to the right is considered a pattern and pattern matching will be performed. The backslash indicates the each character is literal instead of pattern, because “hello world” is quoted. The following example makes the right string as pattern:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=&quot;&quot;; foobar=&quot;hello world&quot;; [[ $foobar = hello* ]] &amp;&amp; echo &quot;yes&quot;'</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ bash -xc 'IFS=""; foobar="hello world"; [[ $foobar = hello* ]] &amp;&amp; echo "yes"'</span>
 <span class="go">+ IFS=</span>
 <span class="go">+ foobar='hello world'</span>
 <span class="go">+ [[ hello world = hello* ]]</span>
@@ -194,7 +190,7 @@
 </div>
 </li>
 </ol>
-</div>]]></description>
+]]></description>
              <pubDate>Fri, 04 Apr 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -202,8 +198,7 @@
             <link>http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</guid>
             <title><![CDATA[Enabling Adobe Flash Player plugin for Google Chrome on Fedora]]></title>
-            <description><![CDATA[<div class="section" id="enabling-adobe-flash-player-plugin-for-google-chrome-on-fedora">
-<h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
+            <description><![CDATA[<h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
 <p>The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as <a class="reference external" href="http://www.bilibili.tv">www.bilibili.tv</a>). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.</p>
 <p>1. Install the repository from Adobe (assuming 64-bit):</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm</span>
@@ -221,7 +216,7 @@
 <ol class="arabic simple" start="4">
 <li>Restart Google Chrome, go to “<a class="reference external" href="about:plugins">about:plugins</a>” page, toggle “Details” switch at upper right corner, disable PepperFlash plugin and enable the Adobe Flash Player plugin with location “/usr/lib64/flash-plugin/libflashplayer.so”</li>
 </ol>
-</div>]]></description>
+]]></description>
              <pubDate>Thu, 20 Mar 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -229,8 +224,7 @@
             <link>http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</guid>
             <title><![CDATA[setuid() and uid, euid and suid]]></title>
-            <description><![CDATA[<div class="section" id="setuid-and-uid-euid-and-suid">
-<h1>setuid() and uid, euid and suid</h1>
+            <description><![CDATA[<h1>setuid() and uid, euid and suid</h1>
 <p>We know that <cite>setuid</cite> bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through the following experiment.</p>
 <p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a known <cite>setuid</cite> executable) in the background (it will be suspended with a “[stopped]” output because it requires password from stdin) and get its PID (let’s assume it’s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ passwd &amp;</span>
@@ -259,7 +253,12 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ps -u -p 10401</span>
 </pre></div>
 </div>
-<p><a class="readmore" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html#more">Read more...</a></p></div>]]></description>
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html#more">Read more...</a></p> 
+ 
+ 
+ 
+ 
+]]></description>
              <pubDate>Mon, 17 Mar 2014 00:00:00 -0400</pubDate>
         </item>
     
@@ -267,8 +266,7 @@
             <link>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</guid>
             <title><![CDATA[Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks]]></title>
-            <description><![CDATA[<div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
-<h1>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks</h1>
+            <description><![CDATA[<h1>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks</h1>
 <p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is “nyu” of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the “Connect” button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that::</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># cd /etc/sysconfig/network-scripts</span>
 <span class="go"># vim ifcfg-nyu</span>
@@ -292,7 +290,7 @@
 </pre></div>
 </div>
 <p>Then, the wireless network should work as expected. Try to logout or reboot to see if it surely works.</p>
-</div>]]></description>
+]]></description>
              <pubDate>Wed, 05 Mar 2014 00:00:00 -0500</pubDate>
         </item>
     
