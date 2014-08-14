@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks &mdash; Shichao&#39;s Blog</title>
+        <title>Use Artistic Style with vim &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="Use Artistic Style with vim" href="../../01/16/artistic_style_vim.html" /><link rel="prev" title="setuid() and uid, euid and suid" href="../17/setuid_and_uid_euid_and_suid.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html" /><script type="text/javascript">
+  <link rel="prev" title="Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks" href="../../03/05/suppressing_fedora.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.4.2',
@@ -69,49 +69,49 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>March 05, 2014</span>
+            <span>January 16, 2014</span>
         </div>
-    <div class="section" id="suppressing-fedora-networkmanager-s-prompt-to-connect-to-wpa-enterprise-wireless-networks">
-<h1>Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</h1>
-<p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is &#8220;nyu&#8221; of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the &#8220;Connect&#8221; button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that::</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># cd /etc/sysconfig/network-scripts</span>
-<span class="go"># vim ifcfg-nyu</span>
+    <div class="section" id="use-artistic-style-with-vim">
+<h1>Use Artistic Style with vim</h1>
+<p>Artistic Style is a &#8220;Free, Fast and Small Automatic Formatter for C, C++, C++/CLI, C#, and Java Source Code&#8221;. It is basically a utility that reformats source code in a conventionally-defined indent and coding style.</p>
+<p>First, install the program.</p>
+<p>On Ubuntu/Debian:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install astyle</span>
 </pre></div>
 </div>
-<p>Comment or remove the following line:</p>
-<div class="highlight-ini"><div class="highlight"><pre><span class="na">IEEE_8021X_PASSWORD_FLAGS</span><span class="o">=</span><span class="s">user</span>
+<p>On OS X (with Homebrew):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install astyle</span>
 </pre></div>
 </div>
-<p>Create a new file named <span class="docutils literal"><span class="pre">keys-nyu</span></span> in this directory with your password:</p>
-<div class="highlight-ini"><div class="highlight"><pre><span class="na">IEEE_8021X_PASSWORD</span><span class="o">=</span><span class="s">&#39;your_password&#39;</span>
+<p>In order to use the command in a simple manner, you can set options in the options file <cite>~/.astylerc</cite>. I use the following options that uses Kernighan &amp; Ritchie (K&amp;R) style. For more supported styles and options, see <a class="reference external" href="http://astyle.sourceforge.net/astyle.html">http://astyle.sourceforge.net/astyle.html</a>.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">--style=kr</span>
+<span class="go">--indent=spaces=4</span>
+<span class="go">--indent-preprocessor</span>
+<span class="go">--pad-oper</span>
+<span class="go">--pad-header</span>
+<span class="go">--max-instatement-indent=40</span>
+<span class="go">--align-pointer=name</span>
+<span class="go">--align-reference=name</span>
+<span class="go">--keep-one-line-statements</span>
+<span class="go">--convert-tabs</span>
+<span class="go">--max-code-length=79</span>
+<span class="go">--pad-method-colon=none</span>
 </pre></div>
 </div>
-<p>Don&#8217;t forget to make it read-writable by root only:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># chmod 600 keys-nyu</span>
+<p>Open vim, gVim or MacVim, and after editing some C/C++ files, use the following command to reformat the source code:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">:%!astyle</span>
 </pre></div>
 </div>
-<p>Then restart your network interface associated with &#8220;nyu&#8221;::</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># ifdown nyu</span>
-<span class="go"># ifup nyu</span>
-</pre></div>
-</div>
-<p>Then, the wireless network should work as expected. Try to logout or reboot to see if it surely works.</p>
 </div>
 
     <div class="postmeta">
-        <div class="author">
-            <span>Posted by Shichao An</span>
-        </div>
         
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/fedora.html">Fedora</a></span>
-        </div>
+        
+        
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a></li>
-            <li class="right"><a href="../../01/16/artistic_style_vim.html">Use Artistic Style with vim</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2014/03/05/suppressing_fedora";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"> &laquo; <a href="../../03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</a></li>
+            <li class="right"></li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="../../05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
@@ -122,13 +122,13 @@
         </li><li>
             <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
         </li><li>
-            <a href="../20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+            <a href="../../03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
         </li><li>
-            <a href="../17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+            <a href="../../03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
         </li><li>
-            <a href="#">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+            <a href="../../03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li><li>
-            <a href="../../01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+            <a href="#">Use Artistic Style with vim</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -141,7 +141,7 @@
 
         <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2014, Shichao An. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
 
-      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+      </div> <!--! end of #container --><script type="text/javascript">    var disqus_shortname = "shichaosblog";    disqus_count();</script><!--[if lt IE 7 ]>
           <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
           <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
         <![endif]-->

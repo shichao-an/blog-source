@@ -294,5 +294,43 @@
              <pubDate>Wed, 05 Mar 2014 00:00:00 -0500</pubDate>
         </item>
     
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html</guid>
+            <title><![CDATA[Use Artistic Style with vim]]></title>
+            <description><![CDATA[<h1>Use Artistic Style with vim</h1>
+<p>Artistic Style is a “Free, Fast and Small Automatic Formatter for C, C++, C++/CLI, C#, and Java Source Code”. It is basically a utility that reformats source code in a conventionally-defined indent and coding style.</p>
+<p>First, install the program.</p>
+<p>On Ubuntu/Debian:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install astyle</span>
+</pre></div>
+</div>
+<p>On OS X (with Homebrew):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install astyle</span>
+</pre></div>
+</div>
+<p>In order to use the command in a simple manner, you can set options in the options file <cite>~/.astylerc</cite>. I use the following options that uses Kernighan &amp; Ritchie (K&amp;R) style. For more supported styles and options, see <a class="reference external" href="http://astyle.sourceforge.net/astyle.html">http://astyle.sourceforge.net/astyle.html</a>.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">--style=kr</span>
+<span class="go">--indent=spaces=4</span>
+<span class="go">--indent-preprocessor</span>
+<span class="go">--pad-oper</span>
+<span class="go">--pad-header</span>
+<span class="go">--max-instatement-indent=40</span>
+<span class="go">--align-pointer=name</span>
+<span class="go">--align-reference=name</span>
+<span class="go">--keep-one-line-statements</span>
+<span class="go">--convert-tabs</span>
+<span class="go">--max-code-length=79</span>
+<span class="go">--pad-method-colon=none</span>
+</pre></div>
+</div>
+<p>Open vim, gVim or MacVim, and after editing some C/C++ files, use the following command to reformat the source code:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">:%!astyle</span>
+</pre></div>
+</div>
+]]></description>
+             <pubDate>Thu, 16 Jan 2014 00:00:00 -0500</pubDate>
+        </item>
+    
     </channel>
 </rss>

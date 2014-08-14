@@ -411,7 +411,45 @@
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html#disqus_thread" data-disqus-identifier="2014/03/05/suppressing_fedora">Leave a comment</a>
-        </div></div><div class="archive_link">
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>January 16, 2014</span>
+        </div>
+        <h1><a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a></h1>
+<p>Artistic Style is a “Free, Fast and Small Automatic Formatter for C, C++, C++/CLI, C#, and Java Source Code”. It is basically a utility that reformats source code in a conventionally-defined indent and coding style.</p>
+<p>First, install the program.</p>
+<p>On Ubuntu/Debian:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install astyle</span>
+</pre></div>
+</div>
+<p>On OS X (with Homebrew):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install astyle</span>
+</pre></div>
+</div>
+<p>In order to use the command in a simple manner, you can set options in the options file <cite>~/.astylerc</cite>. I use the following options that uses Kernighan &amp; Ritchie (K&amp;R) style. For more supported styles and options, see <a class="reference external" href="http://astyle.sourceforge.net/astyle.html">http://astyle.sourceforge.net/astyle.html</a>.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">--style=kr</span>
+<span class="go">--indent=spaces=4</span>
+<span class="go">--indent-preprocessor</span>
+<span class="go">--pad-oper</span>
+<span class="go">--pad-header</span>
+<span class="go">--max-instatement-indent=40</span>
+<span class="go">--align-pointer=name</span>
+<span class="go">--align-reference=name</span>
+<span class="go">--keep-one-line-statements</span>
+<span class="go">--convert-tabs</span>
+<span class="go">--max-code-length=79</span>
+<span class="go">--pad-method-colon=none</span>
+</pre></div>
+</div>
+<p>Open vim, gVim or MacVim, and after editing some C/C++ files, use the following command to reformat the source code:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">:%!astyle</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        
+        
+        
+        </div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
@@ -429,6 +467,8 @@
             <a href="2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
         </li><li>
             <a href="2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+        </li><li>
+            <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
