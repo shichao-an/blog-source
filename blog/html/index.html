@@ -477,7 +477,7 @@ $ chmod +x ~/.sleep ~/.wakeup
 </div>
 </li>
 </ol>
-<p><cite>/path/to/your/sleep_script.sh</cite> and <cite>/path/to/your/wakeup_script.sh</cite> are scripts to suspend and wakeup the remote machine (reference the previous post). <cite>sleep 5</cite> performs a delay to make sure the network is up to avoid “send : No route to host” error.
+<p><span class="docutils literal"><span class="pre">/path/to/your/sleep_script.sh</span></span> and <span class="docutils literal"><span class="pre">/path/to/your/wakeup_script.sh</span></span> are scripts to suspend and wakeup the remote machine (reference the previous post). <span class="docutils literal"><span class="pre">sleep</span> <span class="pre">5</span></span> performs a delay to make sure the network is up to avoid “send : No route to host” error.
 4. Test the setup by sleeping and waking up your Mac and check whether the remote machine does the same</p>
 
         <div class="postmeta">
@@ -499,7 +499,7 @@ $ chmod +x ~/.sleep ~/.wakeup
 <p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
 <div class="section" id="wake">
 <h2>Wake</h2>
-<p>To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).``</p>
+<p>To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).</p>
 <p>On Debian/Ubuntu:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install etherwake</span>
 </pre></div>

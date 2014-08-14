@@ -8,7 +8,7 @@ Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first ena
 Wake
 ----
 
-To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).``
+To wake up A is simple. Suppose A's MAC address is 11:aa:22:bb:33:cc and the hostname is "machine-a", and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).
 
 
 On Debian/Ubuntu::
@@ -51,7 +51,7 @@ Suspend/hibernate
     192.168.0.201   machine-a
 
 3. Setup SSH server on Machine A.
-4. Create a user account (say “yourname”) on Machine A for SSH login
+4. Create a user account (say "yourname") on Machine A for SSH login
 5. Configure public and private keys for SSH login without password
 6. Install pm-utils on Machine A.
 7. Edit /etc/sudoers on Machine A to add the following line::
@@ -74,7 +74,7 @@ Then, you can use the following script suspend_machine_a.sh on Machine B to remo
     '
     "
 
-To use hibernate, substitute `pm-hibernate` for `pm-suspend`.
+To use hibernate, substitute ``pm-hibernate`` for ``pm-suspend``.
 
 Finally, you can make some shortcut aliases so that suspend/wake of Machine A can be done by a single command.
 

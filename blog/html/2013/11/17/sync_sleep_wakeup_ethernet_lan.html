@@ -74,7 +74,7 @@
     <div class="section" id="synchronize-sleep-and-wakeup-of-machines-on-ethernet-lan-from-mac-using-sleepwatcher">
 <h1>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</h1>
 <p>The <a class="reference internal" href="../10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
-<p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don’t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
+<p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don&#8217;t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
 <p>You can download and install SleepWatcher to monitor sleep and wakeup on Mac and write some scripts upon these events.</p>
 <ol class="arabic">
 <li><p class="first">Download <a class="reference external" href="http://www.bernhard-baehr.de/sleepwatcher_2.2.tgz">SleepWatcher</a> (version 2.2 as of writing)</p>
@@ -89,7 +89,7 @@ $ chmod +x ~/.sleep ~/.wakeup
 </div>
 </li>
 </ol>
-<p><cite>/path/to/your/sleep_script.sh</cite> and <cite>/path/to/your/wakeup_script.sh</cite> are scripts to suspend and wakeup the remote machine (reference the previous post). <cite>sleep 5</cite> performs a delay to make sure the network is up to avoid &#8220;send : No route to host&#8221; error.
+<p><span class="docutils literal"><span class="pre">/path/to/your/sleep_script.sh</span></span> and <span class="docutils literal"><span class="pre">/path/to/your/wakeup_script.sh</span></span> are scripts to suspend and wakeup the remote machine (reference the previous post). <span class="docutils literal"><span class="pre">sleep</span> <span class="pre">5</span></span> performs a delay to make sure the network is up to avoid &#8220;send : No route to host&#8221; error.
 4. Test the setup by sleeping and waking up your Mac and check whether the remote machine does the same</p>
 </div>
 

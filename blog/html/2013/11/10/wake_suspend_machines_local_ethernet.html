@@ -76,7 +76,7 @@
 <p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
 <div class="section" id="wake">
 <h2>Wake</h2>
-<p>To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).``</p>
+<p>To wake up A is simple. Suppose A&#8217;s MAC address is 11:aa:22:bb:33:cc and the hostname is &#8220;machine-a&#8221;, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).</p>
 <p>On Debian/Ubuntu:</p>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install etherwake</span>
 </pre></div>
@@ -118,7 +118,7 @@
 </li>
 <li><p class="first">Setup SSH server on Machine A.</p>
 </li>
-<li><p class="first">Create a user account (say “yourname”) on Machine A for SSH login</p>
+<li><p class="first">Create a user account (say &#8220;yourname&#8221;) on Machine A for SSH login</p>
 </li>
 <li><p class="first">Configure public and private keys for SSH login without password</p>
 </li>
@@ -145,7 +145,7 @@ ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo 
 &quot;
 </pre></div>
 </div>
-<p>To use hibernate, substitute <cite>pm-hibernate</cite> for <cite>pm-suspend</cite>.</p>
+<p>To use hibernate, substitute <span class="docutils literal"><span class="pre">pm-hibernate</span></span> for <span class="docutils literal"><span class="pre">pm-suspend</span></span>.</p>
 <p>Finally, you can make some shortcut aliases so that suspend/wake of Machine A can be done by a single command.</p>
 </div>
 </div>
