@@ -14,5 +14,6 @@ Sitemap
    2014/01/16/artistic_style_vim
    2013/11/17/sync_sleep_wakeup_ethernet_lan
    2013/11/10/wake_suspend_machines_local_ethernet
+   2013/11/05/apache_name_based_virtual_hosts
    pages/about
 

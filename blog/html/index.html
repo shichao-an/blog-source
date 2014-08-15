@@ -29,7 +29,7 @@
         <script src="_static/plugins.js"></script>
         <script src="_static/main.js"></script>
         
-  <link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
+  <link rel="next" title="Older" href="page2.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
   <link rel="canonical" href="http://blog.shichao-an.info/blog/html/index.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -426,18 +426,18 @@
 </pre></div>
 </div>
 <p>In order to use the command in a simple manner, you can set options in the options file <cite>~/.astylerc</cite>. I use the following options that uses Kernighan &amp; Ritchie (K&amp;R) style. For more supported styles and options, see <a class="reference external" href="http://astyle.sourceforge.net/astyle.html">http://astyle.sourceforge.net/astyle.html</a>.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">--style=kr</span>
-<span class="go">--indent=spaces=4</span>
-<span class="go">--indent-preprocessor</span>
-<span class="go">--pad-oper</span>
-<span class="go">--pad-header</span>
-<span class="go">--max-instatement-indent=40</span>
-<span class="go">--align-pointer=name</span>
-<span class="go">--align-reference=name</span>
-<span class="go">--keep-one-line-statements</span>
-<span class="go">--convert-tabs</span>
-<span class="go">--max-code-length=79</span>
-<span class="go">--pad-method-colon=none</span>
+<div class="highlight-text"><div class="highlight"><pre>--style=kr
+--indent=spaces=4
+--indent-preprocessor
+--pad-oper
+--pad-header
+--max-instatement-indent=40
+--align-pointer=name
+--align-reference=name
+--keep-one-line-statements
+--convert-tabs
+--max-code-length=79
+--pad-method-colon=none
 </pre></div>
 </div>
 <p>Open vim, gVim or MacVim, and after editing some C/C++ files, use the following command to reformat the source code:</p>
@@ -553,7 +553,10 @@ $ chmod +x ~/.sleep ~/.wakeup
             <a href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html#disqus_thread" data-disqus-identifier="2013/11/10/wake_suspend_machines_local_ethernet">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
-    </div></article><aside class="sidebar"><section><div class="widget">
+    </div><ul class="related clearfix">
+            <li class="left"></li>
+            <li class="right"><a href="page2.html">Older</a> &raquo; </li>
+        </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>

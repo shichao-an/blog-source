@@ -17,7 +17,7 @@ On OS X (with Homebrew)::
 
 In order to use the command in a simple manner, you can set options in the options file `~/.astylerc`. I use the following options that uses Kernighan & Ritchie (K&R) style. For more supported styles and options, see http://astyle.sourceforge.net/astyle.html.
 
-::
+.. code-block:: text
 
     --style=kr
     --indent=spaces=4

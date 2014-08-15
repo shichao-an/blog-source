@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Wake and suspend machines on local Ethernet LAN &mdash; Shichao&#39;s Blog</title>
+        <title>Apache name-based virtual hosts and reverse DNS &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="Apache name-based virtual hosts and reverse DNS" href="../05/apache_name_based_virtual_hosts.html" /><link rel="prev" title="Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher" href="../17/sync_sleep_wakeup_ethernet_lan.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html" /><script type="text/javascript">
+  <link rel="prev" title="Wake and suspend machines on local Ethernet LAN" href="../10/wake_suspend_machines_local_ethernet.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/11/05/apache_name_based_virtual_hosts.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.4.2',
@@ -69,84 +69,30 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>November 10, 2013</span>
+            <span>November 05, 2013</span>
         </div>
-    <div class="section" id="wake-and-suspend-machines-on-local-ethernet-lan">
-<h1>Wake and suspend machines on local Ethernet LAN</h1>
-<p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
-<div class="section" id="wake">
-<h2>Wake</h2>
-<p>To wake up A is simple. Suppose A&#8217;s MAC address is 11:aa:22:bb:33:cc and the hostname is &#8220;machine-a&#8221;, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).</p>
-<p>On Debian/Ubuntu:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install etherwake</span>
+    <div class="section" id="apache-name-based-virtual-hosts-and-reverse-dns">
+<h1>Apache name-based virtual hosts and reverse DNS</h1>
+<p>On some operating systems such as Ubuntu, you can setup virtual hosts quite easily with the default Apache server (installed with APT). The global configuration file /etc/apache2/apache2.conf contains the following line as the last line by default:</p>
+<div class="highlight-apache"><div class="highlight"><pre><span class="nb">Include</span> sites-enabled/
 </pre></div>
 </div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install wakeonlan</span>
+<p>This means all virtual hosts configurations are loaded from the /etc/apache2/sites-enabled directory in alphabetical order. If you list this directory, you will find there is already a symbolic link 000-default that points to /etc/apache2/sites-available/default. This default virtual host configuration file does not contain a <span class="docutils literal"><span class="pre">ServerName</span></span> directive, and neither does the global configuration file (/etc/apache2/apache2.conf) by default. The default port.conf contains the following line:</p>
+<div class="highlight-apache"><div class="highlight"><pre><span class="nb">NameVirtualHost</span> *:80
 </pre></div>
 </div>
-<p>On Fedora/RHEL:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install net-tools</span>
-</pre></div>
-</div>
-<p>On OS X:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install wakeonlan</span>
-</pre></div>
-</div>
-<p>To send magic Wake-on-LAN packets to A:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ etherwake 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ether-wake 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ wakeonlan 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="suspend-hibernate">
-<h2>Suspend/hibernate</h2>
-<div id="more"> </div><ol class="arabic">
-<li><p class="first">Configure static IP for Machine A, for example 192.168.0.201.</p>
-</li>
-<li><p class="first">Edit /etc/hosts on Machine B by adding the following line:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">192.168.0.201   machine-a</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Setup SSH server on Machine A.</p>
-</li>
-<li><p class="first">Create a user account (say &#8220;yourname&#8221;) on Machine A for SSH login</p>
-</li>
-<li><p class="first">Configure public and private keys for SSH login without password</p>
-</li>
-<li><p class="first">Install pm-utils on Machine A.</p>
-</li>
-<li><p class="first">Edit /etc/sudoers on Machine A to add the following line:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">yourname ALL=(root)      PASSWD:ALL, NOPASSWD: /usr/sbin/pm-suspend</span>
-</pre></div>
-</div>
-</li>
+<p>This means all the following name-virtual hosts will follow this <span class="docutils literal"><span class="pre">NameVirtualHost</span></span> directive, which receives requests on all interfaces on the server. <sup>[1]</sup></p>
+<p>Basically, you can place your own virtual host configuration file in /etc/apache2/sites-available directory and use the a2ensite command to enable this configuration (by creating a symbolic link at /etc/apache2/sites-enabled that Apache will load). If you owns a domain example.com and a subdomain wiki.example.com that both points to the IP address of this server, you can create a virtual host with <span class="docutils literal"><span class="pre">ServerName</span> <span class="pre">wiki.example.com</span></span> (the argument to <span class="docutils literal"><span class="pre">&lt;VirtualHost&gt;</span></span> is <a href="#id1"><span class="problematic" id="id2">*</span></a>:80 in this case). If the configuration filename is wiki, you can use a2ensite wiki command to enable it.</p>
+<p>Given these, let’s see how Apache handles requests for virtual hosts. When a request arrives, the server will find the best (most specific) matching <span class="docutils literal"><span class="pre">&lt;VirtualHost&gt;</span></span> argument based on the IP address and port used by the request. If there is more than one virtual host containing this best-match address and port combination, Apache will further compare the <span class="docutils literal"><span class="pre">ServerName</span></span> and <span class="docutils literal"><span class="pre">ServerAlias</span></span> directives to the server name present in the request. <sup>[2]</sup></p>
+<p>If you try to visit wiki.example.com you actually request the IP of this server. The Apache server will handle this request by comparing active virtual host configurations. It first checks 000-default, but detects no <span class="docutils literal"><span class="pre">ServerName</span></span> directive (neither does the global configuration as mentioned before). As a result, it performs a reverse DNS lookup to find the <span class="docutils literal"><span class="pre">ServerName</span></span>. <sup>[3]</sup> If you have not setup a reverse DNS for this IP to wiki.example.com, the match will fail and Apache continues to match the next virtual host, wiki, which does have a <span class="docutils literal"><span class="pre">ServerName</span></span>, wiki.example.com, and this is a match. Apache will respond with this virtual host.</p>
+<p>However, if you have recently setup a reverse DNS for IP of your server to wiki.example.com, a different result will come out. When you access wiki.example.com, Apache first checks 000-default, and performs a reverse DNS resolution only to find wiki.example.com as the result for <span class="docutils literal"><span class="pre">ServerName</span></span>, and this is a match. Apache will respond with 000-default instead of wiki and you will browse Web page for 000-default rather than wiki. To solve this problem, you can either set a global <span class="docutils literal"><span class="pre">ServerName</span></span> with example.com at /etc/apache2/apache2.conf or specify a <span class="docutils literal"><span class="pre">ServerName</span></span> for 000-default. In this way, the Apache will match the right <span class="docutils literal"><span class="pre">ServerName</span></span> with your request even if you setup a reverse DNS for one of the virtual hosts.</p>
+<div class="section" id="reference">
+<h2>Reference</h2>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://httpd.apache.org/docs/2.2/mod/core.html#namevirtualhost">http://httpd.apache.org/docs/2.2/mod/core.html#namevirtualhost</a></li>
+<li><a class="reference external" href="http://httpd.apache.org/docs/current/vhosts/name-based.html">http://httpd.apache.org/docs/current/vhosts/name-based.html</a></li>
+<li><a class="reference external" href="http://httpd.apache.org/docs/current/dns-caveats.html">http://httpd.apache.org/docs/current/dns-caveats.html</a></li>
 </ol>
-<ol class="arabic simple" start="6">
-<li>Install GNU Screen on A.</li>
-</ol>
-<p>Then, you can use the following script suspend_machine_a.sh on Machine B to remote suspend Machine A:</p>
-<div class="highlight-shell"><div class="highlight"><pre>#!/bin/bash
-
-
-session_name=&quot;suspend&quot;
-ssh yourname@machine-a &quot;if screen -list | grep -E &#39;\&lt;[0-9]+\.$session_name\&gt;&#39; &gt;/dev/null;
-then echo -n &#39;&#39;; else screen -dmS $session_name; fi&quot;
-ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo pm-suspend
-&#39;
-&quot;
-</pre></div>
-</div>
-<p>To use hibernate, substitute <span class="docutils literal"><span class="pre">pm-hibernate</span></span> for <span class="docutils literal"><span class="pre">pm-suspend</span></span>.</p>
-<p>Finally, you can make some shortcut aliases so that suspend/wake of Machine A can be done by a single command.</p>
 </div>
 </div>
 
@@ -158,12 +104,12 @@ ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo 
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/os_x.html">OS X</a>, <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/network.html">Network</a></span>
+                <a href="../../../tags/apache.html">Apache</a>, <a href="../../../tags/network.html">Network</a>, <a href="../../../tags/dns.html">DNS</a></span>
         </div>
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a></li>
-            <li class="right"><a href="../05/apache_name_based_virtual_hosts.html">Apache name-based virtual hosts and reverse DNS</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/11/10/wake_suspend_machines_local_ethernet";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"> &laquo; <a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a></li>
+            <li class="right"></li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/11/05/apache_name_based_virtual_hosts";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
@@ -184,7 +130,7 @@ ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo 
         </li><li>
             <a href="../17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
         </li><li>
-            <a href="#">Wake and suspend machines on local Ethernet LAN</a>
+            <a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
