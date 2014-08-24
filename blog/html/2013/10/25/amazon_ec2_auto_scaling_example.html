@@ -1,0 +1,227 @@
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="Personal Blogging Site of Shichao An">
+        <meta name="viewport" content="width=device-width">
+        <title>Amazon EC2 Auto Scaling example &mdash; Shichao&#39;s Blog</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/flat.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="../../../_static/style.css" type="text/css" /><link rel="shortcut icon" href="../../../_static/favicon.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        
+  <link rel="prev" title="Sync and backup files from a host on the LAN over SSH on Mac OS X" href="../../09/17/sync_backup_files_over_lan_ssh_osx.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/10/25/amazon_ec2_auto_scaling_example.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script><script type="text/javascript" src="../../../_static/disqus.js"></script><script type="text/javascript" src="../../../_static/google_analytics.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Scroll to content if on small screen
+            if (screen.width < 480)
+            {
+                $(document).scrollTop(document.getElementsByTagName("article")[0].offsetTop - 44);
+            }
+        });
+    </script>
+</head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">Shichao&#39;s Blog</a></h1><h2>Recording molecular stuff</h2></hgroup>
+          </header>
+      <nav role="navigation">
+            <ul><li class="main-nav">
+                  <a href="../../../index.html">Home</a>
+                </li>
+              <li class="main-nav">
+                  <a href="../../../pages/about.html">About</a>
+                </li>
+              </ul>
+          </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>October 25, 2013</span>
+        </div>
+    <div class="section" id="amazon-ec2-auto-scaling-example">
+<h1>Amazon EC2 Auto Scaling example</h1>
+<p>The following code creates an Auto Scaling group with scale-up and scale-down policies based on the monitoring the CPU utilization of either a specific EC2 instance or instances within the Auto Scaling group cluster.</p>
+<p>If <span class="docutils literal"><span class="pre">alarm_dimensions</span></span> specifies <span class="docutils literal"><span class="pre">InstanceId</span></span>, the Auto Scaling group will scale up or down according to the CPU utilization of the specified running instance; if <span class="docutils literal"><span class="pre">alarm_dimensions</span></span> specifies <span class="docutils literal"><span class="pre">AutoScalingGroupName</span></span>, the Auto Scaling group will scale up or down according to the CPU utilization of instances within its existing cluster. For more metrics and dimensions in CloudWatch, see <a class="reference external" href="http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/ec2-metricscollected.html">Amazon Elastic Compute Cloud Dimensions and Metrics</a>.</p>
+<p>Raw code can be <a class="reference external" href="https://raw.githubusercontent.com/moleculea/autoscale_sample/master/autoscale_sample.py">downloaded here</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">boto.ec2</span>
+<span class="kn">from</span> <span class="nn">boto.ec2.autoscale</span> <span class="kn">import</span> <span class="p">(</span><span class="n">AutoScalingGroup</span><span class="p">,</span>
+                                <span class="n">LaunchConfiguration</span><span class="p">,</span> <span class="n">ScalingPolicy</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">boto.ec2.cloudwatch</span> <span class="kn">import</span> <span class="n">MetricAlarm</span>
+
+
+<span class="c"># Create connections to Auto Scaling and CloudWatch</span>
+<span class="n">as_conn</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">ec2</span><span class="o">.</span><span class="n">autoscale</span><span class="o">.</span><span class="n">connect_to_region</span><span class="p">(</span><span class="s">&quot;us-east-1&quot;</span><span class="p">)</span>
+<span class="n">cw_conn</span> <span class="o">=</span> <span class="n">boto</span><span class="o">.</span><span class="n">ec2</span><span class="o">.</span><span class="n">cloudwatch</span><span class="o">.</span><span class="n">connect_to_region</span><span class="p">(</span><span class="s">&quot;us-east-1&quot;</span><span class="p">)</span>
+
+<span class="c"># Name for auto scaling group and launch configuration</span>
+<span class="n">as_name</span> <span class="o">=</span> <span class="s">&quot;VM1&quot;</span>
+
+<span class="c"># Create launch configuration</span>
+<span class="n">lc</span> <span class="o">=</span> <span class="n">LaunchConfiguration</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span>
+                         <span class="n">image_id</span><span class="o">=</span><span class="s">&quot;ami-76f0061f&quot;</span><span class="p">,</span>  <span class="c"># AMI ID of your instance</span>
+                         <span class="n">key_name</span><span class="o">=</span><span class="s">&quot;your_key_name&quot;</span><span class="p">,</span>
+                         <span class="n">security_groups</span><span class="o">=</span><span class="s">&quot;your_group_name&quot;</span><span class="p">,</span>
+                         <span class="n">instance_type</span><span class="o">=</span><span class="s">&quot;t1.micro&quot;</span><span class="p">,</span>
+                         <span class="n">instance_monitoring</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">as_conn</span><span class="o">.</span><span class="n">create_launch_configuration</span><span class="p">(</span><span class="n">lc</span><span class="p">)</span>
+
+<span class="c"># Create Auto Scaling group</span>
+<span class="n">ag</span> <span class="o">=</span> <span class="n">AutoScalingGroup</span><span class="p">(</span><span class="n">group_name</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span>
+                      <span class="n">availability_zones</span><span class="o">=</span><span class="p">[</span><span class="s">&quot;us-east-1b&quot;</span><span class="p">],</span>
+                      <span class="n">launch_config</span><span class="o">=</span><span class="n">lc</span><span class="p">,</span> <span class="n">min_size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                      <span class="n">max_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                      <span class="n">connection</span><span class="o">=</span><span class="n">as_conn</span><span class="p">)</span>
+
+<span class="n">as_conn</span><span class="o">.</span><span class="n">create_auto_scaling_group</span><span class="p">(</span><span class="n">ag</span><span class="p">)</span>
+
+<span class="c"># Create scaling policies</span>
+<span class="n">scale_up_policy</span> <span class="o">=</span> <span class="n">ScalingPolicy</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;scale_up&#39;</span><span class="p">,</span> <span class="n">adjustment_type</span><span class="o">=</span><span class="s">&#39;ChangeInCapacity&#39;</span><span class="p">,</span>
+    <span class="n">as_name</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span> <span class="n">scaling_adjustment</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cooldown</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="n">scale_down_policy</span> <span class="o">=</span> <span class="n">ScalingPolicy</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;scale_down&#39;</span><span class="p">,</span> <span class="n">adjustment_type</span><span class="o">=</span><span class="s">&#39;ChangeInCapacity&#39;</span><span class="p">,</span>
+    <span class="n">as_name</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span> <span class="n">scaling_adjustment</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">cooldown</span><span class="o">=</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="n">as_conn</span><span class="o">.</span><span class="n">create_scaling_policy</span><span class="p">(</span><span class="n">scale_up_policy</span><span class="p">)</span>
+<span class="n">as_conn</span><span class="o">.</span><span class="n">create_scaling_policy</span><span class="p">(</span><span class="n">scale_down_policy</span><span class="p">)</span>
+
+<span class="n">scale_up_policy</span> <span class="o">=</span> <span class="n">as_conn</span><span class="o">.</span><span class="n">get_all_policies</span><span class="p">(</span>
+    <span class="n">as_group</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span> <span class="n">policy_names</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;scale_up&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="n">scale_down_policy</span> <span class="o">=</span> <span class="n">as_conn</span><span class="o">.</span><span class="n">get_all_policies</span><span class="p">(</span>
+    <span class="n">as_group</span><span class="o">=</span><span class="n">as_name</span><span class="p">,</span> <span class="n">policy_names</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;scale_down&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c"># Set dimensions for CloudWatch alarms</span>
+<span class="c"># Monitor on a specific instance</span>
+<span class="n">alarm_dimensions</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;InstanceId&quot;</span><span class="p">:</span> <span class="s">&quot;your_instance_id&quot;</span><span class="p">}</span>
+
+<span class="c"># Monitor instances within the Auto Scaling group cluster</span>
+<span class="n">alarm_dimensions_as</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;AutoScalingGroupName&quot;</span><span class="p">:</span> <span class="n">as_name</span><span class="p">}</span>
+
+<span class="c"># Create metric alarms</span>
+<span class="n">scale_up_alarm</span> <span class="o">=</span> <span class="n">MetricAlarm</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;scale_up_on_cpu_&#39;</span> <span class="o">+</span> <span class="n">as_name</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">&#39;AWS/EC2&#39;</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s">&#39;CPUUtilization&#39;</span><span class="p">,</span> <span class="n">statistic</span><span class="o">=</span><span class="s">&#39;Average&#39;</span><span class="p">,</span>
+    <span class="n">comparison</span><span class="o">=</span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="s">&quot;80&quot;</span><span class="p">,</span>
+    <span class="n">period</span><span class="o">=</span><span class="s">&#39;60&#39;</span><span class="p">,</span> <span class="n">evaluation_periods</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">alarm_actions</span><span class="o">=</span><span class="p">[</span><span class="n">scale_up_policy</span><span class="o">.</span><span class="n">policy_arn</span><span class="p">],</span>
+    <span class="n">dimensions</span><span class="o">=</span><span class="n">alarm_dimensions</span><span class="p">)</span>
+
+<span class="n">scale_down_alarm</span> <span class="o">=</span> <span class="n">MetricAlarm</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;scale_down_on_cpu_&#39;</span> <span class="o">+</span> <span class="n">as_name</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="s">&#39;AWS/EC2&#39;</span><span class="p">,</span>
+    <span class="n">metric</span><span class="o">=</span><span class="s">&#39;CPUUtilization&#39;</span><span class="p">,</span> <span class="n">statistic</span><span class="o">=</span><span class="s">&#39;Average&#39;</span><span class="p">,</span>
+    <span class="n">comparison</span><span class="o">=</span><span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="s">&quot;20&quot;</span><span class="p">,</span>
+    <span class="n">period</span><span class="o">=</span><span class="s">&#39;60&#39;</span><span class="p">,</span> <span class="n">evaluation_periods</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">alarm_actions</span><span class="o">=</span><span class="p">[</span><span class="n">scale_down_policy</span><span class="o">.</span><span class="n">policy_arn</span><span class="p">],</span>
+    <span class="n">dimensions</span><span class="o">=</span><span class="n">alarm_dimensions</span><span class="p">)</span>
+
+<span class="c"># Create alarms in CloudWatch</span>
+<span class="n">cw_conn</span><span class="o">.</span><span class="n">create_alarm</span><span class="p">(</span><span class="n">scale_up_alarm</span><span class="p">)</span>
+<span class="n">cw_conn</span><span class="o">.</span><span class="n">create_alarm</span><span class="p">(</span><span class="n">scale_down_alarm</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/python.html">Python</a>, <a href="../../../tags/aws.html">AWS</a></span>
+        </div>
+        </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../09/17/sync_backup_files_over_lan_ssh_osx.html">Sync and backup files from a host on the LAN over SSH on Mac OS X</a></li>
+            <li class="right"></li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/10/25/amazon_ec2_auto_scaling_example";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+        </li><li>
+            <a href="../../../2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
+        </li><li>
+            <a href="../../../2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
+        </li><li>
+            <a href="../../../2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
+        </li><li>
+            <a href="../../../2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+        </li><li>
+            <a href="../../../2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+        </li><li>
+            <a href="../../../2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+        </li><li>
+            <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+        </li><li>
+            <a href="../../11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+        </li><li>
+            <a href="../../11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1>Search</h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section><section><div class="widget">
+    <h1>Tags Cloud</h1>
+      <a href="../../../tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
+      <a href="../../../tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
+      <a href="../../../tags/bash.html" style="font-size: 12pt">Bash</a>&nbsp;&nbsp;
+      <a href="../../../tags/centos.html" style="font-size: 8pt">CentOS</a>&nbsp;&nbsp;
+      <a href="../../../tags/dns.html" style="font-size: 10pt">DNS</a>&nbsp;&nbsp;
+      <a href="../../../tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
+      <a href="../../../tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
+      <a href="../../../tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
+      <a href="../../../tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
+      <a href="../../../tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="../../../tags/os_x.html" style="font-size: 12pt">OS X</a>&nbsp;&nbsp;
+      <a href="../../../tags/python.html" style="font-size: 10pt">Python</a>&nbsp;&nbsp;
+      <a href="../../../tags/vim.html" style="font-size: 8pt">Vim</a>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2014, Shichao An. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>
