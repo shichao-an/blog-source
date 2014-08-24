@@ -77,6 +77,8 @@ Suppose you have several computers on an LAN, where DHCP is enabled. On Machine 
     username="yourname"
     mac_address="11:11:11:11:11:11"
 
+.. more::
+
 3. Setup SSH connection from Machine B to Machine A:
 
    (1) On Machine A, open port 22.
