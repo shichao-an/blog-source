@@ -14,3 +14,8 @@ header h2 {
 h1 {
   font-size: 1.6em;
 }
+
+code, kbd, pre, samp {
+  font-family: Monaco ,'Source Code Pro', monospace, serif;
+  line-height: 1.4em;
+}

@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher &mdash; Shichao&#39;s Blog</title>
+        <title>Fetch and convert online flash videos &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="Wake and suspend machines on local Ethernet LAN" href="../10/wake_suspend_machines_local_ethernet.html" /><link rel="prev" title="Use Artistic Style with vim" href="../../../2014/01/16/artistic_style_vim.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html" /><script type="text/javascript">
+  <link rel="prev" title="Sync and backup files from a host on the LAN over SSH on Mac OS X" href="../17/sync_backup_files_over_lan_ssh_osx.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/09/15/fetch_convert_online_flash_videos.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.4.2',
@@ -69,28 +69,46 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>November 17, 2013</span>
+            <span>September 15, 2013</span>
         </div>
-    <div class="section" id="synchronize-sleep-and-wakeup-of-machines-on-ethernet-lan-from-mac-using-sleepwatcher">
-<h1>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</h1>
-<p>The <a class="reference internal" href="../10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
-<p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don&#8217;t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
-<p>You can download and install SleepWatcher to monitor sleep and wakeup on Mac and write some scripts upon these events.</p>
+    <div class="section" id="fetch-and-convert-online-flash-videos">
+<h1>Fetch and convert online flash videos</h1>
 <ol class="arabic">
-<li><p class="first">Download <a class="reference external" href="http://www.bernhard-baehr.de/sleepwatcher_2.2.tgz">SleepWatcher</a> (version 2.2 as of writing)</p>
+<li><p class="first">Installation of prerequisite utilities:</p>
+<ul class="simple">
+<li>Perl module: WWW::Mechanize</li>
+<li><a class="reference external" href="https://code.google.com/p/get-flash-videos/wiki/Installation">get-flash-videos</a></li>
+<li><a class="reference external" href="http://www.ffmpeg.org/download.html">ffmpeg</a></li>
+</ul>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo cpan install WWW::Mechanize</span>
+<span class="go">$ git clone https://github.com/monsieurvideo/get-flash-videos.git /path/to/get-flash-videos</span>
+<span class="go">$ ln -s /usr/local/bin/get_flash_videos /path/to/get-flash-videos/get_flash_videos</span>
+</pre></div>
+</div>
+<p>For the installation of ffmpeg, see <a class="reference external" href="http://www.ffmpeg.org/download.html">http://www.ffmpeg.org/download.html</a>.</p>
 </li>
-<li><p class="first">Install it following the ReadMe.rtf instructions</p>
+<li><p class="first">Download flash-video-archiver scripts:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ git clone https://github.com/moleculea/flash-video-archiver.git flash-video-archiver</span>
+</pre></div>
+</div>
 </li>
-<li><p class="first">After the SleepWatcher LaunchAgent or LaunchDaemon is loaded, run the following commands to add sleep and wakeup scripts:</p>
-<div class="highlight-python"><div class="highlight"><pre>$ echo &quot;/path/to/your/sleep_script.sh&quot; &gt; ~/.sleep
-$ echo &quot;sleep 5; /path/to/your/wakeup_script.sh&quot; &gt; ~/.wakeup
-$ chmod +x ~/.sleep ~/.wakeup
+<li><p class="first">Create a file of video link list, e.g. videos.txt:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ cat /path/to/videos.txt</span>
+
+<span class="go">http://example.com/video/4438</span>
+<span class="go">http://example.com/video/4512</span>
+<span class="go">http://example.org/video/hjkl</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Fetch videos and convert them into MP4:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ cd flash-video-archiver</span>
+<span class="go">$ ./fetch.sh /path/to/videos.txt /path/to/output/directory</span>
+<span class="go">$ ./convert.sh /path/to/output/directory</span>
 </pre></div>
 </div>
 </li>
 </ol>
-<p><span class="docutils literal"><span class="pre">/path/to/your/sleep_script.sh</span></span> and <span class="docutils literal"><span class="pre">/path/to/your/wakeup_script.sh</span></span> are scripts to suspend and wakeup the remote machine (reference the previous post). <span class="docutils literal"><span class="pre">sleep</span> <span class="pre">5</span></span> performs a delay to make sure the network is up to avoid &#8220;send : No route to host&#8221; error.
-4. Test the setup by sleeping and waking up your Mac and check whether the remote machine does the same</p>
 </div>
 
     <div class="postmeta">
@@ -101,12 +119,12 @@ $ chmod +x ~/.sleep ~/.wakeup
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/os_x.html">OS X</a>, <a href="../../../tags/network.html">Network</a></span>
+                <a href="../../../tags/bash.html">Bash</a>, <a href="../../../tags/perl.html">Perl</a></span>
         </div>
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a></li>
-            <li class="right"><a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/11/17/sync_sleep_wakeup_ethernet_lan";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"> &laquo; <a href="../17/sync_backup_files_over_lan_ssh_osx.html">Sync and backup files from a host on the LAN over SSH on Mac OS X</a></li>
+            <li class="right"></li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/09/15/fetch_convert_online_flash_videos";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
             <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
@@ -125,9 +143,9 @@ $ chmod +x ~/.sleep ~/.wakeup
         </li><li>
             <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
-            <a href="#">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+            <a href="../../11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
         </li><li>
-            <a href="../10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
+            <a href="../../11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
