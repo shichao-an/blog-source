@@ -48,5 +48,5 @@ Set up Selenium Python environment with X virtual framebuffer on Ubuntu server
 
 .. author:: default
 .. categories:: none
-.. tags:: Bash,Python,Ubuntu
+.. tags:: Python,Ubuntu
 .. comments::
