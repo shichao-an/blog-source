@@ -1,0 +1,187 @@
+<!DOCTYPE html><!--[if lt IE 7]>      <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:og="http://ogp.me/ns#"
+    xmlns:fb="https://www.facebook.com/2008/fbml" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="description" content="Personal Blogging Site of Shichao An">
+        <meta name="viewport" content="width=device-width">
+        <title>Configure vsftpd FTP server in active mode on CentOS &mdash; Shichao&#39;s Blog</title>
+            <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/flat.css" type="text/css">
+            <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+            <link rel="stylesheet" href="../../../_static/font-awesome.min.css" type="text/css">
+        <link rel="stylesheet" href="../../../_static/style.css" type="text/css" /><link rel="shortcut icon" href="../../../_static/favicon.ico" /><!-- Load modernizr and JQuery -->
+        <script src="../../../_static/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="../../../_static/vendor/jquery-1.8.2.min.js"><\/script>')</script>
+        <script src="../../../_static/plugins.js"></script>
+        <script src="../../../_static/main.js"></script>
+        
+  <link rel="next" title="Evaluation criteria of computer science professionals" href="../13/evaluation_criteria_of_computer_science_professional.html" /><link rel="prev" title="Make slideshow GIF from a batch of images using ImageMagick" href="../../08/05/make_slideshow_gif_using_imagemagick.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html" /><script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script><script type="text/javascript" src="../../../_static/underscore.js"></script><script type="text/javascript" src="../../../_static/doctools.js"></script><script type="text/javascript" src="../../../_static/disqus.js"></script><script type="text/javascript" src="../../../_static/google_analytics.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Scroll to content if on small screen
+            if (screen.width < 480)
+            {
+                $(document).scrollTop(document.getElementsByTagName("article")[0].offsetTop - 44);
+            }
+        });
+    </script>
+</head>
+    <body role="document">
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+      <div id="container"><header role="banner">
+            <hgroup>
+              <h1><a href="../../../index.html">Shichao&#39;s Blog</a></h1><h2>Recording molecular stuff</h2></hgroup>
+          </header>
+      <nav role="navigation">
+            <ul><li class="main-nav">
+                  <a href="../../../index.html">Home</a>
+                </li>
+              <li class="main-nav">
+                  <a href="../../../pages/about.html">About</a>
+                </li>
+              </ul>
+          </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>July 20, 2013</span>
+        </div>
+    <div class="section" id="configure-vsftpd-ftp-server-in-active-mode-on-centos">
+<h1>Configure vsftpd FTP server in active mode on CentOS</h1>
+<ol class="arabic">
+<li><p class="first">Install vsftpd, configure SELinux context and start the service:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install vsftpd</span>
+<span class="go"># chkconfig vsftpd on</span>
+<span class="go"># chcon -R -t public_content_t /var/ftp</span>
+<span class="go"># service vsftpd start</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">There are two ways to configure iptables to allow connections</p>
+<p>One way is using system-config-firewall, which is simple:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># system-config-firewall-tui</span>
+</pre></div>
+</div>
+<p>Choose FTP in the &#8220;Trusted Service&#8221; menu and save the configuration. <span class="docutils literal"><span class="pre">system-config-firewall</span></span> will add rule in the INPUT chain and load ip_conntrack_ftp kernel module, which can be verified using:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># lsmod | grep ftp</span>
+<span class="go">nf_conntrack_ftp       10475  0</span>
+<span class="go">nf_conntrack           65428  4 nf_conntrack_ftp,nf_conntrack_ipv6,nf_conntrack_ipv4,xt_state</span>
+</pre></div>
+</div>
+<p>Another way is do it manually:</p>
+<ol class="arabic">
+<li><p class="first">Insert the following rule somewhere before the final “reject-with icmp-host-prohibited” rule, say number 4:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># iptables -L --line-numbers</span>
+<span class="go"># iptables -I INPUT 4 -p tcp --dport 21 -m state --state NEW -j ACCEPT</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Load ip_conntrack_ftp (alias of nf_conntrack_ftp):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># modprobe ip_conntrack_ftp</span>
+</pre></div>
+</div>
+<p>Now the FTP directory should be accessible from remote machines.</p>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+
+    <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="../../../tags/centos.html">CentOS</a>, <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/iptables.html">iptables</a></span>
+        </div>
+        </div><ul class="related clearfix">
+            <li class="left"> &laquo; <a href="../../08/05/make_slideshow_gif_using_imagemagick.html">Make slideshow GIF from a batch of images using ImageMagick</a></li>
+            <li class="right"><a href="../13/evaluation_criteria_of_computer_science_professional.html">Evaluation criteria of computer science professionals</a> &raquo; </li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+    <h1>Recent Posts</h1>
+    <ul><li>
+            <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+        </li><li>
+            <a href="../../../2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
+        </li><li>
+            <a href="../../../2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
+        </li><li>
+            <a href="../../../2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
+        </li><li>
+            <a href="../../../2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+        </li><li>
+            <a href="../../../2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
+        </li><li>
+            <a href="../../../2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+        </li><li>
+            <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+        </li><li>
+            <a href="../../11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+        </li><li>
+            <a href="../../11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
+        </li></ul>
+</div>
+</section><section><div class="widget" id="searchbox" role="search">
+    <h1>Search</h1>
+    <form action="../../../search.html" method="get">
+        <input type="text" name="q" />
+        <button type="submit"><span class="fa fa-search"></span></button>
+    </form>
+</div></section><section><div class="widget">
+    <h1>Tags Cloud</h1>
+      <a href="../../../tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
+      <a href="../../../tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
+      <a href="../../../tags/bash.html" style="font-size: 18pt">Bash</a>&nbsp;&nbsp;
+      <a href="../../../tags/bsd.html" style="font-size: 8pt">BSD</a>&nbsp;&nbsp;
+      <a href="../../../tags/centos.html" style="font-size: 10pt">CentOS</a>&nbsp;&nbsp;
+      <a href="../../../tags/computer_science.html" style="font-size: 8pt">Computer Science</a>&nbsp;&nbsp;
+      <a href="../../../tags/dns.html" style="font-size: 10pt">DNS</a>&nbsp;&nbsp;
+      <a href="../../../tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
+      <a href="../../../tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
+      <a href="../../../tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
+      <a href="../../../tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
+      <a href="../../../tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
+      <a href="../../../tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="../../../tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
+      <a href="../../../tags/perl.html" style="font-size: 8pt">Perl</a>&nbsp;&nbsp;
+      <a href="../../../tags/python.html" style="font-size: 12pt">Python</a>&nbsp;&nbsp;
+      <a href="../../../tags/ubuntu.html" style="font-size: 8pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="../../../tags/vim.html" style="font-size: 8pt">Vim</a>
+</div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
+
+        <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2014, Shichao An. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->
+
+      </div> <!--! end of #container --><!--[if lt IE 7 ]>
+          <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
+          <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
+        <![endif]-->
+    </body>
+</html>

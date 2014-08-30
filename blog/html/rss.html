@@ -757,5 +757,115 @@ $ chmod +x ~/.sleep ~/.wakeup
              <pubDate>Mon, 05 Aug 2013 00:00:00 -0700</pubDate>
         </item>
     
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</guid>
+            <title><![CDATA[Configure vsftpd FTP server in active mode on CentOS]]></title>
+            <description><![CDATA[<h1>Configure vsftpd FTP server in active mode on CentOS</h1>
+<ol class="arabic">
+<li><p class="first">Install vsftpd, configure SELinux context and start the service:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install vsftpd</span>
+<span class="go"># chkconfig vsftpd on</span>
+<span class="go"># chcon -R -t public_content_t /var/ftp</span>
+<span class="go"># service vsftpd start</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">There are two ways to configure iptables to allow connections</p>
+<p>One way is using system-config-firewall, which is simple:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># system-config-firewall-tui</span>
+</pre></div>
+</div>
+<p>Choose FTP in the “Trusted Service” menu and save the configuration. <span class="docutils literal"><span class="pre">system-config-firewall</span></span> will add rule in the INPUT chain and load ip_conntrack_ftp kernel module, which can be verified using:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># lsmod | grep ftp</span>
+<span class="go">nf_conntrack_ftp       10475  0</span>
+<span class="go">nf_conntrack           65428  4 nf_conntrack_ftp,nf_conntrack_ipv6,nf_conntrack_ipv4,xt_state</span>
+</pre></div>
+</div>
+<p>Another way is do it manually:</p>
+<ol class="arabic">
+<li><p class="first">Insert the following rule somewhere before the final “reject-with icmp-host-prohibited” rule, say number 4:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># iptables -L --line-numbers</span>
+<span class="go"># iptables -I INPUT 4 -p tcp --dport 21 -m state --state NEW -j ACCEPT</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Load ip_conntrack_ftp (alias of nf_conntrack_ftp):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># modprobe ip_conntrack_ftp</span>
+</pre></div>
+</div>
+<p>Now the FTP directory should be accessible from remote machines.</p>
+</li>
+</ol>
+</li>
+</ol>
+]]></description>
+             <pubDate>Sat, 20 Jul 2013 00:00:00 -0700</pubDate>
+        </item>
+    
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</guid>
+            <title><![CDATA[Evaluation criteria of computer science professionals]]></title>
+            <description><![CDATA[<h1>Evaluation criteria of computer science professionals</h1>
+<p>Personal point of view on how to evaluate the generic skills possessed by a computer software professional from a pragmatic perspective without considering specific subdisciplines or academic background in computer science.</p>
+<ul class="simple">
+<li>Programming Language<ul>
+<li>Low-level: C/C++</li>
+<li>Object-Oriented: Java/C++/PHP/Python/Ruby</li>
+<li>Functional/Scripting: Lisp/Python/Perl/Haskell/Erlang</li>
+<li>Web/Mobile: HTML/CSS/JavaScript</li>
+</ul>
+</li>
+<li>System and Network<ul>
+<li>System Administration (Unix)</li>
+<li>OS/Kernel concept: Process, Memory, I/O</li>
+<li>TCP/IP</li>
+<li>Basic Scripting: bash/ksh/tcsh/zsh/Perl/Python</li>
+</ul>
+</li>
+<li>Quantitative<ul>
+<li>(Discrete) Math</li>
+<li>Data Structures and Algorithms</li>
+</ul>
+</li>
+<li>Software/Architecture/Engineering<ul>
+<li>Design Pattern</li>
+<li>Paradigm: Object-Oriented, Imperative</li>
+<li>Purpose:</li>
+<li>Low-level: kernel/driver/system/network</li>
+<li>Architecture: HPC/HA/Cloud/Cluster/Distributed/Grid</li>
+<li>Internet: Web/Mobile</li>
+<li>Others: Architecture, Testing, SCM (SVN/Git)</li>
+</ul>
+</li>
+<li>Database<ul>
+<li>SQL/NoSQL/Cache</li>
+<li>DBMS: MySQL/PostgreSQL/Oracle/MongoDB/…</li>
+</ul>
+</li>
+<li>Conceptions<ul>
+<li>Computer Architecture and Hardware</li>
+</ul>
+</li>
+</ul>
+]]></description>
+             <pubDate>Sat, 13 Jul 2013 00:00:00 -0700</pubDate>
+        </item>
+    
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</guid>
+            <title><![CDATA[Get the inode birth time (crtime or btime) of a file on Mac OS X and BSD descendants]]></title>
+            <description><![CDATA[<h1>Get the inode birth time (crtime or btime) of a file on Mac OS X and BSD descendants</h1>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ stat -f "%SB %N" filename.txt</span>
+<span class="go">Jul 11 22:27:33 2013 filename.txt</span>
+</pre></div>
+</div>
+<p>According to the man page, <span class="docutils literal"><span class="pre">-f</span></span> is used to display information using the specified format. <span class="docutils literal"><span class="pre">S</span></span> is an optional output format specifier that represents a string output, and <span class="docutils literal"><span class="pre">B</span></span> is a required field specifier that represent the birth time of the inode. <span class="docutils literal"><span class="pre">N</span></span> represents the file name.</p>
+]]></description>
+             <pubDate>Thu, 11 Jul 2013 00:00:00 -0700</pubDate>
+        </item>
+    
     </channel>
 </rss>

@@ -20,5 +20,8 @@ Sitemap
    2013/09/15/fetch_convert_online_flash_videos
    2013/08/09/setup_selenium_python_environment_x_ubuntu
    2013/08/05/make_slideshow_gif_using_imagemagick
+   2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos
+   2013/07/13/evaluation_criteria_of_computer_science_professional
+   2013/07/11/get_inode_birth_time_os_x_and_bsd
    pages/about
 
