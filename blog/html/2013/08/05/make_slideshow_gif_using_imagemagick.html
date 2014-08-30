@@ -15,7 +15,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="description" content="Personal Blogging Site of Shichao An">
         <meta name="viewport" content="width=device-width">
-        <title>setuid() and uid, euid and suid &mdash; Shichao&#39;s Blog</title>
+        <title>Make slideshow GIF from a batch of images using ImageMagick &mdash; Shichao&#39;s Blog</title>
             <link rel="stylesheet" href="../../../_static/normalize.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/sphinx.css" type="text/css">
             <link rel="stylesheet" href="../../../_static/main.css" type="text/css">
@@ -29,8 +29,8 @@
         <script src="../../../_static/plugins.js"></script>
         <script src="../../../_static/main.js"></script>
         
-  <link rel="next" title="Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks" href="../05/suppressing_fedora.html" /><link rel="prev" title="Enabling Adobe Flash Player plugin for Google Chrome on Fedora" href="../20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
-  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html" /><script type="text/javascript">
+  <link rel="prev" title="Set up Selenium Python environment with X virtual framebuffer on Ubuntu server" href="../09/setup_selenium_python_environment_x_ubuntu.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="../../../rss.html" />
+  <link rel="canonical" href="http://blog.shichao-an.info/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../../',
         VERSION:     '1.4.2',
@@ -69,54 +69,30 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
-            <span>March 17, 2014</span>
+            <span>August 05, 2013</span>
         </div>
-    <div class="section" id="setuid-and-uid-euid-and-suid">
-<h1>setuid() and uid, euid and suid</h1>
-<p>We know that <cite>setuid</cite> bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through the following experiment.</p>
-<p>Open a terminal session and run the <span class="docutils literal"><span class="pre">passwd</span></span> command (a known <cite>setuid</cite> executable) in the background (it will be suspended with a &#8220;[stopped]&#8221; output because it requires password from stdin) and get its PID (let&#8217;s assume it&#8217;s 10401) with <span class="docutils literal"><span class="pre">echo</span> <span class="pre">$!</span></span>:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ passwd &amp;</span>
-<span class="go">$ echo $!  # 10401</span>
+    <div class="section" id="make-slideshow-gif-from-a-batch-of-images-using-imagemagick">
+<h1>Make slideshow GIF from a batch of images using ImageMagick</h1>
+<ol class="arabic">
+<li><p class="first">Download and install ImageMagick Mac OS X Binary Release at ImageMagick official site.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ tar xvfz ImageMagick-x86_64-apple-darwin12.4.0.tar.gz</span>
+<span class="go">$ export MAGICK_HOME=&quot;/YOUR/PATH/TO/ImageMagick-6.8.6&quot;</span>
+<span class="go">$ export PATH=&quot;$MAGICK_HOME/bin:$PATH&quot;</span>
+<span class="go">$ export DYLD_LIBRARY_PATH=&quot;$MAGICK_HOME/lib/&quot;</span>
 </pre></div>
 </div>
-<p>Then, run <span class="docutils literal"><span class="pre">gdb</span></span> to attach to this process:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo gdb -p $!</span>
+<p>See this for installation on Linux.</p>
+</li>
+<li><p class="first">Enter the directory where original images are stored (assuming all files are in .jpg format), use the following command:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ convert -delay 100 -loop 0 -resize 300x225 -quality 90 *.jpg image.gif</span>
 </pre></div>
 </div>
-<p>Open another terminal, the run the following command to get the line that represents the current real UID (<cite>uid</cite>), effective UID (<cite>euid</cite>), saved UID (<cite>suid</cite>) and file system UID (<cite>fsuid</cite>) of the previous <span class="docutils literal"><span class="pre">passwd</span></span> process:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ watch -n 1 grep -i &#39;uid&#39; /proc/10401/task/10401/status</span>
-<span class="go">Uid:    1000    0       0   0</span>
+<p><span class="docutils literal"><span class="pre">-deplay</span></span> represents interval between slides, <span class="docutils literal"><span class="pre">-loop</span></span> indicates number of loops for slide show (0 for infinite loops); other options are intuitive. Note that *.jpg will expand to images ordered alphabetically by filename. Use the following command to re-order the images by last modified time:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ convert -delay 100 -loop 0 -resize 300x225 -quality 90 `ls -t *.jpg` image.gif</span>
 </pre></div>
 </div>
-<p>In the first terminal, you can call <cite>seteuid(1000)</cite> to change its <cite>euid</cite> to 1000:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call seteuid(1000)</span>
-<span class="go">$1 = 0</span>
-</pre></div>
-</div>
-<p>Then the output of the <span class="docutils literal"><span class="pre">watch</span></span> command will become:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">Uid:    1000    1000    0   1000</span>
-</pre></div>
-</div>
-<p>As you see the <cite>euid</cite> is 1000 and the process becomes unprivileged. With the following command, you will notice that the USER field has been changed to the regular user instead of root:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ps -u -p 10401</span>
-</pre></div>
-</div>
-<div id="more"> </div><p>At this time, you can only change its effective UID to either that of the real UID or the saved UID (1000 or 0). You can also use <cite>setresuid(u,e,s)</cite> to change them at the same time.</p>
-<p>To revert the <cite>euid</cite> back to 0, you can use either <cite>setuid(0)</cite> or <cite>seteuid(0)</cite>. This is because when <cite>euid</cite> is not 0, the <cite>setuid(e)</cite> system call will only modify <cite>euid</cite> and <cite>fsuid</cite> to <cite>e</cite> leaving the other two unchanged:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call setuid(0)</span>
-<span class="go">$2 = 0</span>
-</pre></div>
-</div>
-<p>At this time, when <cite>euid</cite> is 0, if you call <cite>setuid(1000)</cite> it will sets all the four fields to 1000 and the process will be permanently unprivileged. Further calls to <cite>setuid</cite> to change any field to other than 1000 will fail.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">(gdb) call setuid(1000)</span>
-<span class="go">$3 = 0</span>
-<span class="go">(gdb) call setuid(0)</span>
-<span class="go">$4 = -1</span>
-<span class="go">(gdb) detach</span>
-<span class="go">Detaching from program: /usr/bin/passwd, process 10401</span>
-<span class="go">(gdb) quit</span>
-</pre></div>
-</div>
+</li>
+</ol>
 </div>
 
     <div class="postmeta">
@@ -127,33 +103,33 @@
         <div class="tags">
             <span>
                 Tags:
-                <a href="../../../tags/linux.html">Linux</a>, <a href="../../../tags/gdb.html">GDB</a></span>
+                <a href="../../../tags/bash.html">Bash</a></span>
         </div>
         </div><ul class="related clearfix">
-            <li class="left"> &laquo; <a href="../20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a></li>
-            <li class="right"><a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager&#8217;s prompt to connect to WPA Enterprise wireless networks</a> &raquo; </li>
-        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2014/03/17/setuid_and_uid_euid_and_suid";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
+            <li class="left"> &laquo; <a href="../09/setup_selenium_python_environment_x_ubuntu.html">Set up Selenium Python environment with X virtual framebuffer on Ubuntu server</a></li>
+            <li class="right"></li>
+        </ul><div id="disqus_thread"></div><script type="text/javascript">    var disqus_shortname = "shichaosblog";    var disqus_identifier = "2013/08/05/make_slideshow_gif_using_imagemagick";    disqus_thread();</script><noscript>Please enable JavaScript to view the    <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
-            <a href="../../05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
+            <a href="../../../2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
-            <a href="../../05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
+            <a href="../../../2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
         </li><li>
-            <a href="../../04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
+            <a href="../../../2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html">Using Bash arrays and IFS to manipulate filenames</a>
         </li><li>
-            <a href="../../04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
+            <a href="../../../2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html">Bash double brackets, test contructs and word splitting</a>
         </li><li>
-            <a href="../20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
+            <a href="../../../2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html">Enabling Adobe Flash Player plugin for Google Chrome on Fedora</a>
         </li><li>
-            <a href="#">setuid() and uid, euid and suid</a>
+            <a href="../../../2014/03/17/setuid_and_uid_euid_and_suid.html">setuid() and uid, euid and suid</a>
         </li><li>
-            <a href="../05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
+            <a href="../../../2014/03/05/suppressing_fedora.html">Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks</a>
         </li><li>
-            <a href="../../01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
+            <a href="../../../2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
-            <a href="../../../2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
+            <a href="../../11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
         </li><li>
-            <a href="../../../2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
+            <a href="../../11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">

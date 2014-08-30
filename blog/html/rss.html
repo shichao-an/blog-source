@@ -670,5 +670,92 @@ $ chmod +x ~/.sleep ~/.wakeup
              <pubDate>Sun, 15 Sep 2013 00:00:00 -0700</pubDate>
         </item>
     
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</guid>
+            <title><![CDATA[Set up Selenium Python environment with X virtual framebuffer on Ubuntu server]]></title>
+            <description><![CDATA[<h1>Set up Selenium Python environment with X virtual framebuffer on Ubuntu server</h1>
+<ol class="arabic">
+<li><p class="first">Install relevant APT packages:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install xorg</span>
+<span class="go">$ sudo apt-get install xfvd</span>
+<span class="go">$ sudo apt-get install firefox</span>
+<span class="go">$ sudo apt-get install openjdk-7-jre</span>
+<span class="go">$ sudo apt-get install python-pip</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Download Selenium server and Python bindings:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo pip install selenium</span>
+<span class="go">$ wget https://selenium.googlecode.com/files/selenium-server-standalone-2.34.0.jar</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Start virtual framebuffer X server for server number 1 (for DISPLAY) in the background:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo Xvfb :1 &amp;</span>
+<span class="go">$ sudo Xvfb :1 -screen 0 1280x1024x8</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Start Selenium server in the background (without sudo):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ java -jar selenium-server-standalone-2.34.0.jar &amp;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Write sample Python code in sample.py:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+
+
+<span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="o">.</span><span class="n">Firefox</span><span class="p">()</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"http://www.python.org"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s">"Python"</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span>
+<span class="n">elem</span> <span class="o">=</span> <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s">"q"</span><span class="p">)</span>
+<span class="n">elem</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s">"selenium"</span><span class="p">)</span>
+<span class="n">elem</span><span class="o">.</span><span class="n">send_keys</span><span class="p">(</span><span class="n">Keys</span><span class="o">.</span><span class="n">RETURN</span><span class="p">)</span>
+<span class="k">assert</span> <span class="s">"Google"</span> <span class="ow">in</span> <span class="n">driver</span><span class="o">.</span><span class="n">title</span>
+<span class="n">driver</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run sample.py with environment variable DISPLAY=:1:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ DISPLAY=:1 python sample.py</span>
+</pre></div>
+</div>
+</li>
+</ol>
+]]></description>
+             <pubDate>Fri, 09 Aug 2013 00:00:00 -0700</pubDate>
+        </item>
+    
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</guid>
+            <title><![CDATA[Make slideshow GIF from a batch of images using ImageMagick]]></title>
+            <description><![CDATA[<h1>Make slideshow GIF from a batch of images using ImageMagick</h1>
+<ol class="arabic">
+<li><p class="first">Download and install ImageMagick Mac OS X Binary Release at ImageMagick official site.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ tar xvfz ImageMagick-x86_64-apple-darwin12.4.0.tar.gz</span>
+<span class="go">$ export MAGICK_HOME="/YOUR/PATH/TO/ImageMagick-6.8.6"</span>
+<span class="go">$ export PATH="$MAGICK_HOME/bin:$PATH"</span>
+<span class="go">$ export DYLD_LIBRARY_PATH="$MAGICK_HOME/lib/"</span>
+</pre></div>
+</div>
+<p>See this for installation on Linux.</p>
+</li>
+<li><p class="first">Enter the directory where original images are stored (assuming all files are in .jpg format), use the following command:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ convert -delay 100 -loop 0 -resize 300x225 -quality 90 *.jpg image.gif</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">-deplay</span></span> represents interval between slides, <span class="docutils literal"><span class="pre">-loop</span></span> indicates number of loops for slide show (0 for infinite loops); other options are intuitive. Note that *.jpg will expand to images ordered alphabetically by filename. Use the following command to re-order the images by last modified time:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ convert -delay 100 -loop 0 -resize 300x225 -quality 90 `ls -t *.jpg` image.gif</span>
+</pre></div>
+</div>
+</li>
+</ol>
+]]></description>
+             <pubDate>Mon, 05 Aug 2013 00:00:00 -0700</pubDate>
+        </item>
+    
     </channel>
 </rss>
