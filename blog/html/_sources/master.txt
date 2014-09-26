@@ -23,5 +23,6 @@ Sitemap
    2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos
    2013/07/13/evaluation_criteria_of_computer_science_professional
    2013/07/11/get_inode_birth_time_os_x_and_bsd
+   2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models
    pages/about
 
