@@ -134,15 +134,15 @@
 <li>Install GNU Screen on A.</li>
 </ol>
 <p>Then, you can use the following script suspend_machine_a.sh on Machine B to remote suspend Machine A:</p>
-<div class="highlight-shell"><div class="highlight"><pre>#!/bin/bash
+<div class="highlight-bash"><div class="highlight"><pre><span class="c">#!/bin/bash</span>
 
 
-session_name=&quot;suspend&quot;
-ssh yourname@machine-a &quot;if screen -list | grep -E &#39;\&lt;[0-9]+\.$session_name\&gt;&#39; &gt;/dev/null;
-then echo -n &#39;&#39;; else screen -dmS $session_name; fi&quot;
-ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo pm-suspend
-&#39;
-&quot;
+<span class="nv">session_name</span><span class="o">=</span><span class="s2">&quot;suspend&quot;</span>
+ssh yourname@machine-a <span class="s2">&quot;if screen -list | grep -E &#39;\&lt;[0-9]+\.$session_name\&gt;&#39; &gt;/dev/null;</span>
+<span class="s2">then echo -n &#39;&#39;; else screen -dmS $session_name; fi&quot;</span>
+ssh -t yourname@machine-a <span class="s2">&quot;screen -S $session_name -p 0 -X stuff &#39;sudo pm-suspend</span>
+<span class="s2">&#39;</span>
+<span class="s2">&quot;</span>
 </pre></div>
 </div>
 <p>To use hibernate, substitute <span class="docutils literal"><span class="pre">pm-hibernate</span></span> for <span class="docutils literal"><span class="pre">pm-suspend</span></span>.</p>
@@ -197,23 +197,24 @@ ssh -t yourname@machine-a &quot;screen -S $session_name -p 0 -X stuff &#39;sudo 
     <h1>Tags Cloud</h1>
       <a href="../../../tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
       <a href="../../../tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
-      <a href="../../../tags/bash.html" style="font-size: 16pt">Bash</a>&nbsp;&nbsp;
-      <a href="../../../tags/bsd.html" style="font-size: 8pt">BSD</a>&nbsp;&nbsp;
-      <a href="../../../tags/centos.html" style="font-size: 10pt">CentOS</a>&nbsp;&nbsp;
+      <a href="../../../tags/bash.html" style="font-size: 14pt">Bash</a>&nbsp;&nbsp;
+      <a href="../../../tags/bsd.html" style="font-size: 9pt">BSD</a>&nbsp;&nbsp;
+      <a href="../../../tags/centos.html" style="font-size: 9pt">CentOS</a>&nbsp;&nbsp;
       <a href="../../../tags/computer_science.html" style="font-size: 8pt">Computer Science</a>&nbsp;&nbsp;
       <a href="../../../tags/django.html" style="font-size: 8pt">Django</a>&nbsp;&nbsp;
-      <a href="../../../tags/dns.html" style="font-size: 10pt">DNS</a>&nbsp;&nbsp;
-      <a href="../../../tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
+      <a href="../../../tags/dns.html" style="font-size: 9pt">DNS</a>&nbsp;&nbsp;
+      <a href="../../../tags/fedora.html" style="font-size: 9pt">Fedora</a>&nbsp;&nbsp;
       <a href="../../../tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
       <a href="../../../tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
       <a href="../../../tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
       <a href="../../../tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
       <a href="../../../tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
-      <a href="../../../tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="../../../tags/network.html" style="font-size: 13pt">Network</a>&nbsp;&nbsp;
       <a href="../../../tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
       <a href="../../../tags/perl.html" style="font-size: 8pt">Perl</a>&nbsp;&nbsp;
-      <a href="../../../tags/python.html" style="font-size: 14pt">Python</a>&nbsp;&nbsp;
+      <a href="../../../tags/python.html" style="font-size: 13pt">Python</a>&nbsp;&nbsp;
       <a href="../../../tags/ubuntu.html" style="font-size: 8pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="../../../tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
       <a href="../../../tags/vim.html" style="font-size: 8pt">Vim</a>
 </div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 

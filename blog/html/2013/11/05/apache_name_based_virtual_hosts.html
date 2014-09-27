@@ -82,7 +82,7 @@
 </pre></div>
 </div>
 <p>This means all the following name-virtual hosts will follow this <span class="docutils literal"><span class="pre">NameVirtualHost</span></span> directive, which receives requests on all interfaces on the server. <sup>[1]</sup></p>
-<p>Basically, you can place your own virtual host configuration file in /etc/apache2/sites-available directory and use the a2ensite command to enable this configuration (by creating a symbolic link at /etc/apache2/sites-enabled that Apache will load). If you owns a domain example.com and a subdomain wiki.example.com that both points to the IP address of this server, you can create a virtual host with <span class="docutils literal"><span class="pre">ServerName</span> <span class="pre">wiki.example.com</span></span> (the argument to <span class="docutils literal"><span class="pre">&lt;VirtualHost&gt;</span></span> is <a href="#id1"><span class="problematic" id="id2">*</span></a>:80 in this case). If the configuration filename is wiki, you can use a2ensite wiki command to enable it.</p>
+<p>Basically, you can place your own virtual host configuration file in /etc/apache2/sites-available directory and use the a2ensite command to enable this configuration (by creating a symbolic link at /etc/apache2/sites-enabled that Apache will load). If you owns a domain example.com and a subdomain wiki.example.com that both points to the IP address of this server, you can create a virtual host with <span class="docutils literal"><span class="pre">ServerName</span> <span class="pre">wiki.example.com</span></span> (the argument to <span class="docutils literal"><span class="pre">&lt;VirtualHost&gt;</span></span> is *:80 in this case). If the configuration filename is wiki, you can use a2ensite wiki command to enable it.</p>
 <p>Given these, let’s see how Apache handles requests for virtual hosts. When a request arrives, the server will find the best (most specific) matching <span class="docutils literal"><span class="pre">&lt;VirtualHost&gt;</span></span> argument based on the IP address and port used by the request. If there is more than one virtual host containing this best-match address and port combination, Apache will further compare the <span class="docutils literal"><span class="pre">ServerName</span></span> and <span class="docutils literal"><span class="pre">ServerAlias</span></span> directives to the server name present in the request. <sup>[2]</sup></p>
 <p>If you try to visit wiki.example.com you actually request the IP of this server. The Apache server will handle this request by comparing active virtual host configurations. It first checks 000-default, but detects no <span class="docutils literal"><span class="pre">ServerName</span></span> directive (neither does the global configuration as mentioned before). As a result, it performs a reverse DNS lookup to find the <span class="docutils literal"><span class="pre">ServerName</span></span>. <sup>[3]</sup> If you have not setup a reverse DNS for this IP to wiki.example.com, the match will fail and Apache continues to match the next virtual host, wiki, which does have a <span class="docutils literal"><span class="pre">ServerName</span></span>, wiki.example.com, and this is a match. Apache will respond with this virtual host.</p>
 <p>However, if you have recently setup a reverse DNS for IP of your server to wiki.example.com, a different result will come out. When you access wiki.example.com, Apache first checks 000-default, and performs a reverse DNS resolution only to find wiki.example.com as the result for <span class="docutils literal"><span class="pre">ServerName</span></span>, and this is a match. Apache will respond with 000-default instead of wiki and you will browse Web page for 000-default rather than wiki. To solve this problem, you can either set a global <span class="docutils literal"><span class="pre">ServerName</span></span> with example.com at /etc/apache2/apache2.conf or specify a <span class="docutils literal"><span class="pre">ServerName</span></span> for 000-default. In this way, the Apache will match the right <span class="docutils literal"><span class="pre">ServerName</span></span> with your request even if you setup a reverse DNS for one of the virtual hosts.</p>
@@ -143,23 +143,24 @@
     <h1>Tags Cloud</h1>
       <a href="../../../tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
       <a href="../../../tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
-      <a href="../../../tags/bash.html" style="font-size: 16pt">Bash</a>&nbsp;&nbsp;
-      <a href="../../../tags/bsd.html" style="font-size: 8pt">BSD</a>&nbsp;&nbsp;
-      <a href="../../../tags/centos.html" style="font-size: 10pt">CentOS</a>&nbsp;&nbsp;
+      <a href="../../../tags/bash.html" style="font-size: 14pt">Bash</a>&nbsp;&nbsp;
+      <a href="../../../tags/bsd.html" style="font-size: 9pt">BSD</a>&nbsp;&nbsp;
+      <a href="../../../tags/centos.html" style="font-size: 9pt">CentOS</a>&nbsp;&nbsp;
       <a href="../../../tags/computer_science.html" style="font-size: 8pt">Computer Science</a>&nbsp;&nbsp;
       <a href="../../../tags/django.html" style="font-size: 8pt">Django</a>&nbsp;&nbsp;
-      <a href="../../../tags/dns.html" style="font-size: 10pt">DNS</a>&nbsp;&nbsp;
-      <a href="../../../tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
+      <a href="../../../tags/dns.html" style="font-size: 9pt">DNS</a>&nbsp;&nbsp;
+      <a href="../../../tags/fedora.html" style="font-size: 9pt">Fedora</a>&nbsp;&nbsp;
       <a href="../../../tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
       <a href="../../../tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
       <a href="../../../tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
       <a href="../../../tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
       <a href="../../../tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
-      <a href="../../../tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="../../../tags/network.html" style="font-size: 13pt">Network</a>&nbsp;&nbsp;
       <a href="../../../tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
       <a href="../../../tags/perl.html" style="font-size: 8pt">Perl</a>&nbsp;&nbsp;
-      <a href="../../../tags/python.html" style="font-size: 14pt">Python</a>&nbsp;&nbsp;
+      <a href="../../../tags/python.html" style="font-size: 13pt">Python</a>&nbsp;&nbsp;
       <a href="../../../tags/ubuntu.html" style="font-size: 8pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="../../../tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
       <a href="../../../tags/vim.html" style="font-size: 8pt">Vim</a>
 </div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 

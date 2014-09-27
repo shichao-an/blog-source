@@ -62,7 +62,7 @@ Suspend/hibernate
 
 Then, you can use the following script suspend_machine_a.sh on Machine B to remote suspend Machine A:
 
-.. code-block:: shell
+.. code-block:: bash
 
     #!/bin/bash
      
