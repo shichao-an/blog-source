@@ -144,6 +144,161 @@ If command is omitted, it spawns a login shell of the target user (usually root)
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2013/03/29/su_sudo_and_environment.html#disqus_thread" data-disqus-identifier="2013/03/29/su_sudo_and_environment">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>March 19, 2013</span>
+        </div>
+        <h1><a href="2013/03/19/create_a_personal_website_with_sphinx.html">Create a personal website with Sphinx</a></h1>
+<p>Sphinx is a documentation generator which converts reStructuredText files into HTML websites and other formats e.g. LaTeX (PDF) and man pages. It’s also a good idea to create simple static website with Sphinx, for example, a personal profile site.</p>
+<p>However, as the default purpose of Sphinx is to create documentation, it requires some customization regarding template structure and style. The following steps help create a simple profile site based on the built-in themes of Sphinx.</p>
+<ol class="arabic">
+<li><p class="first">Download <a class="reference external" href="http://sphinx-doc.org/index.html">Sphinx</a>, create a base directory and quick-start Sphinx. It’ll be helpful to answer “yes” to “Create Makefile?” during sphinx-quickstart:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ easy_install -U sphinx</span>
+<span class="go">$ mkdir base_dir</span>
+<span class="go">$ cd base_dir</span>
+<span class="go">$ sphinx-quickstart</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Change site title.</p>
+<p>Edit <span class="docutils literal"><span class="pre">conf.py</span></span> in the source directory and make the following modifications:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html_title</span> <span class="o">=</span> <span class="s">"YOUR SITE TITLE"</span>
+<span class="c">#version = '0.0.1'</span>
+<span class="c">#release = '0.0.1'</span>
+</pre></div>
+</div>
+<p>Comment version and release to prevent this version number from being displayed in titles.</p>
+</li>
+<li><p class="first">Customize the content structure based on “basic” theme or its derivatives (“default” and “nature”). We take “nature” as an example here.</p>
+<p>First, edit <span class="docutils literal"><span class="pre">conf.py</span></span> and make the following modifications:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html_theme</span> <span class="o">=</span> <span class="s">'nature'</span>
+<span class="n">html_sidebars</span> <span class="o">=</span> <span class="p">{</span><span class="s">'**'</span><span class="p">:[</span><span class="s">'localtoc.html'</span><span class="p">,</span><span class="s">'searchbox.html'</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">html_sidebars</span></span> determines the built-in templates to be displayed in the sidebar. For other built-in templates and detailed information, see <span class="docutils literal"><span class="pre">html_sidebars</span></span>.</p>
+<p>Second, make sure the settings of the following variables:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">templates_path</span> <span class="o">=</span> <span class="p">[</span><span class="s">'_templates'</span><span class="p">]</span>
+<span class="n">html_static_path</span> <span class="o">=</span> <span class="p">[</span><span class="s">'_static'</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">_templates</span></span> directory stores template files; _static directory stores static files such as CSS and images. These two directories reside in source directory.</p>
+<p>Third, create your own template <span class="docutils literal"><span class="pre">layout.html</span></span> inheriting from the default theme:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd source/_template
+$ vi layout.html
+</pre></div>
+</div>
+<p>Edit layout.html:</p>
+<div class="highlight-jinja"><div class="highlight"><pre><span class="cp">{%</span> <span class="k">extends</span> <span class="s2">"!layout.html"</span> <span class="cp">%}</span><span class="x"/>
+<span class="cp">{%</span>- <span class="k">set</span> <span class="nv">rellinks</span> <span class="o">=</span> <span class="o">[]</span> <span class="cp">%}</span><span class="x"/>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">rootrellink</span> <span class="cp">%}</span><span class="x">&lt;/pre&gt;</span>
+<span class="x">&lt;ul&gt;</span>
+<span class="x">    &lt;li&gt;&lt;a href="index.html"&gt;Home&lt;/a&gt; |&lt;/li&gt;</span>
+<span class="x">    &lt;li&gt;&lt;a href="resume.html"&gt;Resume&lt;/a&gt; |&lt;/li&gt;</span>
+<span class="x">    &lt;li&gt;&lt;a href="projects.html"&gt;Projects&lt;/a&gt; |&lt;/li&gt;</span>
+<span class="x">    &lt;li&gt;&lt;a href="interest.html"&gt;Interest&lt;/a&gt; |&lt;/li&gt;</span>
+<span class="x">    &lt;li&gt;&lt;a href="contact.html"&gt;Contact&lt;/a&gt;&lt;/li&gt;</span>
+<span class="x">    &lt;li&gt;</span><span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"/>
+<span class="cp">{%</span> <span class="k">block</span> <span class="nv">relbar2</span> <span class="cp">%}</span><span class="x"/>
+<span class="cp">{%</span> <span class="k">endblock</span> <span class="cp">%}</span><span class="x"/>
+<span class="x">The template above creates a header navigation bar of different entries of your sites.</span>
+
+<span class="cp">{%</span>- <span class="k">set</span> <span class="nv">rellinks</span> <span class="o">=</span> <span class="o">[]</span> <span class="cp">%}</span><span class="x"> disables related links (i.e. prev, next and index).</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create reStructuredText (.rst) source files for your entries (<span class="docutils literal"><span class="pre">index.html</span></span>, <span class="docutils literal"><span class="pre">resume.html</span></span>, <span class="docutils literal"><span class="pre">projects.html</span></span>, <span class="docutils literal"><span class="pre">interest.html</span></span>, <span class="docutils literal"><span class="pre">contact.html</span></span>):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ cd source</span>
+<span class="go">$ vi index.rst</span>
+</pre></div>
+</div>
+<p>Use the following format, which also applies to other .rst files, such as <span class="docutils literal"><span class="pre">resume.rst</span></span>, <span class="docutils literal"><span class="pre">projects.rst</span></span>, <span class="docutils literal"><span class="pre">interest.html</span></span> and <span class="docutils literal"><span class="pre">contact.html</span></span>.</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="gh">Welcome</span>
+<span class="gh">*******</span>
+Welcome to my site!
+
+<span class="gh">About me</span>
+<span class="gh">========</span>
+I am Blah Blah ...
+
+<span class="gh">More info</span>
+<span class="gh">=========</span>
+Blah...
+
+<span class="p">..</span> <span class="ow">toctree</span><span class="p">::</span>
+   <span class="nc">:maxdepth:</span> <span class="nf">2</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Add a logo for your site.</p>
+<p>First, copy your logo image to the <span class="docutils literal"><span class="pre">source/_static</span></span> directory.</p>
+<p>Then, edit <span class="docutils literal"><span class="pre">conf.py</span></span>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html_logo</span> <span class="o">=</span> <span class="s">"logo.jpg"</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Modify style sheets.</p>
+<p>First, edit <span class="docutils literal"><span class="pre">conf.py</span></span> and specify your CSS file name:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">html_style</span> <span class="o">=</span> <span class="s">"mystyle.css"</span>
+</pre></div>
+</div>
+<p>Second, create your CSS file the <span class="docutils literal"><span class="pre">source/_static</span></span> directory:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ cd source/_static</span>
+<span class="go">$ vi mystyle.css</span>
+</pre></div>
+</div>
+<p>Then, edit your CSS file by inheriting default theme CSS, <span class="docutils literal"><span class="pre">nature.css</span></span> in our example.</p>
+<div class="highlight-css"><div class="highlight"><pre><span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="s2">"nature.css"</span><span class="o">)</span><span class="p">;</span>
+
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="o">:</span> <span class="s2">"Helvetica Neue"</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="o">:</span> <span class="m">300</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="o">:</span><span class="m">#333</span><span class="p">;</span>
+
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.sphinxsidebar</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
+  <span class="k">line-height</span><span class="o">:</span> <span class="m">1.5em</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.sphinxsidebarwrapper</span><span class="p">{</span>
+  <span class="k">margin-left</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span>
+  <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span> <span class="m">0</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">div</span><span class="nc">.related</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="o">:</span><span class="m">#5F95CE</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Build your source files from <span class="docutils literal"><span class="pre">base_dir</span></span>.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ make html</span>
+<span class="go">$ sphinx-build -b html -d build/doctrees source build/html</span>
+</pre></div>
+</div>
+<p>Use the following commands if your modification to CSS files does not take effect</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sphinx-build -a -b html -d build/doctrees source build/html</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Finish. HTML files are generated in <span class="docutils literal"><span class="pre">build/html</span></span>, and your site is ready to be visited.</p>
+</li>
+</ol>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/sphinx.html">Sphinx</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/03/19/create_a_personal_website_with_sphinx">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -199,6 +354,7 @@ If command is omitted, it spawns a login shell of the target user (usually root)
       <a href="tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 8pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/python.html" style="font-size: 13pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
       <a href="tags/ubuntu.html" style="font-size: 8pt">Ubuntu</a>&nbsp;&nbsp;
       <a href="tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
       <a href="tags/vim.html" style="font-size: 8pt">Vim</a>

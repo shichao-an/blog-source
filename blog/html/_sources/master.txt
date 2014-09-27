@@ -26,5 +26,6 @@ Sitemap
    2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models
    2013/06/30/add_static_route_on_mac_osx_and_bsd
    2013/03/29/su_sudo_and_environment
+   2013/03/19/create_a_personal_website_with_sphinx
    pages/about
 
