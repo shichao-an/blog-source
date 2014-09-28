@@ -66,6 +66,8 @@ This experiment follows the online basic tutorials at http://www.aircrack-ng.org
        20:39:00  Ping (min/avg/max): 1.664ms/6.917ms/39.315ms Power: -78.96
        20:39:00  23/30:  76%
 
+.. more::
+
 5. Capture initialization vectors (IVs).
 
    ::

