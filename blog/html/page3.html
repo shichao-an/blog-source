@@ -29,7 +29,7 @@
         <script src="_static/plugins.js"></script>
         <script src="_static/main.js"></script>
         
-  <link rel="prev" title="Newer" href="page2.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
+  <link rel="next" title="Older" href="page4.html" /><link rel="prev" title="Newer" href="page2.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
   <link rel="canonical" href="http://blog.shichao-an.info/blog/html/page3.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -525,11 +525,118 @@ set envelope_from=yes
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html#disqus_thread" data-disqus-identifier="2013/01/08/wep_craking_experiment_on_ubuntu_12_10">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 25, 2012</span>
+        </div>
+        <h1><a href="2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html">Adjust brightness in Kubuntu 12.10 on Acer Aspire One</a></h1>
+<p>Fn-Left and Fn-Right do not work to change brightness.</p>
+<p>Find the answer here: <a class="reference external" href="http://askubuntu.com/questions/112050/acer-aspire-one-d270-can-not-set-brightness">http://askubuntu.com/questions/112050/acer-aspire-one-d270-can-not-set-brightness</a></p>
+<p>Modify grub config file:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo vi /etc/default/grub</span>
+</pre></div>
+</div>
+<p>Change the line:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">GRUB_CMDLINE_LINUX=""</span>
+</pre></div>
+</div>
+<p>into:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">GRUB_CMDLINE_LINUX="acpi_osi=Linux"</span>
+</pre></div>
+</div>
+<p>Then, update grub:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo update-grub</span>
+</pre></div>
+</div>
+<p>Reboot</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/ubuntu.html">Ubuntu</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html#disqus_thread" data-disqus-identifier="2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>December 23, 2012</span>
+        </div>
+        <h1><a href="2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html">Dual boot Ubuntu and Fedora on laptop</a></h1>
+<p>Install Ubuntu 12.10 first and then Fedora 17 on the laptop using USB media.</p>
+<ol class="arabic">
+<li><p class="first">Install Ubuntu 12.10 with some free space unallocated</p>
+</li>
+<li><p class="first">Install Fedora 17 in a new partition in the free space</p>
+</li>
+<li><p class="first">Restart and boot Ubuntu, install lvm for Fedora and update grub:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install lvm2</span>
+<span class="go">$ sudo mount /dev/sdaN /mnt</span>
+<span class="go">$ sudo update-grub</span>
+</pre></div>
+</div>
+<p>(/dev/sdaN is the partition for Fedora for the only mount point /)</p>
+</li>
+<li><p class="first">Reboot</p>
+</li>
+</ol>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/ubuntu.html">Ubuntu</a>, <a href="tags/fedora.html">Fedora</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html#disqus_thread" data-disqus-identifier="2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>January 05, 2013</span>
+        </div>
+        <h1><a href="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html">Fix Eclipse icon (not displayed, too big) in Unity Dash on Ubuntu 12.10</a></h1>
+<p>It seems that the regular methods of merely creating eclipse.desktop (specifying Icon path as icon.xpm in the decompressed folder of Eclipse) which applied to Ubuntu 12.04 does not work on 12.10. The problem is that the icon is too big for Dash to render.</p>
+<p>The huge icon can be obviously seen in “Dash Home” search results and <span class="docutils literal"><span class="pre">/usr/share/applications/</span></span> folder.</p>
+<p>Someone has already reported this as a bug at <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702">https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702</a> .</p>
+<p>Found the simplest solution here.</p>
+<p>Copy <span class="docutils literal"><span class="pre">icon.xpm</span></span> (from eclipse folder) into <span class="docutils literal"><span class="pre">~/.local/share/icons/eclipse4.xpm</span></span></p>
+<p>In your <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> file (which should be in <span class="docutils literal"><span class="pre">~/.local/share/applications</span></span> instead of <span class="docutils literal"><span class="pre">/usr/share/…</span></span>), replace <span class="docutils literal"><span class="pre">Icon=/path/to/eclipse/icon.xpm</span></span> by <span class="docutils literal"><span class="pre">Icon=eclipse4</span></span>. You don’t need to add the .xpm suffix.</p>
+<p>The <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> will thus be something like this:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[Desktop Entry]</span>
+<span class="na">Version</span><span class="o">=</span><span class="s">1.0</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">Eclipse</span>
+<span class="na">GenericName</span><span class="o">=</span><span class="s">Integrated Development Application</span>
+<span class="na">Comment</span><span class="o">=</span><span class="s">Eclipse Juno</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
+<span class="na">TryExec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">eclipse4</span>
+<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">Categories</span><span class="o">=</span><span class="s">Development;IDE;</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/eclipse.html">Eclipse</a>, <a href="tags/ubuntu.html">Ubuntu</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html#disqus_thread" data-disqus-identifier="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
             <li class="left"> &laquo; <a href="page2.html">Newer</a></li>
-            <li class="right"></li>
+            <li class="right"><a href="page4.html">Older</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
@@ -570,7 +677,8 @@ set envelope_from=yes
       <a href="tags/computer_science.html" style="font-size: 8pt">Computer Science</a>&nbsp;&nbsp;
       <a href="tags/django.html" style="font-size: 8pt">Django</a>&nbsp;&nbsp;
       <a href="tags/dns.html" style="font-size: 9pt">DNS</a>&nbsp;&nbsp;
-      <a href="tags/fedora.html" style="font-size: 9pt">Fedora</a>&nbsp;&nbsp;
+      <a href="tags/eclipse.html" style="font-size: 9pt">Eclipse</a>&nbsp;&nbsp;
+      <a href="tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
       <a href="tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
       <a href="tags/hacking.html" style="font-size: 8pt">Hacking</a>&nbsp;&nbsp;
       <a href="tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
@@ -579,11 +687,12 @@ set envelope_from=yes
       <a href="tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
       <a href="tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
       <a href="tags/os_x.html" style="font-size: 13pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 9pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/python.html" style="font-size: 12pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
-      <a href="tags/ubuntu.html" style="font-size: 9pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="tags/ubuntu.html" style="font-size: 13pt">Ubuntu</a>&nbsp;&nbsp;
       <a href="tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
       <a href="tags/vim.html" style="font-size: 8pt">Vim</a>
 </div></section></aside></div> <!-- #main --></div> <!-- #main-container -->

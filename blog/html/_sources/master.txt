@@ -31,5 +31,9 @@ Sitemap
    2013/01/25/loop_statements_in_perl
    2013/01/24/gson_simple_example_of_json_serialization
    2013/01/08/wep_craking_experiment_on_ubuntu_12_10
+   2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one
+   2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop
+   2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10
+   2012/10/29/hello_world_in_ocaml_with_eclipse
    pages/about
 
