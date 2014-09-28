@@ -2,8 +2,11 @@ WEP cracking experiment on Ubuntu 12.10
 =======================================
 
 .. |02_1| image:: 02_1-e1357703106181.png
+   :width: 450px
 .. |04_2| image:: 04_2.png
+   :width: 450px
 .. |01| image:: 01-e1357703129846.png
+   :width: 450px
 
 .. highlight:: shell-session
 
