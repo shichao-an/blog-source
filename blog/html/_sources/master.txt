@@ -27,5 +27,9 @@ Sitemap
    2013/06/30/add_static_route_on_mac_osx_and_bsd
    2013/03/29/su_sudo_and_environment
    2013/03/19/create_a_personal_website_with_sphinx
+   2013/02/07/send_mails_with_mutt_on_linux
+   2013/01/25/loop_statements_in_perl
+   2013/01/24/gson_simple_example_of_json_serialization
+   2013/01/08/wep_craking_experiment_on_ubuntu_12_10
    pages/about
 

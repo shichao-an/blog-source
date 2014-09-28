@@ -97,6 +97,8 @@ However, as the default purpose of Sphinx is to create documentation, it require
        .. toctree::
           :maxdepth: 2
 
+.. more::
+
 5. Add a logo for your site.
 
    First, copy your logo image to the ``source/_static`` directory.
