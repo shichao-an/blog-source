@@ -29,7 +29,7 @@
         <script src="_static/plugins.js"></script>
         <script src="_static/main.js"></script>
         
-  <link rel="prev" title="Newer" href="page3.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
+  <link rel="next" title="Older" href="page5.html" /><link rel="prev" title="Newer" href="page3.html" /><link rel="alternate" type="application/rss+xml" title="RSS" href="rss.html" />
   <link rel="canonical" href="http://blog.shichao-an.info/blog/html/page4.html" /><script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
@@ -207,11 +207,185 @@
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html#disqus_thread" data-disqus-identifier="2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>October 04, 2012</span>
+        </div>
+        <h1><a href="2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html">Progress/speed indicator for urlretrieve() in Python</a></h1>
+<p>A simple <span class="docutils literal"><span class="pre">reporthook()</span></span> function for <a class="reference external" href="http://docs.python.org/2/library/urllib.html#urllib.urlretrieve" title="(in Python v2.7)"><span class="xref py py-func docutils literal"><span class="pre">urllib.urlretrieve()</span></span></a>‘s reporthook argument:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+
+
+<span class="k">def</span> <span class="nf">reporthook</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">block_size</span><span class="p">,</span> <span class="n">total_size</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">start_time</span>
+    <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">return</span>
+    <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+    <span class="n">progress_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">count</span> <span class="o">*</span> <span class="n">block_size</span><span class="p">)</span>
+    <span class="n">speed</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">progress_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="n">duration</span><span class="p">))</span>
+    <span class="n">percent</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">count</span> <span class="o">*</span> <span class="n">block_size</span> <span class="o">*</span> <span class="mi">100</span> <span class="o">/</span> <span class="n">total_size</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"</span><span class="se">\r</span><span class="s">...</span><span class="si">%d%%</span><span class="s">, </span><span class="si">%d</span><span class="s"> MB, </span><span class="si">%d</span><span class="s"> KB/s, </span><span class="si">%d</span><span class="s"> seconds passed"</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="n">percent</span><span class="p">,</span> <span class="n">progress_size</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">),</span> <span class="n">speed</span><span class="p">,</span> <span class="n">duration</span><span class="p">))</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">reporthook</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After writing <span class="docutils literal"><span class="pre">__main__</span></span> and designating url as well as filename for the sample file <span class="docutils literal"><span class="pre">urlre.py</span></span>, we can run it and see the effect.</p>
+<p><img alt="s1" src="_images/Screen-Shot-2012-10-26-at-2.56.57-AM.png"/></p>
+<p><strong>UPDATE</strong></p>
+<p>As suggested by Naquada, to avoid thing like “106%” and so on, percent should be defined as <span class="docutils literal"><span class="pre">percent</span> <span class="pre">=</span> <span class="pre">min(int(count*blockSize*100/totalSize),100)</span></span>.</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/python.html">Python</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html#disqus_thread" data-disqus-identifier="2012/10/04/progress_speed_indicator_for_urlretrieve_in_python">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>September 22, 2012</span>
+        </div>
+        <h1><a href="2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html">Display desktop on iPad using Air Display over USB tethering</a></h1>
+<p>I was recently exploring remote desktop apps (VNC/RDP things)  for iOS. Then, plenty of them show up, like iDisplay, Splashtop, PocketCloud, Air Display, Displaylink, 2x, etc (all available at App Store). These apps are able to mirror or sustain remote desktop control over computers through Wi-Fi or Bluetooth. Among them, Splashtop seems to have versatility on control and Air Display is fast in streaming.</p>
+<p>While the idea of implementation via USB rather than Wi-Fi sounds easy, it doesn’t really work. The blog of Air Display support says: “In order for iOS apps like Air Display to access the USB bus via the 30-pin dock connector, its developer must be part of Apple’s Made for iPod/iPhone/iPad (MFi) program”. Nevertheless, they propose another solution, USB tethering.</p>
+<p>According to this <a class="reference external" href="http://hijinksinc.com/2010/06/01/use-air-display-over-a-usb-cable">nifty workaround</a> (for Mac, but same for Windows), what we need is a jailbroken iOS device, then download and install MyWi 5 from Cydia on it. When turning on Air Display on both iOS and Windows, enable USB tethering using MyWi. With the network established, the Air Display on Windows will recognize the device. Then, by clicking on the option for this device, the mirror or remote desktop just work. The trial takes place under the same wireless LAN.</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/os_x.html">OS X</a>, <a href="tags/ios.html">iOS</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html#disqus_thread" data-disqus-identifier="2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>July 31, 2012</span>
+        </div>
+        <h1><a href="2012/07/31/recommended_vpn_providers_in_china.html">推荐两个用于往国内翻的VPN</a></h1>
+<p>非凡VPN（vpn123）和91vpn（n个代理网站，官网貌似木有域名是个ip地址）</p>
+<p>还没有使用，初步查了一下。</p>
+<p>共同的特点就是标题所示的，他们都有国内节点，适用于在国外的同学使用，用于访问国内的一些视频网站、CNTV以及其他用处（据说国外IP无法使用U盾之类验证的国内网上银行）。</p>
+<p>前者做的比较实在，windows客户端界面比较好，支持PPTP、L2TP和OpenVPN，购买后可以查看服务器列表，因此可以比较方便的配置iPad/iPhone/Android，Windows 7下也可以通过配置VPN连接。而且提供测试账号。刚刚测试了一下美国测试节点，还可以，看youtube标清视频还算流畅。</p>
+<p>后者貌似用的人更多，代理商也多，淘宝上就好多。支持PPTP、L2TP。声称全球3000多台服务器，但貌似不公布服务器列表（当然肯定有办法获得），网站上只说明了windows客户端的使用。</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/vpn.html">VPN</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/07/31/recommended_vpn_providers_in_china.html#disqus_thread" data-disqus-identifier="2012/07/31/recommended_vpn_providers_in_china">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>April 30, 2012</span>
+        </div>
+        <h1><a href="2012/04/30/count_lines_of_code_with_cloc.html">代码行统计工具 CLOC</a></h1>
+<p>Count Lines of Code (CLOC): <a class="reference external" href="http://cloc.sourceforge.net">http://cloc.sourceforge.net/</a></p>
+<p>下载 Perl 脚本 cloc-1.56.pl 即可使用。</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ perl cloc-1.56.pl /var/local/pywikipedia/</span>
+<span class="go">     290 text files.</span>
+<span class="go">     273 unique files.</span>
+<span class="go">      42 files ignored.</span>
+
+<span class="go">http://cloc.sourceforge.net v 1.56  T=2.0 s (124.5 files/s, 50462.5 lines/s)</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">Language                      files          blank        comment           code</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">Python                          245           9139          18658          72906</span>
+<span class="go">XML                               2             16              0            194</span>
+<span class="go">Bourne Again Shell                1              0              5              6</span>
+<span class="go">Bourne Shell                      1              0              0              1</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+<span class="go">SUM:                            249           9155          18663          73107</span>
+<span class="go">--------------------------------------------------------------------------------</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/linux.html">Linux</a>, <a href="tags/perl.html">Perl</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2012/04/30/count_lines_of_code_with_cloc.html#disqus_thread" data-disqus-identifier="2012/04/30/count_lines_of_code_with_cloc">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>November 13, 2011</span>
+        </div>
+        <h1><a href="2011/11/13/python_regex_matching.html">Python正则表达式转义匹配</a></h1>
+<p>由于学校的某个学生社团管理机构总是 DT 地不断更改并发布社团的分类和编号的版本，致使 wiki 站上的资料无法保证其内容的最新状态。今天，实在看不下去了，决定更新这80个社团的资料。</p>
+<p>前几天已经利用空闲做好了新版社团分类的 wiki 表格文本（那个机构在其网站上连文字都懒得发布，直接发布的文档截图，害的我敲了100多行 wiki markup），今天提交到 MediaWiki 中。然后，还需要更新社团条目的导航模板，就必须将 wiki markup 中的社团名称外带其“[[ ]]”标记一起取出。手动取出的话需要选择-复制-粘贴80多次，并且还要做很多后续处理工作。于是决定写 python 用正则来处理。</p>
+<p>使用 re.compile 和 findall 已经匹配出了类似于这样的内容：</p>
+<div class="highlight-text"><div class="highlight"><pre>|A1001||[[北京科技大学电子竞技协会|电子竞技协会]]||
+</pre></div>
+</div>
+<p>想在进行二次findall出“[[北京科技大学电子竞技协会|电子竞技协会]]”时，发现对“[”转义出现了问题。于是，上网查资料，发现了一篇文章http://bbs.scmroad.com/viewthread.php?tid=21963。</p>
+<p>明白了用法之后，使用“[[^]]+]]”进行匹配，成功findall “[[北京科技大学电子竞技协会|电子竞技协会]]”。然后 join 成字符串，print后提交至编辑页面之中。</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/python.html">Python</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2011/11/13/python_regex_matching.html#disqus_thread" data-disqus-identifier="2011/11/13/python_regex_matching">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
+            <span>October 18, 2011</span>
+        </div>
+        <h1><a href="2011/10/18/managing_mediawiki_api_permissions.html">管理MediaWiki API使用权限</a></h1>
+<p>MediaWiki提供API接口用于外部程序访问和修改网站的数据库。一般来说，最常用的外部工具就是 pywikipediabot 机器人，用于半自动地处理大量繁琐编辑工作，或者自动地执行脚本，达到维护网站的目的。</p>
+<p>然而，默认状态下，API 是对所有用户组群开放的（参见：<a class="reference external" href="http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights">http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights</a>），因为 <span class="docutils literal"><span class="pre">$wgEnableWriteAPI</span></span> 这个变量是隐式的 true，从而使得所有用户具有 writeapi 的默认权限。这将会对网站的安全带来隐患，尤其对于通过 API 对网站内容进行恶意破坏的机器人是毫无防御。通过简单的设置可以避免这类破坏，当然也仅仅是这类破坏，不能防止通过页面元素提交的破坏。</p>
+<p>在 <span class="docutils literal"><span class="pre">LocalSettings.php</span></span> 中添加如下代码</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$wgGroupPermissions['*']['writeapi'] = false; // forbid all anonymous writing api</span>
+<span class="x">$wgGroupPermissions['user']['writeapi'] = false; // forbid all users (including autoconfirmed) writing api</span>
+<span class="x">$wgGroupPermissions['bot']['writeapi'] = true; // allow those with bot flag to write api</span>
+</pre></div>
+</div>
+<p>当然，anti-spam 需要的不仅仅是这一项。如果网站频遭人类或 bot 的 spam 或 vandalism，各类强大的插件比如：AbuseFilter、ConfirmEdit是可以使用的工具。不过前者主要用于 Wikipedia 这类大型 wiki；对于小型网站的话，后者的 Captcha 模块在需要的时候就会具有比较中肯的用处。</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/php.html">PHP</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2011/10/18/managing_mediawiki_api_permissions.html#disqus_thread" data-disqus-identifier="2011/10/18/managing_mediawiki_api_permissions">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
             <li class="left"> &laquo; <a href="page3.html">Newer</a></li>
-            <li class="right"></li>
+            <li class="right"><a href="page5.html">Older</a> &raquo; </li>
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
@@ -246,7 +420,7 @@
     <h1>Tags Cloud</h1>
       <a href="tags/apache.html" style="font-size: 8pt">Apache</a>&nbsp;&nbsp;
       <a href="tags/aws.html" style="font-size: 8pt">AWS</a>&nbsp;&nbsp;
-      <a href="tags/bash.html" style="font-size: 13pt">Bash</a>&nbsp;&nbsp;
+      <a href="tags/bash.html" style="font-size: 12pt">Bash</a>&nbsp;&nbsp;
       <a href="tags/bsd.html" style="font-size: 9pt">BSD</a>&nbsp;&nbsp;
       <a href="tags/c.html" style="font-size: 8pt">C</a>&nbsp;&nbsp;
       <a href="tags/centos.html" style="font-size: 9pt">CentOS</a>&nbsp;&nbsp;
@@ -258,21 +432,25 @@
       <a href="tags/fedora.html" style="font-size: 10pt">Fedora</a>&nbsp;&nbsp;
       <a href="tags/gdb.html" style="font-size: 8pt">GDB</a>&nbsp;&nbsp;
       <a href="tags/hacking.html" style="font-size: 8pt">Hacking</a>&nbsp;&nbsp;
+      <a href="tags/ios.html" style="font-size: 8pt">iOS</a>&nbsp;&nbsp;
       <a href="tags/iptables.html" style="font-size: 8pt">iptables</a>&nbsp;&nbsp;
       <a href="tags/java.html" style="font-size: 8pt">Java</a>&nbsp;&nbsp;
       <a href="tags/linux.html" style="font-size: 20pt">Linux</a>&nbsp;&nbsp;
       <a href="tags/mongodb.html" style="font-size: 8pt">MongoDB</a>&nbsp;&nbsp;
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
-      <a href="tags/network.html" style="font-size: 12pt">Network</a>&nbsp;&nbsp;
+      <a href="tags/network.html" style="font-size: 11pt">Network</a>&nbsp;&nbsp;
       <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 14pt">OS X</a>&nbsp;&nbsp;
-      <a href="tags/perl.html" style="font-size: 9pt">Perl</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 12pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 15pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/perl.html" style="font-size: 10pt">Perl</a>&nbsp;&nbsp;
+      <a href="tags/php.html" style="font-size: 8pt">PHP</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 15pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sml.html" style="font-size: 8pt">SML</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
-      <a href="tags/ubuntu.html" style="font-size: 13pt">Ubuntu</a>&nbsp;&nbsp;
+      <a href="tags/ubuntu.html" style="font-size: 12pt">Ubuntu</a>&nbsp;&nbsp;
       <a href="tags/unix.html" style="font-size: 8pt">Unix</a>&nbsp;&nbsp;
-      <a href="tags/vim.html" style="font-size: 8pt">Vim</a>
+      <a href="tags/vim.html" style="font-size: 8pt">Vim</a>&nbsp;&nbsp;
+      <a href="tags/vpn.html" style="font-size: 8pt">VPN</a>&nbsp;&nbsp;
+      <a href="tags/windows.html" style="font-size: 9pt">Windows</a>
 </div></section></aside></div> <!-- #main --></div> <!-- #main-container -->
 
         <div class="footer-container" role="contentinfo"><footer class="wrapper">&copy; Copyright 2014, Shichao An. Powered by <a href="http://www.tinkerer.me/">Tinkerer</a> and <a href="http://sphinx.pocoo.org/">Sphinx</a>.</footer></div> <!-- footer-container -->

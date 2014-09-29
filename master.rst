@@ -38,5 +38,13 @@ Sitemap
    2012/10/29/hello_world_in_ocaml_with_eclipse
    2012/10/26/tricky_c_program_question_concerning_software_security
    2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x
+   2012/10/04/progress_speed_indicator_for_urlretrieve_in_python
+   2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering
+   2012/07/31/recommended_vpn_providers_in_china
+   2012/04/30/count_lines_of_code_with_cloc
+   2011/11/13/python_regex_matching
+   2011/10/18/managing_mediawiki_api_permissions
+   2011/09/24/fixing_flash_disk
+   2011/08/19/installing_pywikipedia_on_windows
    pages/about
 

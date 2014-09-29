@@ -59,7 +59,7 @@ slug_word_separator = '_'
 # **************************************************************
 
 # Add other Sphinx extensions here
-extensions = ['tinkerer.ext.blog', 'tinkerer.ext.disqus']
+extensions = ['tinkerer.ext.blog', 'tinkerer.ext.disqus', 'sphinx.ext.intersphinx']
 
 # Add other template paths here
 templates_path = ['_templates']
@@ -78,6 +78,8 @@ html_sidebars = {
     "**": ["recent.html", "searchbox.html", "tags_cloud.html"]
 }
 
+intersphinx_mapping = {
+    'python': ('http://docs.python.org/2', None)}
 # **************************************************************
 # Do not modify below lines as the values are required by
 # Tinkerer to play nice with Sphinx
