@@ -1741,53 +1741,18 @@ set envelope_from=yes
          <span class="k">return</span> <span class="s">'/wiki'</span> <span class="c"># index.php, api.php的脚步相对路径，这个和你wiki所在具体路有关，比如你的MediaWiki在/wiki目录下，那么这里就写“/wiki”</span>
 </pre></div>
 </div>
-<p>3.2 创建user-config.py：这个可以手动创建，也可以通过cmd中执行generate_user_files.py按照提示进行：</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8  -*-</span>
-<span class="n">family</span> <span class="o">=</span> <span class="s">'yourwiki'</span> <span class="c">#family名称，就是“你wiki的名字”</span>
-<span class="n">mylang</span> <span class="o">=</span> <span class="s">'en'</span> <span class="c">#语言，一般设成en即可</span>
-<span class="n">usernames</span><span class="p">[</span><span class="s">'yourwiki'</span><span class="p">][</span><span class="s">'en'</span><span class="p">]</span> <span class="o">=</span> <span class="s">u'ExampleBot'</span> <span class="c">#你机器人的用户名，这个是已经在MediaWiki上创建好的机器人账户</span>
-</pre></div>
-</div>
-<p>没有什么意外的话，配置就完成了。</p>
-<p>4.登录。</p>
-<p>进入cmd终端pywikipedia目录下，执行login.py（可以附加参数 -v verbose显示详细信息），输入密码即可</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">C:\pywikipedia&amp;gt;login.py -v -v</span>
-<span class="go">Password for user ExampleBot on yourwiki:en:</span>
-<span class="go">Logging in to yourwiki:en as ExampleBot via API.</span>
-<span class="go">==== API action:login ====</span>
-<span class="go">lgname: ExampleBot</span>
-<span class="go">lgpassword: 123456</span>
-<span class="go">----------------</span>
-<span class="go">Requesting API query from yourwiki:en</span>
-<span class="go">==== API action:login ====</span>
-<span class="go">lgname: ExampleBot</span>
-<span class="go">lgtoken: f1850634f20a6fd0a92a12668ae9b36f</span>
-<span class="go">lgpassword: 123456</span>
-<span class="go">----------------</span>
-<span class="go">Requesting API query from yourwiki:en</span>
-<span class="go">Should be logged in now</span>
-</pre></div>
-</div>
-<p>显示“Should be logged in now”说明登录成功了。</p>
-<ol class="arabic simple" start="5">
-<li>使用：登录成功后，bot一般就不会logout了。</li>
-</ol>
-<p>然后就可以慢慢参考 <a class="reference external" href="http://meta.wikimedia.org/wiki/Pywikipediabot/Scripts">http://meta.wikimedia.org/wiki/Pywikipediabot/Scripts</a> 中使用明细进行操作了。</p>
-<p>常见的操作有：</p>
-<div class="highlight-text"><div class="highlight"><pre>add_text.py Adds text at the top or end of pages
-category.py Manages categories
-imagecopy.py        Copies images from a wikimedia wiki to Commons
-interwiki.py        Creates Interlanguage links between a project
-redirect.py Fixes double redirects, and deletes broken redirects
-replace.py  Edits using text replacement
-solve_disambiguation.py     Fixes disambiguation pages
-table2wiki.py       Converts HTML tables to MediaWiki markup
-template.py Replaces one template with another (easier to use than replace.py)
-upload.py   Uploads images to a wiki
-weblinkchecker.py
-</pre></div>
-</div>
-<p>执行编辑操作成功后，机器人的编辑将会在最近更改中显示。</p>
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2011/08/19/installing_pywikipedia_on_windows.html#more">Read more...</a></p> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 ]]></description>
              <pubDate>Fri, 19 Aug 2011 00:00:00 -0700</pubDate>
         </item>
