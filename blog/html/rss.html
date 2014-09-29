@@ -1521,14 +1521,14 @@ set envelope_from=yes
 <li><p class="first">Download the latest Emacs Lisp package for SML mode from <a class="reference external" href="http://www.iro.umontreal.ca/~monnier/elisp">this site</a>, which should be sml-mode-5.0.tar.gz at the time. Double-click the downloaded file and make it folder, and place the folder anywhere you like.</p>
 </li>
 <li><p class="first">Open terminal, create a file named <span class="docutils literal"><span class="pre">.emacs</span></span> at your user folder. Add the following lines of Lisp in the file:</p>
-<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setq</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">"/path/to/sml-mode-5.0"</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
-<span class="o">(</span><span class="n">load</span> <span class="s2">"sml-mode-startup"</span><span class="o">)</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">load-path</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">"/path/to/sml-mode-5.0"</span> <span class="nv">load-path</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">load</span> <span class="s">"sml-mode-startup"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><span class="docutils literal"><span class="pre">/path/to/sml-mode-5.0</span></span> indicates the path to SML mode package downloaded in Step 2.</p>
 <p>As the installation in Step 1 makes binary file of SML/NJ compiler placed at <span class="docutils literal"><span class="pre">/usr/local/smlnj-110.75/bin</span></span>, then you have to append the following lines into <span class="docutils literal"><span class="pre">.emacs</span></span>:</p>
-<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setenv</span> <span class="s2">"PATH"</span> <span class="o">(</span><span class="n">concat</span> <span class="s2">"/usr/local/smlnj-110.75/bin:"</span> <span class="o">(</span><span class="n">getenv</span> <span class="s2">"PATH"</span><span class="o">)))</span>
-<span class="o">(</span><span class="n">setq</span> <span class="n">exec</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">"/usr/local/smlnj-110.75/bin"</span>  <span class="n">exec</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nv">setenv</span> <span class="s">"PATH"</span> <span class="p">(</span><span class="nv">concat</span> <span class="s">"/usr/local/smlnj-110.75/bin:"</span> <span class="p">(</span><span class="nv">getenv</span> <span class="s">"PATH"</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">exec-path</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">"/usr/local/smlnj-110.75/bin"</span>  <span class="nv">exec-path</span><span class="p">))</span>
 </pre></div>
 </div>
 </li>
@@ -1645,7 +1645,7 @@ set envelope_from=yes
 <div class="highlight-text"><div class="highlight"><pre>|A1001||[[北京科技大学电子竞技协会|电子竞技协会]]||
 </pre></div>
 </div>
-<p>想在进行二次findall出“[[北京科技大学电子竞技协会|电子竞技协会]]”时，发现对“[”转义出现了问题。于是，上网查资料，发现了一篇文章http://bbs.scmroad.com/viewthread.php?tid=21963。</p>
+<p>想在进行二次findall出“[[北京科技大学电子竞技协会|电子竞技协会]]”时，发现对“[”转义出现了问题。于是，上网查资料，发现了一篇文章 <a class="reference external" href="http://bbs.scmroad.com/viewthread.php?tid=21963">http://bbs.scmroad.com/viewthread.php?tid=21963</a> 。</p>
 <p>明白了用法之后，使用“[[^]]+]]”进行匹配，成功findall “[[北京科技大学电子竞技协会|电子竞技协会]]”。然后 join 成字符串，print后提交至编辑页面之中。</p>
 ]]></description>
              <pubDate>Sun, 13 Nov 2011 00:00:00 -0800</pubDate>
@@ -1710,7 +1710,7 @@ set envelope_from=yes
 <ol class="arabic simple" start="3">
 <li>配置。</li>
 </ol>
-<p>参考http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis。</p>
+<p>参考 <a class="reference external" href="http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis">http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis</a>。</p>
 <p>按照安装指南，应该先创建family.py，再创建user-config.py。</p>
 <p>3.1. 创建yourwiki_family.py，直接在/families中现成的py文件中选择一个，复制并修改即可，我改的就是最简单的“mozilla_family.py”，文件命名为“你wiki的名字_family.py”：</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8  -*-</span>

@@ -1,7 +1,7 @@
 Configure SML mode on Emacs for Standard ML on Mac OS X
 =======================================================
 
-.. highlight:: ocaml
+.. highlight:: common-lisp
 
 .. |s1| image:: Screen-Shot-2012-10-26-at-1.52.20-AM.png
    :width: 450px

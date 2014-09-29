@@ -80,14 +80,14 @@
 <li><p class="first">Download the latest Emacs Lisp package for SML mode from <a class="reference external" href="http://www.iro.umontreal.ca/~monnier/elisp/">this site</a>, which should be sml-mode-5.0.tar.gz at the time. Double-click the downloaded file and make it folder, and place the folder anywhere you like.</p>
 </li>
 <li><p class="first">Open terminal, create a file named <span class="docutils literal"><span class="pre">.emacs</span></span> at your user folder. Add the following lines of Lisp in the file:</p>
-<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setq</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">&quot;/path/to/sml-mode-5.0&quot;</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
-<span class="o">(</span><span class="n">load</span> <span class="s2">&quot;sml-mode-startup&quot;</span><span class="o">)</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="k">setq</span> <span class="nv">load-path</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">&quot;/path/to/sml-mode-5.0&quot;</span> <span class="nv">load-path</span><span class="p">))</span>
+<span class="p">(</span><span class="nb">load</span> <span class="s">&quot;sml-mode-startup&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><span class="docutils literal"><span class="pre">/path/to/sml-mode-5.0</span></span> indicates the path to SML mode package downloaded in Step 2.</p>
 <p>As the installation in Step 1 makes binary file of SML/NJ compiler placed at <span class="docutils literal"><span class="pre">/usr/local/smlnj-110.75/bin</span></span>, then you have to append the following lines into <span class="docutils literal"><span class="pre">.emacs</span></span>:</p>
-<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setenv</span> <span class="s2">&quot;PATH&quot;</span> <span class="o">(</span><span class="n">concat</span> <span class="s2">&quot;/usr/local/smlnj-110.75/bin:&quot;</span> <span class="o">(</span><span class="n">getenv</span> <span class="s2">&quot;PATH&quot;</span><span class="o">)))</span>
-<span class="o">(</span><span class="n">setq</span> <span class="n">exec</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">&quot;/usr/local/smlnj-110.75/bin&quot;</span>  <span class="n">exec</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
+<div class="highlight-common-lisp"><div class="highlight"><pre><span class="p">(</span><span class="nv">setenv</span> <span class="s">&quot;PATH&quot;</span> <span class="p">(</span><span class="nv">concat</span> <span class="s">&quot;/usr/local/smlnj-110.75/bin:&quot;</span> <span class="p">(</span><span class="nv">getenv</span> <span class="s">&quot;PATH&quot;</span><span class="p">)))</span>
+<span class="p">(</span><span class="k">setq</span> <span class="nv">exec-path</span> <span class="p">(</span><span class="nb">cons</span> <span class="s">&quot;/usr/local/smlnj-110.75/bin&quot;</span>  <span class="nv">exec-path</span><span class="p">))</span>
 </pre></div>
 </div>
 </li>

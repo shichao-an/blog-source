@@ -36,7 +36,7 @@ Windows下简单的方法就是：为pywikipedia目录创建快捷方式，然�
 
 3. 配置。
 
-参考http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis。
+参考 http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis。
 
 按照安装指南，应该先创建family.py，再创建user-config.py。
 
@@ -94,7 +94,7 @@ Windows下简单的方法就是：为pywikipedia目录创建快捷方式，然�
 
 ::
 
-    C:\pywikipedia&gt;login.py -v -v
+    C:\pywikipedia>login.py -v -v
     Password for user ExampleBot on yourwiki:en:
     Logging in to yourwiki:en as ExampleBot via API.
     ==== API action:login ====

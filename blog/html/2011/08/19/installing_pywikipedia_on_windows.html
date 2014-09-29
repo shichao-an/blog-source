@@ -95,7 +95,7 @@
 <ol class="arabic simple" start="3">
 <li>配置。</li>
 </ol>
-<p>参考http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis。</p>
+<p>参考 <a class="reference external" href="http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis">http://meta.wikimedia.org/wiki/Pywikipediabot/Use_on_non-Wikimedia_wikis</a>。</p>
 <p>按照安装指南，应该先创建family.py，再创建user-config.py。</p>
 <p>3.1. 创建yourwiki_family.py，直接在/families中现成的py文件中选择一个，复制并修改即可，我改的就是最简单的“mozilla_family.py”，文件命名为“你wiki的名字_family.py”：</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8  -*-</span>
@@ -136,7 +136,7 @@
 <p>没有什么意外的话，配置就完成了。</p>
 <p>4.登录。</p>
 <p>进入cmd终端pywikipedia目录下，执行login.py（可以附加参数 -v verbose显示详细信息），输入密码即可</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">C:\pywikipedia&amp;gt;login.py -v -v</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">C:\pywikipedia&gt;login.py -v -v</span>
 <span class="go">Password for user ExampleBot on yourwiki:en:</span>
 <span class="go">Logging in to yourwiki:en as ExampleBot via API.</span>
 <span class="go">==== API action:login ====</span>
