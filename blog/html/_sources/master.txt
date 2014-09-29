@@ -34,6 +34,9 @@ Sitemap
    2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one
    2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop
    2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10
+   2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x
    2012/10/29/hello_world_in_ocaml_with_eclipse
+   2012/10/26/tricky_c_program_question_concerning_software_security
+   2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x
    pages/about
 

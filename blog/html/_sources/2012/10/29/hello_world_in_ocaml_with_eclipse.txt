@@ -2,9 +2,7 @@ Hello World in OCaml with Eclipse
 =================================
 
 .. |s1| image:: Screen-Shot-2012-10-29-at-5.14.14-PM.png
-   :width: 450px
 .. |s2| image:: Screen-Shot-2012-10-29-at-5.15.16-PM.png
-   :width: 450px
 
 .. highlight:: ocaml
 

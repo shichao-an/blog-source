@@ -1437,6 +1437,25 @@ set envelope_from=yes
         </item>
     
         <item>
+            <link>http://blog.shichao-an.info/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</guid>
+            <title><![CDATA[Open an application with a specific language on Mac OS X]]></title>
+            <description><![CDATA[<h1>Open an application with a specific language on Mac OS X</h1>
+<p>While using iTunes on Mac OS X I encounter some little different issues from those on Windows. For example, some quasi-ID3-edited MP3 files suffer Mojibake in Japanese texts. Simple built-in conversion does not render them well. Even changing the language/region setting to “Japanese” fails to fix that. However, when changing language setting to “Chinese”, everything seems back to normal.</p>
+<p><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.00.15-PM.png"/></p>
+<p>As far as I can tell after exploration, the cause was probably importing songs containing Japanese characters on Windows (Chinese) and then transfering to Mac, because those retrieved on Mac seem alright. But this does not apply to all that has the problem; some other songs transferred from Windows remain intact.</p>
+<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png"><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png" style="width: 450px;"/></a></p>
+<p>It sounds a horrible idea to re-edit all ID3 in a proper language environment, so setting iTunes to a default language may be a compromising solution. Hands-on workaround in a simple like <a class="reference external" href="http://hints.macworld.com/article.php?story=20061001065101830">this</a> does not work any longer, and a new tool shows up — <a class="reference external" href="http://www.macupdate.com/app/mac/31850/language-switcher">Language Switcher</a>.</p>
+<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png"><img alt="s3" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png" style="width: 450px;"/></a></p>
+<p>Install and open it, choose “Chinese (China)” as the default start-up language for iTunes and relaunch the program. As you can see, ID3 are displayed properly as if having the system switched into Chinese.</p>
+<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png"><img alt="s4" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png" style="width: 450px;"/></a></p>
+<p><strong>UPDATE</strong></p>
+<p>As suggested by <a class="reference external" href="https://twitter.com/gnudog">drivel</a>, <span class="docutils literal"><span class="pre">mid3iconv</span> <span class="pre">-e</span> <span class="pre">GBK</span> <span class="pre">*.mp3</span></span> command from the <a class="reference external" href="https://pypi.python.org/pypi/mutagen">mutagen</a> Python package can used to solve the problem once for all.</p>
+]]></description>
+             <pubDate>Wed, 21 Nov 2012 00:00:00 -0800</pubDate>
+        </item>
+    
+        <item>
             <link>http://blog.shichao-an.info/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</guid>
             <title><![CDATA[Hello World in OCaml with Eclipse]]></title>
@@ -1457,12 +1476,71 @@ set envelope_from=yes
 </div>
 </li>
 <li><p class="first">Press F6 (Fn+F6 on Mac) or OCaml -&gt; Eval In Toplevel, and the console “OCaml Toplevel” at the bottom will output results.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.14.14-PM.png"><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.14.14-PM.png" style="width: 450px;"/></a></p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.15.16-PM.png"><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.15.16-PM.png" style="width: 450px;"/></a></p>
+<p><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.14.14-PM.png"/></p>
+<p><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.15.16-PM.png"/></p>
 </li>
 </ol>
 ]]></description>
              <pubDate>Mon, 29 Oct 2012 00:00:00 -0700</pubDate>
+        </item>
+    
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</guid>
+            <title><![CDATA[Tricky C program question concerning software security]]></title>
+            <description><![CDATA[<h1>Tricky C program question concerning software security</h1>
+<p>While the software security exam is coming, I try to review some of the facultative homework. Just post one that seems impossible to figure out for me. May some “Da Niu” try to give a solution when seeing this by chance. The code has been modified a little in case… but without changing the original intention.</p>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#include &lt;stdio.h&gt;</span>
+<span class="cp">#include &lt;stdlib.h&gt;</span>
+
+<span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">char</span> <span class="n">s</span><span class="p">[]){</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%s"</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="kt">char</span> <span class="n">S</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="n">foo</span><span class="p">(</span><span class="n">S</span><span class="p">);</span>
+    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">something shows up after exit"</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The question is to find an input in order that the program will print “something shows up after exit”. What the hell is that?</p>
+]]></description>
+             <pubDate>Fri, 26 Oct 2012 00:00:00 -0700</pubDate>
+        </item>
+    
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</guid>
+            <title><![CDATA[Configure SML mode on Emacs for Standard ML on Mac OS X]]></title>
+            <description><![CDATA[<h1>Configure SML mode on Emacs for Standard ML on Mac OS X</h1>
+<p>Before start, we have to make sure the Emacs For Mac OS X has been installed, which can be retrieved at <a class="reference external" href="http://emacsformacosx.com">emacsformacosx.com</a>.</p>
+<ol class="arabic">
+<li><p class="first">Download the lastest distribution (110.75 as of posting date) of SML .dmg file from <a class="reference external" href="http://smlnj.cs.uchicago.edu/dist/working/110.75/index.html">this working site</a>, and then install it.</p>
+</li>
+<li><p class="first">Download the latest Emacs Lisp package for SML mode from <a class="reference external" href="http://www.iro.umontreal.ca/~monnier/elisp">this site</a>, which should be sml-mode-5.0.tar.gz at the time. Double-click the downloaded file and make it folder, and place the folder anywhere you like.</p>
+</li>
+<li><p class="first">Open terminal, create a file named <span class="docutils literal"><span class="pre">.emacs</span></span> at your user folder. Add the following lines of Lisp in the file:</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setq</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">"/path/to/sml-mode-5.0"</span> <span class="n">load</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
+<span class="o">(</span><span class="n">load</span> <span class="s2">"sml-mode-startup"</span><span class="o">)</span>
+</pre></div>
+</div>
+<p><span class="docutils literal"><span class="pre">/path/to/sml-mode-5.0</span></span> indicates the path to SML mode package downloaded in Step 2.</p>
+<p>As the installation in Step 1 makes binary file of SML/NJ compiler placed at <span class="docutils literal"><span class="pre">/usr/local/smlnj-110.75/bin</span></span>, then you have to append the following lines into <span class="docutils literal"><span class="pre">.emacs</span></span>:</p>
+<div class="highlight-ocaml"><div class="highlight"><pre><span class="o">(</span><span class="n">setenv</span> <span class="s2">"PATH"</span> <span class="o">(</span><span class="n">concat</span> <span class="s2">"/usr/local/smlnj-110.75/bin:"</span> <span class="o">(</span><span class="n">getenv</span> <span class="s2">"PATH"</span><span class="o">)))</span>
+<span class="o">(</span><span class="n">setq</span> <span class="n">exec</span><span class="o">-</span><span class="n">path</span> <span class="o">(</span><span class="n">cons</span> <span class="s2">"/usr/local/smlnj-110.75/bin"</span>  <span class="n">exec</span><span class="o">-</span><span class="n">path</span><span class="o">))</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Configuration done.</p>
+<p>Open Emacs, type <em>M-x</em> run-sml, a buffer should appear with “Standard ML of New Jersey” compiler info listed. You can now input and run ML code.</p>
+<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png"><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png" style="width: 450px;"/></a></p>
+<p>To edit a file in SML, create a new file using <em>C-x C-f</em> with .sml extension, or create a file with whatever extension and type <em>M-x</em> sml-mode. Then the minibuffer region will become SML rather than Fundamental, and the syntax will be highlighted.</p>
+<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Emacs_SML_up.png"><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Emacs_SML_up.png" style="width: 450px;"/></a></p>
+</li>
+</ol>
+]]></description>
+             <pubDate>Fri, 26 Oct 2012 00:00:00 -0700</pubDate>
         </item>
     
     </channel>
