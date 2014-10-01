@@ -101,11 +101,11 @@
 <p>Then you can enable virtualenvwrapper with <span class="docutils literal"><span class="pre">pyenv</span> <span class="pre">virtualenvwrapper</span></span>, and you may set an alias for that.</p>
 <p>Now, you can normally create new virtualenvs.</p>
 <p>Create a virtualenv from the system version:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python)</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv env1 -p $(which python)</span>
 </pre></div>
 </div>
 <p>Similarly, create a virtualenv from 3.4:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python3.4)</span>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv env2 -p $(which python3.4)</span>
 </pre></div>
 </div>
 </div>
