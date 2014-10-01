@@ -41,11 +41,11 @@ Now, you can normally create new virtualenvs.
 
 Create a virtualenv from the system version::
 
-    $ mkvirtualenv -p $(which python)
+    $ mkvirtualenv env1 -p $(which python)
 
 Similarly, create a virtualenv from 3.4::
 
-    $ mkvirtualenv -p $(which python3.4)
+    $ mkvirtualenv env2 -p $(which python3.4)
 
 
 .. author:: default
