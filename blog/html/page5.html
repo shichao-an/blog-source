@@ -69,6 +69,32 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>October 18, 2011</span>
+        </div>
+        <h1><a href="2011/10/18/managing_mediawiki_api_permissions.html">管理MediaWiki API使用权限</a></h1>
+<p>MediaWiki提供API接口用于外部程序访问和修改网站的数据库。一般来说，最常用的外部工具就是 pywikipediabot 机器人，用于半自动地处理大量繁琐编辑工作，或者自动地执行脚本，达到维护网站的目的。</p>
+<p>然而，默认状态下，API 是对所有用户组群开放的（参见：<a class="reference external" href="http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights">http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights</a>），因为 <span class="docutils literal"><span class="pre">$wgEnableWriteAPI</span></span> 这个变量是隐式的 true，从而使得所有用户具有 writeapi 的默认权限。这将会对网站的安全带来隐患，尤其对于通过 API 对网站内容进行恶意破坏的机器人是毫无防御。通过简单的设置可以避免这类破坏，当然也仅仅是这类破坏，不能防止通过页面元素提交的破坏。</p>
+<p>在 <span class="docutils literal"><span class="pre">LocalSettings.php</span></span> 中添加如下代码</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$wgGroupPermissions['*']['writeapi'] = false; // forbid all anonymous writing api</span>
+<span class="x">$wgGroupPermissions['user']['writeapi'] = false; // forbid all users (including autoconfirmed) writing api</span>
+<span class="x">$wgGroupPermissions['bot']['writeapi'] = true; // allow those with bot flag to write api</span>
+</pre></div>
+</div>
+<p>当然，anti-spam 需要的不仅仅是这一项。如果网站频遭人类或 bot 的 spam 或 vandalism，各类强大的插件比如：AbuseFilter、ConfirmEdit是可以使用的工具。不过前者主要用于 Wikipedia 这类大型 wiki；对于小型网站的话，后者的 Captcha 模块在需要的时候就会具有比较中肯的用处。</p>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/php.html">PHP</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2011/10/18/managing_mediawiki_api_permissions.html#disqus_thread" data-disqus-identifier="2011/10/18/managing_mediawiki_api_permissions">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>September 24, 2011</span>
         </div>
         <h1><a href="2011/09/24/fixing_flash_disk.html">U盘量产导致USB接口错误的解决方法</a></h1>
@@ -180,6 +206,8 @@
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html">Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</a>
+        </li><li>
             <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
             <a href="2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
@@ -197,8 +225,6 @@
             <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
             <a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
-        </li><li>
-            <a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -231,10 +257,10 @@
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
       <a href="tags/network.html" style="font-size: 11pt">Network</a>&nbsp;&nbsp;
       <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 15pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 16pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 10pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/php.html" style="font-size: 8pt">PHP</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 15pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 16pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sml.html" style="font-size: 8pt">SML</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
       <a href="tags/ubuntu.html" style="font-size: 12pt">Ubuntu</a>&nbsp;&nbsp;

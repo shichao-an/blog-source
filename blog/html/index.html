@@ -69,6 +69,58 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>October 01, 2014</span>
+        </div>
+        <h1><a href="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html">Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</a></h1>
+<p>Typically on OS X, I’m prone to use <a class="reference external" href="https://github.com/yyuu/pyenv">pyenv</a> to manage multiple Python versions, particularly 2.7 and 3.3. I always keep the 2.7.x Python (system version) that ships with OS X, and install extra versions using pyenv, and develop under virtualenvs. It seems <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a> and <a class="reference external" href="https://bitbucket.org/dhellmann/virtualenvwrapper">virtualenvwrapper</a> do not natively work well with pyenv’s shims when creating new virtualenvs, and it also seems the author of pyenv already gives the solution, <a class="reference external" href="https://github.com/yyuu/pyenv-virtualenvwrapper">pyenv-virtualenvwrapper</a>.</p>
+<p>As an essential record, install Python 3.4.1 using pyenv (for installation of pyenv itself, see its <a class="reference external" href="https://github.com/yyuu/pyenv">documentation</a>) and enable it globally, along with the system version.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pyenv install 3.4.1</span>
+<span class="go">$ pyenv rehash</span>
+<span class="go">$ pyenv global system 3.4.1</span>
+</pre></div>
+</div>
+<p>You can verify current available versions using the following command:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pyenv versions</span>
+<span class="go">* system (set by /Users/shichao/.python-version)</span>
+<span class="go">* 3.4.1 (set by /Users/shichao/.python-version)</span>
+</pre></div>
+</div>
+<p>Make sure you have installed virtualenvwrapper and pyenv-virtualenvwrapper (using brew, of course):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pip install virtualenvwrapper</span>
+<span class="go">$ brew install pyenv-virtualenvwrapper</span>
+</pre></div>
+</div>
+<p>Then, put the following lines somewhere in your <span class="docutils literal"><span class="pre">~/.bash_profile</span></span>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># pyenv</span>
+<span class="nb">eval</span> <span class="s2">"$(pyenv init -)"</span>
+<span class="c"># virtualenvwrapper</span>
+<span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span>~/envs
+</pre></div>
+</div>
+<p>Then you can enable virtualenvwrapper with <span class="docutils literal"><span class="pre">pyenv</span> <span class="pre">virtualenvwrapper</span></span>, and you may set an alias for that.</p>
+<p>Now, you can normally create new virtualenvs.</p>
+<p>Create a virtualenv from the system version:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python)</span>
+</pre></div>
+</div>
+<p>Similarly, create a virtualenv from 3.4:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python3.4)</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/python.html">Python</a>, <a href="tags/os_x.html">OS X</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html#disqus_thread" data-disqus-identifier="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>May 02, 2014</span>
         </div>
         <h1><a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a></h1>
@@ -492,65 +544,6 @@ $ chmod +x ~/.sleep ~/.wakeup
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html#disqus_thread" data-disqus-identifier="2013/11/17/sync_sleep_wakeup_ethernet_lan">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>November 10, 2013</span>
-        </div>
-        <h1><a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a></h1>
-<p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
-<div class="section" id="wake">
-<h2>Wake</h2>
-<p>To wake up A is simple. Suppose A’s MAC address is 11:aa:22:bb:33:cc and the hostname is “machine-a”, and you want to wake it up from other machines (e.g. Machine B) on LAN, first install the wakeonlan utility (on Machine B).</p>
-<p>On Debian/Ubuntu:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install etherwake</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install wakeonlan</span>
-</pre></div>
-</div>
-<p>On Fedora/RHEL:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ sudo apt-get install net-tools</span>
-</pre></div>
-</div>
-<p>On OS X:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ brew install wakeonlan</span>
-</pre></div>
-</div>
-<p>To send magic Wake-on-LAN packets to A:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ etherwake 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ether-wake 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ wakeonlan 11:aa:22:bb:33:cc</span>
-</pre></div>
-</div>
-</div>
-<div class="section" id="suspend-hibernate">
-<h2>Suspend/hibernate</h2>
-<p class="readmorewrapper"><a class="readmore" href="2013/11/10/wake_suspend_machines_local_ethernet.html#more">Read more...</a></p> 
- 
- 
- 
- 
- 
-</div>
-
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Shichao An</span>
-        </div>
-        
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/os_x.html">OS X</a>, <a href="tags/linux.html">Linux</a>, <a href="tags/network.html">Network</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html#disqus_thread" data-disqus-identifier="2013/11/10/wake_suspend_machines_local_ethernet">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -559,6 +552,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html">Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</a>
+        </li><li>
             <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
             <a href="2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
@@ -576,8 +571,6 @@ $ chmod +x ~/.sleep ~/.wakeup
             <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
             <a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
-        </li><li>
-            <a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -610,10 +603,10 @@ $ chmod +x ~/.sleep ~/.wakeup
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
       <a href="tags/network.html" style="font-size: 11pt">Network</a>&nbsp;&nbsp;
       <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 15pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 16pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 10pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/php.html" style="font-size: 8pt">PHP</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 15pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 16pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sml.html" style="font-size: 8pt">SML</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
       <a href="tags/ubuntu.html" style="font-size: 12pt">Ubuntu</a>&nbsp;&nbsp;

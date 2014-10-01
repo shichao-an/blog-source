@@ -5,8 +5,52 @@
         <link>http://blog.shichao-an.info/blog/html/</link>
         <description>Recording molecular stuff</description>
         <language>en-us</language>
-        <pubDate>Fri, 02 May 2014 00:00:00 -0700</pubDate>
+        <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
         
+        <item>
+            <link>http://blog.shichao-an.info/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</link>
+            <guid>http://blog.shichao-an.info/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</guid>
+            <title><![CDATA[Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper]]></title>
+            <description><![CDATA[<h1>Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</h1>
+<p>Typically on OS X, I’m prone to use <a class="reference external" href="https://github.com/yyuu/pyenv">pyenv</a> to manage multiple Python versions, particularly 2.7 and 3.3. I always keep the 2.7.x Python (system version) that ships with OS X, and install extra versions using pyenv, and develop under virtualenvs. It seems <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a> and <a class="reference external" href="https://bitbucket.org/dhellmann/virtualenvwrapper">virtualenvwrapper</a> do not natively work well with pyenv’s shims when creating new virtualenvs, and it also seems the author of pyenv already gives the solution, <a class="reference external" href="https://github.com/yyuu/pyenv-virtualenvwrapper">pyenv-virtualenvwrapper</a>.</p>
+<p>As an essential record, install Python 3.4.1 using pyenv (for installation of pyenv itself, see its <a class="reference external" href="https://github.com/yyuu/pyenv">documentation</a>) and enable it globally, along with the system version.</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pyenv install 3.4.1</span>
+<span class="go">$ pyenv rehash</span>
+<span class="go">$ pyenv global system 3.4.1</span>
+</pre></div>
+</div>
+<p>You can verify current available versions using the following command:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pyenv versions</span>
+<span class="go">* system (set by /Users/shichao/.python-version)</span>
+<span class="go">* 3.4.1 (set by /Users/shichao/.python-version)</span>
+</pre></div>
+</div>
+<p>Make sure you have installed virtualenvwrapper and pyenv-virtualenvwrapper (using brew, of course):</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ pip install virtualenvwrapper</span>
+<span class="go">$ brew install pyenv-virtualenvwrapper</span>
+</pre></div>
+</div>
+<p>Then, put the following lines somewhere in your <span class="docutils literal"><span class="pre">~/.bash_profile</span></span>:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># pyenv</span>
+<span class="nb">eval</span> <span class="s2">"$(pyenv init -)"</span>
+<span class="c"># virtualenvwrapper</span>
+<span class="nb">export </span><span class="nv">WORKON_HOME</span><span class="o">=</span>~/envs
+</pre></div>
+</div>
+<p>Then you can enable virtualenvwrapper with <span class="docutils literal"><span class="pre">pyenv</span> <span class="pre">virtualenvwrapper</span></span>, and you may set an alias for that.</p>
+<p>Now, you can normally create new virtualenvs.</p>
+<p>Create a virtualenv from the system version:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python)</span>
+</pre></div>
+</div>
+<p>Similarly, create a virtualenv from 3.4:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ mkvirtualenv -p $(which python3.4)</span>
+</pre></div>
+</div>
+]]></description>
+             <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
+        </item>
+    
         <item>
             <link>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</link>
             <guid>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</guid>

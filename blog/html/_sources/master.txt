@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper
    2014/05/02/fixing_mongodb_against_unclean_shutdown
    2014/05/01/get_number_of_bits_of_a_python_integer
    2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames

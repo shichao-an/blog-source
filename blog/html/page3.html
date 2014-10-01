@@ -69,6 +69,99 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>July 02, 2013</span>
+        </div>
+        <h1><a href="2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html">Convert MySQL table’s engine from MyISAM to InnoDB for Django models</a></h1>
+<p>When I tried using django-activity-stream for my Django project, I cannot use syncdb, so I migrate it using South. When testing something like :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">actstream</span> <span class="kn">import</span> <span class="n">action</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">action</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="n">verb</span><span class="o">=</span><span class="s">'tested'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>I got the following error:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">IntegrityError: (1452, 'Cannot add or update a child row: a</span>
+<span class="go">foreign key constraint fails (`alexadb`.`actstream_action`,</span>
+<span class="go">CONSTRAINT `actor_content_type_id_refs_id_357b994e` FOREIGN</span>
+<span class="go">KEY (`actor_content_type_id`) REFERENCES `django_content_type`</span>
+<span class="go">(`id`))')</span>
+</pre></div>
+</div>
+<p>It seems the foreign key constraint fail is related to table <span class="docutils literal"><span class="pre">django_content_type</span></span>. Therefore, I ran the following MySQL command to check the engine of this table:</p>
+<div class="highlight-mysql"><div class="highlight"><pre><span class="k">SHOW</span> <span class="k">TABLE</span> <span class="n">STATUS</span> <span class="k">WHERE</span> <span class="n">name</span><span class="o">=</span><span class="s1">'django_content_type'</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The result for column ‘Engine’ is MyISAM, which is why it does not support foreign key constraint. One solution is to convert it to InnoDB. However, the following MySQL command seems to take a ‘very’ long time (even if it is not a very large table) that I cannot observe for about 5 minutes.</p>
+<div class="highlight-mysql"><div class="highlight"><pre><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">django_content_type</span> <span class="kp">ENGINE</span> <span class="o">=</span> <span class="n">InnoDB</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>To make the conversion quicker, I have to use another solution, which is recreating the <span class="docutils literal"><span class="pre">django_content_type</span></span> table with its engine being InnoDB.</p>
+<p>This requires the following steps:</p>
+<ol class="arabic">
+<li><p class="first">In the project directory, dump the app model data associated with table <span class="docutils literal"><span class="pre">django_content_type</span></span>. This app and model name is <span class="docutils literal"><span class="pre">contenttypes.ContentType</span></span> (<span class="docutils literal"><span class="pre">django.contrib.contenttypes.models.ContentType</span></span>).</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ python manage.py dumpdata contenttypes.ContentType &gt; contenttypes.json</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Drop table <span class="docutils literal"><span class="pre">django_content_type</span></span> in MySQL:</p>
+<div class="highlight-mysql"><div class="highlight"><pre><span class="k">DROP</span> <span class="k">TABLE</span> <span class="n">django_content_type</span><span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Get SQL statement of model <span class="docutils literal"><span class="pre">contenttypes.ContentType</span></span>:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ python manage.py sqlall contenttypes</span>
+<span class="go">BEGIN;</span>
+<span class="go">CREATE TABLE `django_content_type` (</span>
+<span class="go">    `id` integer AUTO_INCREMENT NOT NULL PRIMARY KEY,</span>
+<span class="go">    `name` varchar(100) NOT NULL,</span>
+<span class="go">    `app_label` varchar(100) NOT NULL,</span>
+<span class="go">    `model` varchar(100) NOT NULL,</span>
+<span class="go">    UNIQUE (`app_label`, `model`)</span>
+<span class="go">)</span>
+<span class="go">;</span>
+
+<span class="go">COMMIT;</span>
+</pre></div>
+</div>
+<p>Add <span class="docutils literal"><span class="pre">Engine=InnoDB</span></span> to the statement, and run this in MySQL:</p>
+<div class="highlight-mysql"><div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="ss">`django_content_type`</span> <span class="p">(</span>
+    <span class="ss">`id`</span> <span class="kt">integer</span> <span class="kp">AUTO_INCREMENT</span> <span class="k">NOT</span> <span class="no">NULL</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">,</span>
+    <span class="ss">`name`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="ss">`app_label`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="ss">`model`</span> <span class="kt">varchar</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="k">NOT</span> <span class="no">NULL</span><span class="p">,</span>
+    <span class="k">UNIQUE</span> <span class="p">(</span><span class="ss">`app_label`</span><span class="p">,</span> <span class="ss">`model`</span><span class="p">)</span>
+<span class="p">)</span> <span class="kp">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span>
+<span class="p">;</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Load dumped data into database:</p>
+<div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ python manage.py loaddata contenttypes.json</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Finally, the testing of django-activity-stream should work without errors:</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">myapp.models</span> <span class="kn">import</span> <span class="n">Foo</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="n">Foo</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">actstream</span> <span class="kn">import</span> <span class="n">action</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">action</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">verb</span><span class="o">=</span><span class="s">'tested'</span><span class="p">)</span>
+<span class="go">[(&lt;function action_handler at 0x1102ff410&gt;, None)]</span>
+</pre></div>
+</div>
+</li>
+</ol>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/python.html">Python</a>, <a href="tags/django.html">Django</a>, <a href="tags/mysql.html">MySQL</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html#disqus_thread" data-disqus-identifier="2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>June 30, 2013</span>
         </div>
         <h1><a href="2013/06/30/add_static_route_on_mac_osx_and_bsd.html">Add static routes on Mac OS X and BSD descendants</a></h1>
@@ -595,43 +688,6 @@ set envelope_from=yes
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html#disqus_thread" data-disqus-identifier="2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>January 05, 2013</span>
-        </div>
-        <h1><a href="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html">Fix Eclipse icon (not displayed, too big) in Unity Dash on Ubuntu 12.10</a></h1>
-<p>It seems that the regular methods of merely creating eclipse.desktop (specifying Icon path as icon.xpm in the decompressed folder of Eclipse) which applied to Ubuntu 12.04 does not work on 12.10. The problem is that the icon is too big for Dash to render.</p>
-<p>The huge icon can be obviously seen in “Dash Home” search results and <span class="docutils literal"><span class="pre">/usr/share/applications/</span></span> folder.</p>
-<p>Someone has already reported this as a bug at <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702">https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702</a> .</p>
-<p>Found the simplest solution here.</p>
-<p>Copy <span class="docutils literal"><span class="pre">icon.xpm</span></span> (from eclipse folder) into <span class="docutils literal"><span class="pre">~/.local/share/icons/eclipse4.xpm</span></span></p>
-<p>In your <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> file (which should be in <span class="docutils literal"><span class="pre">~/.local/share/applications</span></span> instead of <span class="docutils literal"><span class="pre">/usr/share/…</span></span>), replace <span class="docutils literal"><span class="pre">Icon=/path/to/eclipse/icon.xpm</span></span> by <span class="docutils literal"><span class="pre">Icon=eclipse4</span></span>. You don’t need to add the .xpm suffix.</p>
-<p>The <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> will thus be something like this:</p>
-<div class="highlight-ini"><div class="highlight"><pre><span class="k">[Desktop Entry]</span>
-<span class="na">Version</span><span class="o">=</span><span class="s">1.0</span>
-<span class="na">Name</span><span class="o">=</span><span class="s">Eclipse</span>
-<span class="na">GenericName</span><span class="o">=</span><span class="s">Integrated Development Application</span>
-<span class="na">Comment</span><span class="o">=</span><span class="s">Eclipse Juno</span>
-<span class="na">Exec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
-<span class="na">TryExec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
-<span class="na">Icon</span><span class="o">=</span><span class="s">eclipse4</span>
-<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
-<span class="na">Categories</span><span class="o">=</span><span class="s">Development;IDE;</span>
-</pre></div>
-</div>
-
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Shichao An</span>
-        </div>
-        
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/eclipse.html">Eclipse</a>, <a href="tags/ubuntu.html">Ubuntu</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://blog.shichao-an.info/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html#disqus_thread" data-disqus-identifier="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -640,6 +696,8 @@ set envelope_from=yes
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html">Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</a>
+        </li><li>
             <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
             <a href="2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
@@ -657,8 +715,6 @@ set envelope_from=yes
             <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
             <a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
-        </li><li>
-            <a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -691,10 +747,10 @@ set envelope_from=yes
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
       <a href="tags/network.html" style="font-size: 11pt">Network</a>&nbsp;&nbsp;
       <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 15pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 16pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 10pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/php.html" style="font-size: 8pt">PHP</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 15pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 16pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sml.html" style="font-size: 8pt">SML</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
       <a href="tags/ubuntu.html" style="font-size: 12pt">Ubuntu</a>&nbsp;&nbsp;

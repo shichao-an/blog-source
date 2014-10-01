@@ -69,6 +69,43 @@
                 </li>
               </ul>
           </nav><div class="main-container" role="main"><div class="main wrapper clearfix"><article><div class="timestamp postmeta">
+            <span>January 05, 2013</span>
+        </div>
+        <h1><a href="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html">Fix Eclipse icon (not displayed, too big) in Unity Dash on Ubuntu 12.10</a></h1>
+<p>It seems that the regular methods of merely creating eclipse.desktop (specifying Icon path as icon.xpm in the decompressed folder of Eclipse) which applied to Ubuntu 12.04 does not work on 12.10. The problem is that the icon is too big for Dash to render.</p>
+<p>The huge icon can be obviously seen in “Dash Home” search results and <span class="docutils literal"><span class="pre">/usr/share/applications/</span></span> folder.</p>
+<p>Someone has already reported this as a bug at <a class="reference external" href="https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702">https://bugs.launchpad.net/ubuntu/+source/dash/+bug/1068702</a> .</p>
+<p>Found the simplest solution here.</p>
+<p>Copy <span class="docutils literal"><span class="pre">icon.xpm</span></span> (from eclipse folder) into <span class="docutils literal"><span class="pre">~/.local/share/icons/eclipse4.xpm</span></span></p>
+<p>In your <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> file (which should be in <span class="docutils literal"><span class="pre">~/.local/share/applications</span></span> instead of <span class="docutils literal"><span class="pre">/usr/share/…</span></span>), replace <span class="docutils literal"><span class="pre">Icon=/path/to/eclipse/icon.xpm</span></span> by <span class="docutils literal"><span class="pre">Icon=eclipse4</span></span>. You don’t need to add the .xpm suffix.</p>
+<p>The <span class="docutils literal"><span class="pre">eclipse.desktop</span></span> will thus be something like this:</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="k">[Desktop Entry]</span>
+<span class="na">Version</span><span class="o">=</span><span class="s">1.0</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">Eclipse</span>
+<span class="na">GenericName</span><span class="o">=</span><span class="s">Integrated Development Application</span>
+<span class="na">Comment</span><span class="o">=</span><span class="s">Eclipse Juno</span>
+<span class="na">Exec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
+<span class="na">TryExec</span><span class="o">=</span><span class="s">/usr/local/bin/eclipse</span>
+<span class="na">Icon</span><span class="o">=</span><span class="s">eclipse4</span>
+<span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+<span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+<span class="na">Categories</span><span class="o">=</span><span class="s">Development;IDE;</span>
+</pre></div>
+</div>
+
+        <div class="postmeta">
+        <div class="author">
+            <span>Posted by Shichao An</span>
+        </div>
+        
+        <div class="tags">
+            <span>
+                Tags:
+                <a href="tags/eclipse.html">Eclipse</a>, <a href="tags/ubuntu.html">Ubuntu</a></span>
+        </div>
+        <div class="comments">
+            <a href="http://blog.shichao-an.info/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html#disqus_thread" data-disqus-identifier="2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10">Leave a comment</a>
+        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
             <span>November 21, 2012</span>
         </div>
         <h1><a href="2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html">Open an application with a specific language on Mac OS X</a></h1>
@@ -355,32 +392,6 @@
         </div>
         <div class="comments">
             <a href="http://blog.shichao-an.info/blog/html/2011/11/13/python_regex_matching.html#disqus_thread" data-disqus-identifier="2011/11/13/python_regex_matching">Leave a comment</a>
-        </div></div><div class="separator post_separator"></div><div class="timestamp postmeta">
-            <span>October 18, 2011</span>
-        </div>
-        <h1><a href="2011/10/18/managing_mediawiki_api_permissions.html">管理MediaWiki API使用权限</a></h1>
-<p>MediaWiki提供API接口用于外部程序访问和修改网站的数据库。一般来说，最常用的外部工具就是 pywikipediabot 机器人，用于半自动地处理大量繁琐编辑工作，或者自动地执行脚本，达到维护网站的目的。</p>
-<p>然而，默认状态下，API 是对所有用户组群开放的（参见：<a class="reference external" href="http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights">http://www.mediawiki.org/wiki/Manual:User_rights#Default_rights</a>），因为 <span class="docutils literal"><span class="pre">$wgEnableWriteAPI</span></span> 这个变量是隐式的 true，从而使得所有用户具有 writeapi 的默认权限。这将会对网站的安全带来隐患，尤其对于通过 API 对网站内容进行恶意破坏的机器人是毫无防御。通过简单的设置可以避免这类破坏，当然也仅仅是这类破坏，不能防止通过页面元素提交的破坏。</p>
-<p>在 <span class="docutils literal"><span class="pre">LocalSettings.php</span></span> 中添加如下代码</p>
-<div class="highlight-php"><div class="highlight"><pre><span class="x">$wgGroupPermissions['*']['writeapi'] = false; // forbid all anonymous writing api</span>
-<span class="x">$wgGroupPermissions['user']['writeapi'] = false; // forbid all users (including autoconfirmed) writing api</span>
-<span class="x">$wgGroupPermissions['bot']['writeapi'] = true; // allow those with bot flag to write api</span>
-</pre></div>
-</div>
-<p>当然，anti-spam 需要的不仅仅是这一项。如果网站频遭人类或 bot 的 spam 或 vandalism，各类强大的插件比如：AbuseFilter、ConfirmEdit是可以使用的工具。不过前者主要用于 Wikipedia 这类大型 wiki；对于小型网站的话，后者的 Captcha 模块在需要的时候就会具有比较中肯的用处。</p>
-
-        <div class="postmeta">
-        <div class="author">
-            <span>Posted by Shichao An</span>
-        </div>
-        
-        <div class="tags">
-            <span>
-                Tags:
-                <a href="tags/php.html">PHP</a></span>
-        </div>
-        <div class="comments">
-            <a href="http://blog.shichao-an.info/blog/html/2011/10/18/managing_mediawiki_api_permissions.html#disqus_thread" data-disqus-identifier="2011/10/18/managing_mediawiki_api_permissions">Leave a comment</a>
         </div></div><div class="archive_link">
         <a href="archive.html"> &mdash; Blog Archive &mdash; </a>
     </div><ul class="related clearfix">
@@ -389,6 +400,8 @@
         </ul></article><aside class="sidebar"><section><div class="widget">
     <h1>Recent Posts</h1>
     <ul><li>
+            <a href="2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html">Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</a>
+        </li><li>
             <a href="2014/05/02/fixing_mongodb_against_unclean_shutdown.html">Fixing MongoDB against unclean shutdown</a>
         </li><li>
             <a href="2014/05/01/get_number_of_bits_of_a_python_integer.html">Get number of bits of a Python integer</a>
@@ -406,8 +419,6 @@
             <a href="2014/01/16/artistic_style_vim.html">Use Artistic Style with vim</a>
         </li><li>
             <a href="2013/11/17/sync_sleep_wakeup_ethernet_lan.html">Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</a>
-        </li><li>
-            <a href="2013/11/10/wake_suspend_machines_local_ethernet.html">Wake and suspend machines on local Ethernet LAN</a>
         </li></ul>
 </div>
 </section><section><div class="widget" id="searchbox" role="search">
@@ -440,10 +451,10 @@
       <a href="tags/mysql.html" style="font-size: 8pt">MySQL</a>&nbsp;&nbsp;
       <a href="tags/network.html" style="font-size: 11pt">Network</a>&nbsp;&nbsp;
       <a href="tags/ocaml.html" style="font-size: 8pt">OCaml</a>&nbsp;&nbsp;
-      <a href="tags/os_x.html" style="font-size: 15pt">OS X</a>&nbsp;&nbsp;
+      <a href="tags/os_x.html" style="font-size: 16pt">OS X</a>&nbsp;&nbsp;
       <a href="tags/perl.html" style="font-size: 10pt">Perl</a>&nbsp;&nbsp;
       <a href="tags/php.html" style="font-size: 8pt">PHP</a>&nbsp;&nbsp;
-      <a href="tags/python.html" style="font-size: 15pt">Python</a>&nbsp;&nbsp;
+      <a href="tags/python.html" style="font-size: 16pt">Python</a>&nbsp;&nbsp;
       <a href="tags/sml.html" style="font-size: 8pt">SML</a>&nbsp;&nbsp;
       <a href="tags/sphinx.html" style="font-size: 8pt">Sphinx</a>&nbsp;&nbsp;
       <a href="tags/ubuntu.html" style="font-size: 12pt">Ubuntu</a>&nbsp;&nbsp;
