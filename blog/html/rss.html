@@ -2,14 +2,14 @@
 <rss version="2.0">
     <channel>
         <title>Shichao's Blog</title>
-        <link>http://blog.shichao-an.info/blog/html/</link>
+        <link>http://blog.shichao.io/blog/html/</link>
         <description>Recording molecular stuff</description>
         <language>en-us</language>
         <pubDate>Wed, 01 Oct 2014 00:00:00 -0700</pubDate>
         
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper.html</guid>
             <title><![CDATA[Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper]]></title>
             <description><![CDATA[<h1>Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper</h1>
 <p>Typically on OS X, I’m prone to use <a class="reference external" href="https://github.com/yyuu/pyenv">pyenv</a> to manage multiple Python versions, particularly 2.7 and 3.3. I always keep the 2.7.x Python (system version) that ships with OS X, and install extra versions using pyenv, and develop under virtualenvs. It seems <a class="reference external" href="https://github.com/pypa/virtualenv">virtualenv</a> and <a class="reference external" href="https://bitbucket.org/dhellmann/virtualenvwrapper">virtualenvwrapper</a> do not natively work well with pyenv’s shims when creating new virtualenvs, and it also seems the author of pyenv already gives the solution, <a class="reference external" href="https://github.com/yyuu/pyenv-virtualenvwrapper">pyenv-virtualenvwrapper</a>.</p>
@@ -52,8 +52,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/05/02/fixing_mongodb_against_unclean_shutdown.html</guid>
             <title><![CDATA[Fixing MongoDB against unclean shutdown]]></title>
             <description><![CDATA[<h1>Fixing MongoDB against unclean shutdown</h1>
 <p>It’s been a while since I maintained one of my servers that host an old project. After I got an HTTP 500 in an occasional case, I logged in to check what happened, only to find MongoDB is down. Running <span class="docutils literal"><span class="pre">service</span> <span class="pre">mongod</span> <span class="pre">restart</span></span> does not work. The MongoDB log indicates “Unclean shutdown detected.”</p>
@@ -75,8 +75,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/05/01/get_number_of_bits_of_a_python_integer.html</guid>
             <title><![CDATA[Get number of bits of a Python integer]]></title>
             <description><![CDATA[<h1>Get number of bits of a Python integer</h1>
 <p>A Python integer is represented as either of 32-bit or 64-bit signed integer type that is platform-specific, without considering it as <a class="reference external" href="https://docs.python.org/2.7/c-api/int.html">an Python object</a>. As indicated in the documentation, whether it is 32-bit or 64-bit can be revealed by checking <span class="docutils literal"><span class="pre">sys.maxsize</span></span> (or <span class="docutils literal"><span class="pre">sys.maxint</span></span> on older CPython implementations such as 2.4), the value of which “is the largest positive integer supported by the platform’s <span class="docutils literal"><span class="pre">Py_ssize_t</span></span> type and is usually <span class="docutils literal"><span class="pre">2**31</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 32-bit platform and <span class="docutils literal"><span class="pre">2**63</span> <span class="pre">-</span> <span class="pre">1</span></span> on a 64-bit platform”. <a class="reference external" href="https://docs.python.org/2/library/sys.html">[1]</a> <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.maxsize">[2]</a>.</p>
@@ -114,8 +114,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/04/09/using_bash_arrays_and_ifs_to_manipulate_filenames.html</guid>
             <title><![CDATA[Using Bash arrays and IFS to manipulate filenames]]></title>
             <description><![CDATA[<h1>Using Bash arrays and IFS to manipulate filenames</h1>
 <p>Assume we want to work with files in a directory. The most intuitive way is to make use of filename expansion, using globbing. We can use the <cite>for construct</cite> and wildcard <span class="docutils literal"><span class="pre">*</span></span> to handle each file nice and clean, without worrying about those filenames that contain whitespaces (suppose that in all of the following context, the working directory contain three files: “Foo”, “Bar”, and “Foo Bar”):</p>
@@ -173,8 +173,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/04/04/bash_double_bracket_test_contructs_and_word_splitting.html</guid>
             <title><![CDATA[Bash double brackets, test contructs and word splitting]]></title>
             <description><![CDATA[<h1>Bash double brackets, test contructs and word splitting</h1>
 <p>We know that the double brackets constructs can be used in place of the <span class="docutils literal"><span class="pre">test</span></span> builtin (<span class="docutils literal"><span class="pre">[</span></span>) commonly used as single brackets to evaluate conditional expressions. The double brackets are preferred in terms of writing less error-prone scripts, though it is not POSIX-compliant (not portable to many other shells).</p>
@@ -239,8 +239,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/03/20/enabling_adobe_flash_player_plugin_for_google_chrome_on_fedora.html</guid>
             <title><![CDATA[Enabling Adobe Flash Player plugin for Google Chrome on Fedora]]></title>
             <description><![CDATA[<h1>Enabling Adobe Flash Player plugin for Google Chrome on Fedora</h1>
 <p>The Google Chrome browser I use was installed from the third-party repository by Google. The default Pepper Flash Player plugin (version 12.0) does not support some websites (such as <a class="reference external" href="http://www.bilibili.tv">www.bilibili.tv</a>). I have to install the Adobe Flash Player plugin and enable it for Google Chrome.</p>
@@ -265,8 +265,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html</guid>
             <title><![CDATA[setuid() and uid, euid and suid]]></title>
             <description><![CDATA[<h1>setuid() and uid, euid and suid</h1>
 <p>We know that <cite>setuid</cite> bit allows a program to change its effective uid (euid) upon execution. I want to take a look at how <cite>setuid()</cite> system call works through the following experiment.</p>
@@ -297,7 +297,7 @@
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ ps -u -p 10401</span>
 </pre></div>
 </div>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2014/03/17/setuid_and_uid_euid_and_suid.html#more">Read more...</a></p> 
  
  
  
@@ -307,8 +307,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/03/05/suppressing_fedora.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/03/05/suppressing_fedora.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/03/05/suppressing_fedora.html</guid>
             <title><![CDATA[Suppressing Fedora NetworkManager's prompt to connect to WPA Enterprise wireless networks]]></title>
             <description><![CDATA[<h1>Suppressing Fedora NetworkManager’s prompt to connect to WPA Enterprise wireless networks</h1>
 <p>This seems to be an unsolved bug (<a class="reference external" href="https://bugzilla.redhat.com/show_bug.cgi?id=982429">#982429</a>) still under discussion. Many give temporary solutions that modify the corresponding <span class="docutils literal"><span class="pre">ifcfg-*</span></span> file and specify the password, possibly in plaintext form. Some suggest encrypting the password using <span class="docutils literal"><span class="pre">wpa_passphrase</span> <span class="pre">ESSID</span></span> command. The problematic network here is “nyu” of the New York University. Every time I turned on my laptop on the campus, it prompts with a dialog (though the password is actually stored) for me to click the “Connect” button, which is annoying. However, the encryption method does not work as far as I am concerned with Fedora 20. So I just followed the plaintext way to produce a temporary fix for that::</p>
@@ -339,8 +339,8 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2014/01/16/artistic_style_vim.html</guid>
+            <link>http://blog.shichao.io/blog/html/2014/01/16/artistic_style_vim.html</link>
+            <guid>http://blog.shichao.io/blog/html/2014/01/16/artistic_style_vim.html</guid>
             <title><![CDATA[Use Artistic Style with vim]]></title>
             <description><![CDATA[<h1>Use Artistic Style with vim</h1>
 <p>Artistic Style is a “Free, Fast and Small Automatic Formatter for C, C++, C++/CLI, C#, and Java Source Code”. It is basically a utility that reformats source code in a conventionally-defined indent and coding style.</p>
@@ -377,11 +377,11 @@
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/11/17/sync_sleep_wakeup_ethernet_lan.html</guid>
             <title><![CDATA[Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher]]></title>
             <description><![CDATA[<h1>Synchronize sleep and wakeup of machines on Ethernet LAN from Mac using SleepWatcher</h1>
-<p>The <a class="reference internal" href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
+<p>The <a class="reference internal" href="http://blog.shichao.io/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html"><em>previous post</em></a> discusses remote suspend (sleep) and wakeup of machines on Ethernet LAN using pm-utils, GNU Screen and Wake-on-LAN (LAN). This post will discuss the synchronization of such behaviors of local and remote machines.</p>
 <p>Suppose you are regularly working at home on a Mac (either MacBook or Mac mini or something else), and you have a spare PC running as an alternative to NAS or workstation on the same Ethernet LAN. If the spare PC is Linux, you may have set up netatalk on it to enable AFP file sharing or use it as a Time Capsule. However, since it is probably a netbook and may work only when your Mac is up, you don’t want it to run all days without doing anything. You can thus synchronize sleep and wakeup of your Mac with that PC.</p>
 <p>You can download and install SleepWatcher to monitor sleep and wakeup on Mac and write some scripts upon these events.</p>
 <ol class="arabic">
@@ -404,8 +404,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html</guid>
             <title><![CDATA[Wake and suspend machines on local Ethernet LAN]]></title>
             <description><![CDATA[<h1>Wake and suspend machines on local Ethernet LAN</h1>
 <p>Suppose you have a spare PC (say A) that supports Wake-on-LAN, you can first enable it by following <a class="reference external" href="http://www.cyberciti.biz/tips/linux-send-wake-on-lan-wol-magic-packets.html">this guide</a>. Then you can hack on some scripts on other local machines connected through Ethernet to remotely control A to make it suspend/hibernate and wake up as you want.</p>
@@ -443,7 +443,7 @@ $ chmod +x ~/.sleep ~/.wakeup
 </div>
 <div class="section" id="suspend-hibernate">
 <h2>Suspend/hibernate</h2>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2013/11/10/wake_suspend_machines_local_ethernet.html#more">Read more...</a></p> 
  
  
  
@@ -455,8 +455,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/11/05/apache_name_based_virtual_hosts.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/11/05/apache_name_based_virtual_hosts.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/11/05/apache_name_based_virtual_hosts.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/11/05/apache_name_based_virtual_hosts.html</guid>
             <title><![CDATA[Apache name-based virtual hosts and reverse DNS]]></title>
             <description><![CDATA[<h1>Apache name-based virtual hosts and reverse DNS</h1>
 <p>On some operating systems such as Ubuntu, you can setup virtual hosts quite easily with the default Apache server (installed with APT). The global configuration file /etc/apache2/apache2.conf contains the following line as the last line by default:</p>
@@ -485,8 +485,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/10/25/amazon_ec2_auto_scaling_example.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/10/25/amazon_ec2_auto_scaling_example.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/10/25/amazon_ec2_auto_scaling_example.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/10/25/amazon_ec2_auto_scaling_example.html</guid>
             <title><![CDATA[Amazon EC2 Auto Scaling example]]></title>
             <description><![CDATA[<h1>Amazon EC2 Auto Scaling example</h1>
 <p>The following code creates an Auto Scaling group with scale-up and scale-down policies based on the monitoring the CPU utilization of either a specific EC2 instance or instances within the Auto Scaling group cluster.</p>
@@ -576,8 +576,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html</guid>
             <title><![CDATA[Sync and backup files from a host on the LAN over SSH on Mac OS X]]></title>
             <description><![CDATA[<h1>Sync and backup files from a host on the LAN over SSH on Mac OS X</h1>
 <p>Suppose you have several computers on an LAN, where DHCP is enabled. On Machine B, you want to routinely back up files from Machine A, whose IP address may change. This can be done using SSH and a local DNS server. The following experiment is done on two Mac OS X 10.8 machines.</p>
@@ -662,7 +662,7 @@ $ chmod +x ~/.sleep ~/.wakeup
 </div>
 </li>
 </ol>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2013/09/17/sync_backup_files_over_lan_ssh_osx.html#more">Read more...</a></p> 
  
  
 ]]></description>
@@ -670,8 +670,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/09/15/fetch_convert_online_flash_videos.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/09/15/fetch_convert_online_flash_videos.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/09/15/fetch_convert_online_flash_videos.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/09/15/fetch_convert_online_flash_videos.html</guid>
             <title><![CDATA[Fetch and convert online flash videos]]></title>
             <description><![CDATA[<h1>Fetch and convert online flash videos</h1>
 <ol class="arabic">
@@ -715,8 +715,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/08/09/setup_selenium_python_environment_x_ubuntu.html</guid>
             <title><![CDATA[Set up Selenium Python environment with X virtual framebuffer on Ubuntu server]]></title>
             <description><![CDATA[<h1>Set up Selenium Python environment with X virtual framebuffer on Ubuntu server</h1>
 <ol class="arabic">
@@ -773,8 +773,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/08/05/make_slideshow_gif_using_imagemagick.html</guid>
             <title><![CDATA[Make slideshow GIF from a batch of images using ImageMagick]]></title>
             <description><![CDATA[<h1>Make slideshow GIF from a batch of images using ImageMagick</h1>
 <ol class="arabic">
@@ -802,8 +802,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/07/20/configure_vsftpd_ftp_server_in_active_mode_on_centos.html</guid>
             <title><![CDATA[Configure vsftpd FTP server in active mode on CentOS]]></title>
             <description><![CDATA[<h1>Configure vsftpd FTP server in active mode on CentOS</h1>
 <ol class="arabic">
@@ -848,8 +848,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/07/13/evaluation_criteria_of_computer_science_professional.html</guid>
             <title><![CDATA[Evaluation criteria of computer science professionals]]></title>
             <description><![CDATA[<h1>Evaluation criteria of computer science professionals</h1>
 <p>Personal point of view on how to evaluate the generic skills possessed by a computer software professional from a pragmatic perspective without considering specific subdisciplines or academic background in computer science.</p>
@@ -898,8 +898,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/07/11/get_inode_birth_time_os_x_and_bsd.html</guid>
             <title><![CDATA[Get the inode birth time (crtime or btime) of a file on Mac OS X and BSD descendants]]></title>
             <description><![CDATA[<h1>Get the inode birth time (crtime or btime) of a file on Mac OS X and BSD descendants</h1>
 <div class="highlight-shell-session"><div class="highlight"><pre><span class="go">$ stat -f "%SB %N" filename.txt</span>
@@ -912,8 +912,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/07/02/convert_mysql_engine_from_myisam_to_innodb_django_models.html</guid>
             <title><![CDATA[Convert MySQL table's engine from MyISAM to InnoDB for Django models]]></title>
             <description><![CDATA[<h1>Convert MySQL table’s engine from MyISAM to InnoDB for Django models</h1>
 <p>When I tried using django-activity-stream for my Django project, I cannot use syncdb, so I migrate it using South. When testing something like :</p>
@@ -997,8 +997,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/06/30/add_static_route_on_mac_osx_and_bsd.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/06/30/add_static_route_on_mac_osx_and_bsd.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/06/30/add_static_route_on_mac_osx_and_bsd.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/06/30/add_static_route_on_mac_osx_and_bsd.html</guid>
             <title><![CDATA[Add static routes on Mac OS X and BSD descendants]]></title>
             <description><![CDATA[<h1>Add static routes on Mac OS X and BSD descendants</h1>
 <p>Add a static route:</p>
@@ -1018,8 +1018,8 @@ $ chmod +x ~/.sleep ~/.wakeup
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/03/29/su_sudo_and_environment.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/03/29/su_sudo_and_environment.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/03/29/su_sudo_and_environment.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/03/29/su_sudo_and_environment.html</guid>
             <title><![CDATA[su, sudo, and environment]]></title>
             <description><![CDATA[<h1>su, sudo, and environment</h1>
 <ol class="arabic">
@@ -1057,8 +1057,8 @@ If command is omitted, it spawns a login shell of the target user (usually root)
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html</guid>
             <title><![CDATA[Create a personal website with Sphinx]]></title>
             <description><![CDATA[<h1>Create a personal website with Sphinx</h1>
 <p>Sphinx is a documentation generator which converts reStructuredText files into HTML websites and other formats e.g. LaTeX (PDF) and man pages. It’s also a good idea to create simple static website with Sphinx, for example, a personal profile site.</p>
@@ -1142,14 +1142,14 @@ Blah...
 </div>
 </li>
 </ol>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2013/03/19/create_a_personal_website_with_sphinx.html#more">Read more...</a></p> 
 ]]></description>
              <pubDate>Tue, 19 Mar 2013 00:00:00 -0700</pubDate>
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/02/07/send_mails_with_mutt_on_linux.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/02/07/send_mails_with_mutt_on_linux.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/02/07/send_mails_with_mutt_on_linux.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/02/07/send_mails_with_mutt_on_linux.html</guid>
             <title><![CDATA[Send mails with mutt on Linux]]></title>
             <description><![CDATA[<h1>Send mails with mutt on Linux</h1>
 <p>Given that the sendmail MTA is in use on Linux.</p>
@@ -1175,8 +1175,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/01/25/loop_statements_in_perl.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/01/25/loop_statements_in_perl.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/01/25/loop_statements_in_perl.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/01/25/loop_statements_in_perl.html</guid>
             <title><![CDATA[Loop statements in Perl]]></title>
             <description><![CDATA[<h1>Loop statements in Perl</h1>
 <p>Loop statement in Perl seems to conform to the TMTOWTDI or “There’s more than one way to do it” philosophy.</p>
@@ -1239,8 +1239,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/01/24/gson_simple_example_of_json_serialization.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/01/24/gson_simple_example_of_json_serialization.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/01/24/gson_simple_example_of_json_serialization.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/01/24/gson_simple_example_of_json_serialization.html</guid>
             <title><![CDATA[GSON simple example of JSON deserialization and use of parser]]></title>
             <description><![CDATA[<h1>GSON simple example of JSON deserialization and use of parser</h1>
 <p>It seems that JSON-lib is a bit old and requires many dependencies, so I try to have a quick look at Google GSON, which has become the most popular tools for JSON in Java.</p>
@@ -1331,8 +1331,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html</guid>
             <title><![CDATA[WEP cracking experiment on Ubuntu 12.10]]></title>
             <description><![CDATA[<h1>WEP cracking experiment on Ubuntu 12.10</h1>
 <p>This experiment follows the online basic tutorials at <a class="reference external" href="http://www.aircrack-ng.org">http://www.aircrack-ng.org/</a> and is done in terms of learning.</p>
@@ -1362,7 +1362,7 @@ set envelope_from=yes
 <span class="go">$ sudo airodump-ng mon0</span>
 </pre></div>
 </div>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/02_1-e1357703106181.png"><img alt="02_1" src="http://blog.shichao-an.info/blog/html/_images/02_1-e1357703106181.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/02_1-e1357703106181.png"><img alt="02_1" src="http://blog.shichao.io/blog/html/_images/02_1-e1357703106181.png" style="width: 450px;"/></a></p>
 <p>The screenshot above shows the APs on different channels. Choose a WEP target.</p>
 </li>
 <li><p class="first">Start the wireless interface with the same channel to the target AP.</p>
@@ -1392,14 +1392,14 @@ set envelope_from=yes
 </div>
 </li>
 </ol>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2013/01/08/wep_craking_experiment_on_ubuntu_12_10.html#more">Read more...</a></p> 
 ]]></description>
              <pubDate>Tue, 08 Jan 2013 00:00:00 -0800</pubDate>
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/12/25/adjust_brightness_in_kubuntu_12_10_on_acer_aspire_one.html</guid>
             <title><![CDATA[Adjust brightness in Kubuntu 12.10 on Acer Aspire One]]></title>
             <description><![CDATA[<h1>Adjust brightness in Kubuntu 12.10 on Acer Aspire One</h1>
 <p>Fn-Left and Fn-Right do not work to change brightness.</p>
@@ -1426,8 +1426,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/12/23/dual_boot_ubuntu_and_fedora_on_laptop.html</guid>
             <title><![CDATA[Dual boot Ubuntu and Fedora on laptop]]></title>
             <description><![CDATA[<h1>Dual boot Ubuntu and Fedora on laptop</h1>
 <p>Install Ubuntu 12.10 first and then Fedora 17 on the laptop using USB media.</p>
@@ -1452,8 +1452,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html</guid>
+            <link>http://blog.shichao.io/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html</link>
+            <guid>http://blog.shichao.io/blog/html/2013/01/05/fix_eclipse_icon_in_unity_dash_on_ubuntu_12_10.html</guid>
             <title><![CDATA[Fix Eclipse icon (not displayed, too big) in Unity Dash on Ubuntu 12.10]]></title>
             <description><![CDATA[<h1>Fix Eclipse icon (not displayed, too big) in Unity Dash on Ubuntu 12.10</h1>
 <p>It seems that the regular methods of merely creating eclipse.desktop (specifying Icon path as icon.xpm in the decompressed folder of Eclipse) which applied to Ubuntu 12.04 does not work on 12.10. The problem is that the icon is too big for Dash to render.</p>
@@ -1481,18 +1481,18 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/11/21/open_an_application_with_a_specific_language_on_mac_os_x.html</guid>
             <title><![CDATA[Open an application with a specific language on Mac OS X]]></title>
             <description><![CDATA[<h1>Open an application with a specific language on Mac OS X</h1>
 <p>While using iTunes on Mac OS X I encounter some little different issues from those on Windows. For example, some quasi-ID3-edited MP3 files suffer Mojibake in Japanese texts. Simple built-in conversion does not render them well. Even changing the language/region setting to “Japanese” fails to fix that. However, when changing language setting to “Chinese”, everything seems back to normal.</p>
-<p><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.00.15-PM.png"/></p>
+<p><img alt="s1" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.00.15-PM.png"/></p>
 <p>As far as I can tell after exploration, the cause was probably importing songs containing Japanese characters on Windows (Chinese) and then transfering to Mac, because those retrieved on Mac seem alright. But this does not apply to all that has the problem; some other songs transferred from Windows remain intact.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png"><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png"><img alt="s2" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.14.31-PM.png" style="width: 450px;"/></a></p>
 <p>It sounds a horrible idea to re-edit all ID3 in a proper language environment, so setting iTunes to a default language may be a compromising solution. Hands-on workaround in a simple like <a class="reference external" href="http://hints.macworld.com/article.php?story=20061001065101830">this</a> does not work any longer, and a new tool shows up — <a class="reference external" href="http://www.macupdate.com/app/mac/31850/language-switcher">Language Switcher</a>.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png"><img alt="s3" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png"><img alt="s3" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.30.03-PM.png" style="width: 450px;"/></a></p>
 <p>Install and open it, choose “Chinese (China)” as the default start-up language for iTunes and relaunch the program. As you can see, ID3 are displayed properly as if having the system switched into Chinese.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png"><img alt="s4" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png"><img alt="s4" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-11-21-at-2.31.39-PM.png" style="width: 450px;"/></a></p>
 <p><strong>UPDATE</strong></p>
 <p>As suggested by <a class="reference external" href="https://twitter.com/gnudog">drivel</a>, <span class="docutils literal"><span class="pre">mid3iconv</span> <span class="pre">-e</span> <span class="pre">GBK</span> <span class="pre">*.mp3</span></span> command from the <a class="reference external" href="https://pypi.python.org/pypi/mutagen">mutagen</a> Python package can used to solve the problem once for all.</p>
 ]]></description>
@@ -1500,8 +1500,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/10/29/hello_world_in_ocaml_with_eclipse.html</guid>
             <title><![CDATA[Hello World in OCaml with Eclipse]]></title>
             <description><![CDATA[<h1>Hello World in OCaml with Eclipse</h1>
 <p>Assume Eclipse has been installed,</p>
@@ -1520,8 +1520,8 @@ set envelope_from=yes
 </div>
 </li>
 <li><p class="first">Press F6 (Fn+F6 on Mac) or OCaml -&gt; Eval In Toplevel, and the console “OCaml Toplevel” at the bottom will output results.</p>
-<p><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.14.14-PM.png"/></p>
-<p><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-29-at-5.15.16-PM.png"/></p>
+<p><img alt="s1" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-10-29-at-5.14.14-PM.png"/></p>
+<p><img alt="s2" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-10-29-at-5.15.16-PM.png"/></p>
 </li>
 </ol>
 ]]></description>
@@ -1529,8 +1529,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/10/26/tricky_c_program_question_concerning_software_security.html</guid>
             <title><![CDATA[Tricky C program question concerning software security]]></title>
             <description><![CDATA[<h1>Tricky C program question concerning software security</h1>
 <p>While the software security exam is coming, I try to review some of the facultative homework. Just post one that seems impossible to figure out for me. May some “Da Niu” try to give a solution when seeing this by chance. The code has been modified a little in case… but without changing the original intention.</p>
@@ -1554,8 +1554,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/10/26/configure_sml_mode_on_emacs_for_standard_ml_on_mac_os_x.html</guid>
             <title><![CDATA[Configure SML mode on Emacs for Standard ML on Mac OS X]]></title>
             <description><![CDATA[<h1>Configure SML mode on Emacs for Standard ML on Mac OS X</h1>
 <p>Before start, we have to make sure the Emacs For Mac OS X has been installed, which can be retrieved at <a class="reference external" href="http://emacsformacosx.com">emacsformacosx.com</a>.</p>
@@ -1578,9 +1578,9 @@ set envelope_from=yes
 </li>
 <li><p class="first">Configuration done.</p>
 <p>Open Emacs, type <em>M-x</em> run-sml, a buffer should appear with “Standard ML of New Jersey” compiler info listed. You can now input and run ML code.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png"><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png"><img alt="s1" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-10-26-at-1.52.20-AM.png" style="width: 450px;"/></a></p>
 <p>To edit a file in SML, create a new file using <em>C-x C-f</em> with .sml extension, or create a file with whatever extension and type <em>M-x</em> sml-mode. Then the minibuffer region will become SML rather than Fundamental, and the syntax will be highlighted.</p>
-<p><a class="reference internal" href="http://blog.shichao-an.info/blog/html/_images/Emacs_SML_up.png"><img alt="s2" src="http://blog.shichao-an.info/blog/html/_images/Emacs_SML_up.png" style="width: 450px;"/></a></p>
+<p><a class="reference internal" href="http://blog.shichao.io/blog/html/_images/Emacs_SML_up.png"><img alt="s2" src="http://blog.shichao.io/blog/html/_images/Emacs_SML_up.png" style="width: 450px;"/></a></p>
 </li>
 </ol>
 ]]></description>
@@ -1588,8 +1588,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/10/04/progress_speed_indicator_for_urlretrieve_in_python.html</guid>
             <title><![CDATA[Progress/speed indicator for urlretrieve() in Python]]></title>
             <description><![CDATA[<h1>Progress/speed indicator for urlretrieve() in Python</h1>
 <p>A simple <span class="docutils literal"><span class="pre">reporthook()</span></span> function for <a class="reference external" href="http://docs.python.org/2/library/urllib.html#urllib.urlretrieve" title="(in Python v2.7)"><span class="xref py py-func docutils literal"><span class="pre">urllib.urlretrieve()</span></span></a>‘s reporthook argument:</p>
@@ -1616,7 +1616,7 @@ set envelope_from=yes
 </pre></div>
 </div>
 <p>After writing <span class="docutils literal"><span class="pre">__main__</span></span> and designating url as well as filename for the sample file <span class="docutils literal"><span class="pre">urlre.py</span></span>, we can run it and see the effect.</p>
-<p><img alt="s1" src="http://blog.shichao-an.info/blog/html/_images/Screen-Shot-2012-10-26-at-2.56.57-AM.png"/></p>
+<p><img alt="s1" src="http://blog.shichao.io/blog/html/_images/Screen-Shot-2012-10-26-at-2.56.57-AM.png"/></p>
 <p><strong>UPDATE</strong></p>
 <p>As suggested by Naquada, to avoid thing like “106%” and so on, percent should be defined as <span class="docutils literal"><span class="pre">percent</span> <span class="pre">=</span> <span class="pre">min(int(count*blockSize*100/totalSize),100)</span></span>.</p>
 ]]></description>
@@ -1624,8 +1624,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/09/22/display_desktop_on_ipad_using_air_display_over_usb_tethering.html</guid>
             <title><![CDATA[Display desktop on iPad using Air Display over USB tethering]]></title>
             <description><![CDATA[<h1>Display desktop on iPad using Air Display over USB tethering</h1>
 <p>I was recently exploring remote desktop apps (VNC/RDP things)  for iOS. Then, plenty of them show up, like iDisplay, Splashtop, PocketCloud, Air Display, Displaylink, 2x, etc (all available at App Store). These apps are able to mirror or sustain remote desktop control over computers through Wi-Fi or Bluetooth. Among them, Splashtop seems to have versatility on control and Air Display is fast in streaming.</p>
@@ -1636,8 +1636,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/07/31/recommended_vpn_providers_in_china.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/07/31/recommended_vpn_providers_in_china.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/07/31/recommended_vpn_providers_in_china.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/07/31/recommended_vpn_providers_in_china.html</guid>
             <title><![CDATA[推荐两个用于往国内翻的VPN]]></title>
             <description><![CDATA[<h1>推荐两个用于往国内翻的VPN</h1>
 <p>非凡VPN（vpn123）和91vpn（n个代理网站，官网貌似木有域名是个ip地址）</p>
@@ -1650,8 +1650,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2012/04/30/count_lines_of_code_with_cloc.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2012/04/30/count_lines_of_code_with_cloc.html</guid>
+            <link>http://blog.shichao.io/blog/html/2012/04/30/count_lines_of_code_with_cloc.html</link>
+            <guid>http://blog.shichao.io/blog/html/2012/04/30/count_lines_of_code_with_cloc.html</guid>
             <title><![CDATA[代码行统计工具 CLOC]]></title>
             <description><![CDATA[<h1>代码行统计工具 CLOC</h1>
 <p>Count Lines of Code (CLOC): <a class="reference external" href="http://cloc.sourceforge.net">http://cloc.sourceforge.net/</a></p>
@@ -1679,8 +1679,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2011/11/13/python_regex_matching.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2011/11/13/python_regex_matching.html</guid>
+            <link>http://blog.shichao.io/blog/html/2011/11/13/python_regex_matching.html</link>
+            <guid>http://blog.shichao.io/blog/html/2011/11/13/python_regex_matching.html</guid>
             <title><![CDATA[Python正则表达式转义匹配]]></title>
             <description><![CDATA[<h1>Python正则表达式转义匹配</h1>
 <p>由于学校的某个学生社团管理机构总是 DT 地不断更改并发布社团的分类和编号的版本，致使 wiki 站上的资料无法保证其内容的最新状态。今天，实在看不下去了，决定更新这80个社团的资料。</p>
@@ -1696,8 +1696,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2011/10/18/managing_mediawiki_api_permissions.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2011/10/18/managing_mediawiki_api_permissions.html</guid>
+            <link>http://blog.shichao.io/blog/html/2011/10/18/managing_mediawiki_api_permissions.html</link>
+            <guid>http://blog.shichao.io/blog/html/2011/10/18/managing_mediawiki_api_permissions.html</guid>
             <title><![CDATA[管理MediaWiki API使用权限]]></title>
             <description><![CDATA[<h1>管理MediaWiki API使用权限</h1>
 <p>MediaWiki提供API接口用于外部程序访问和修改网站的数据库。一般来说，最常用的外部工具就是 pywikipediabot 机器人，用于半自动地处理大量繁琐编辑工作，或者自动地执行脚本，达到维护网站的目的。</p>
@@ -1714,8 +1714,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2011/09/24/fixing_flash_disk.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2011/09/24/fixing_flash_disk.html</guid>
+            <link>http://blog.shichao.io/blog/html/2011/09/24/fixing_flash_disk.html</link>
+            <guid>http://blog.shichao.io/blog/html/2011/09/24/fixing_flash_disk.html</guid>
             <title><![CDATA[U盘量产导致USB接口错误的解决方法]]></title>
             <description><![CDATA[<h1>U盘量产导致USB接口错误的解决方法</h1>
 <p>上周用一个4G的爱国者U盘做了一个系统启动盘。系统装完后，第二天刚好要去复印室打印一个重要的东西去去找老师，发现我竟然没有多余的优盘。</p>
@@ -1728,8 +1728,8 @@ set envelope_from=yes
         </item>
     
         <item>
-            <link>http://blog.shichao-an.info/blog/html/2011/08/19/installing_pywikipedia_on_windows.html</link>
-            <guid>http://blog.shichao-an.info/blog/html/2011/08/19/installing_pywikipedia_on_windows.html</guid>
+            <link>http://blog.shichao.io/blog/html/2011/08/19/installing_pywikipedia_on_windows.html</link>
+            <guid>http://blog.shichao.io/blog/html/2011/08/19/installing_pywikipedia_on_windows.html</guid>
             <title><![CDATA[Windows下安装Pywikipediabot]]></title>
             <description><![CDATA[<h1>Windows下安装Pywikipediabot</h1>
 <p>很早就想在MediaWiki上使用bot，但一直没有去关注。MediaWiki上的bot实现有很多途径，.NET，perl，java都有，但是貌似python最容易。于是选择了PyWikipediaBot。网上关于Pywikipedia中文的资料比较少，所以就自己按照meta-wiki上的Pywikipedia的instruction中的步骤进行安装，比较简单。</p>
@@ -1785,7 +1785,7 @@ set envelope_from=yes
          <span class="k">return</span> <span class="s">'/wiki'</span> <span class="c"># index.php, api.php的脚步相对路径，这个和你wiki所在具体路有关，比如你的MediaWiki在/wiki目录下，那么这里就写“/wiki”</span>
 </pre></div>
 </div>
-<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao-an.info/blog/html/2011/08/19/installing_pywikipedia_on_windows.html#more">Read more...</a></p> 
+<p class="readmorewrapper"><a class="readmore" href="http://blog.shichao.io/blog/html/2011/08/19/installing_pywikipedia_on_windows.html#more">Read more...</a></p> 
  
  
  
