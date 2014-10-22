@@ -48,6 +48,8 @@ rss_service = None
 # Generate full posts for RSS feed even when using "read more"
 rss_generate_full_posts = False
 
+rss_max_items = 10
+
 # Number of blog posts per page
 posts_per_page = 10
 
