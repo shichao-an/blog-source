@@ -95,7 +95,7 @@ Finally, if you want to keep your firewall on and nginx trusted, run the followi
 
 ::
 
-    $ /usr/libexec/ApplicationFirewall/socketfilterfw --add $(readlink -f /usr/local/bin/nginx)
+    $ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(readlink -f /usr/local/bin/nginx)
 
 You can test from local http://127.0.0.1:8080/movies as well as http://youripaddress:8080/movies and http://youripaddress:8080/pdf from a browser on your LAN clients.
 
