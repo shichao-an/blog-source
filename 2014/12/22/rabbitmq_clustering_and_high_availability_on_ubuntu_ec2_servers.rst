@@ -205,6 +205,6 @@ References
 
 
 .. author:: default
-.. categories:: AWS,Ubuntu,RabbitMQ
-.. tags:: none
+.. categories:: none
+.. tags:: AWS,Ubuntu,RabbitMQ
 .. comments::
