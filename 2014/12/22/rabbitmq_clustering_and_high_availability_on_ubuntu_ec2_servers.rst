@@ -80,6 +80,8 @@ Then, start each node in turn. Remember, do this IN TURN, not simultaneously:
 
     # service rabbitmq start
 
+.. more::
+
 Check status
 ------------
 
