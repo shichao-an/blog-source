@@ -32,6 +32,8 @@ Then, install nginx by building with the Fancy Index Module:
 
     $ brew install nginx-full --with-fancyindex-module
 
+If brew complains about SHA1 error, then you have to modify the ``sha1`` value of the previous fomula to match the actual sha1 in the error output.
+
 Download `FancyIndex Theme <https://github.com/TheInsomniac/Nginx-Fancyindex-Theme>`_ to ``/usr/local/etc/nginx/fancyindex``:
 
 ::
@@ -95,7 +97,8 @@ Finally, if you want to keep your firewall on and nginx trusted, run the followi
 
 ::
 
-    $ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(readlink -f /usr/local/bin/nginx)
+    $ brew install coreutils
+    $ sudo /usr/libexec/ApplicationFirewall/socketfilterfw --add $(greadlink -f /usr/local/bin/nginx)
 
 You can test from local http://127.0.0.1:8080/movies as well as http://youripaddress:8080/movies and http://youripaddress:8080/pdf from a browser on your LAN clients.
 
