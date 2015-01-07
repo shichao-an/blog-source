@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/01/06/tunneling_rdp_over_ssh_with_xrdp_and_xfreerdp
    2014/12/22/rabbitmq_clustering_and_high_availability_on_ubuntu_ec2_servers
    2014/12/18/serving_local_filesystem_using_nginx_on_os_x
    2014/10/01/setup_virtualenvwrapper_with_pyenv_using_pyenv_virtualenvwrapper
