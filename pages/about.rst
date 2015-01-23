@@ -4,7 +4,7 @@ About
 Intro
 -----
 
-I'm Shichao An, currently graduate student in Computer Science at the New York University. Enthusiastic about free and open source software, I like using Python, C and Bash, and am active on GitHub. I regularly use Fedora and OS X as my desktop operating systems, and I also use Ubuntu. I love films, anime, as well as Touhou and Vocaloid music a lot. You can find the playlist of my favorite songs `at this page <https://github.com/shichao-an/playlist/blob/master/playlist.csv>`_.
+I'm Shichao An, currently graduate student in Computer Science at the New York University. Enthusiastic about free and open source software, I like using Python, C and Bash, and am active on GitHub. I regularly use Fedora and OS X as my desktop operating systems, and I also use Ubuntu. I love films, anime, as well as Touhou and Vocaloid music a lot.
 
 Email
 -----
