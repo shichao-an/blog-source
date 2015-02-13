@@ -1,7 +1,8 @@
-@import url('http://fonts.googleapis.com/css?family=Open+Sans');
+@import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
 body {
-  font-size: 0.8em;
-  font-family: 'Open Sans', 'PT Sans', Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  font-family: 'Source Sans Pro', 'PT Sans', Helvetica, Arial, sans-serif;
 }
 
 header h1 {
