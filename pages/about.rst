@@ -26,6 +26,6 @@ Links
 * Twitter: `@moleculea <https://twitter.com/moleculea>`_
 * GitHub: `github.com/shichao-an <https://github.com/shichao-an>`_
 
-For more information, see `shichao.io <http://shichao.io/>`_. 
+For more information, see `shichao.io <https://shichao.io/>`_.
 
 .. comments::
