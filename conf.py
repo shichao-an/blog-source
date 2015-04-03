@@ -20,7 +20,7 @@ description = 'Personal Blogging Site of Shichao An'
 author = 'Shichao An'
 
 # Change this to your copyright string
-copyright = '2014, ' + author
+copyright = '2015, ' + author
 
 # Change this to your blog root URL (required for RSS feed)
 website = 'https://blog.shichao.io/'
