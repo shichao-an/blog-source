@@ -22,6 +22,13 @@ As of writing, the version of fancyindex-nginx-module provided by this formula i
 
 ::
 
+    $ brew edit fancyindex-nginx-module
+
+
+Or, use a text editor to open the formula file:
+
+::
+
     $ vim /usr/local/Library/Taps/homebrew/homebrew-nginx/Formula/fancyindex-nginx-module.rb
 
 and change ``https://github.com/aperezdc/ngx-fancyindex/archive/v0.3.2.tar.gz`` into ``https://github.com/aperezdc/ngx-fancyindex/archive/v0.3.3.tar.gz``.
