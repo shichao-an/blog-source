@@ -4,7 +4,15 @@ About
 Intro
 -----
 
-I'm Shichao An, currently graduate student in Computer Science at the New York University. Enthusiastic about free and open source software, I like using Python, C and Bash, and am active on GitHub. I regularly use Fedora and OS X as my desktop operating systems, and I also use Ubuntu. I love films, anime, as well as Touhou and Vocaloid music a lot.
+I'm Shichao An, a computer science graduate from the New York University. Enthusiastic about free and open source software, I like Python, Ruby, and Go. I am very active on GitHub. I regularly use Fedora and OS X as my desktop operating systems, and I also use Ubuntu. 
+
+Interest
+--------
+
+* Anime
+* Films
+* Touhou Project (東方Project)
+* Oto MAD (音MAD)
 
 Email
 -----
