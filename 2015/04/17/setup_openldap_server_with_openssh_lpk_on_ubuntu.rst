@@ -36,8 +36,8 @@ The following schema in ldif format will be used and discussed in the subsequent
 -  ``ldap_disable_bind_anon.ldif``
 -  ``ssl.ldif``
 
-Import openssh-lpk scheme
--------------------------
+Importing openssh-lpk scheme
+----------------------------
 
 ::
 
@@ -59,8 +59,8 @@ where ``openssh-lpk.ldif`` is:
       MAY ( sshPublicKey $ uid ) 
       )
 
-Force authentication
---------------------
+Forcing authentication
+----------------------
 
 By default, OpenLDAP allows anonymous query from any client servers. You may want to enable authentication so that only authenticated clients are able to query the server:
 
@@ -89,8 +89,8 @@ where ``ldap_disable_bind_anon.ldif`` is:
 
 .. more::
 
-Secure LDAP with TLS
---------------------
+Securing LDAP with TLS
+----------------------
 
 -  Install the package that provides ``certtool``:
 
@@ -112,8 +112,8 @@ Secure LDAP with TLS
 
        chmod +r /etc/ldap/gnutls/ldap.gnutls.key
 
-Import SSL schema
------------------
+Importing SSL schema
+--------------------
 
 ::
 
@@ -140,8 +140,8 @@ where ssl.ldif is:
     add: olcTLSVerifyClient
     olcTLSVerifyClient: never
 
-Enable LDAPS
-------------
+Enabling LDAPS
+--------------
 
 By default, only ``ldap`` and ``ldapi`` (Unix domain socket) are enabled. Make ``ldap`` listen to only 127.0.0.1 and keep the latter so that you can run ldap utilty commands against ``ldapi:///`` without providing credentials if working on the same server.
 
@@ -151,8 +151,8 @@ Edit ``/etc/default/slapd`` and ensure the following line:
 
     SLAPD_SERVICES="ldap://127.0.0.1:389/ ldaps:/// ldapi:///"
 
-Configure /etc/ldap/ldap.conf
------------------------------
+Configuring /etc/ldap/ldap.conf
+-------------------------------
 
 Edit ``/etc/ldap/ldap.conf`` and add the following line:
 
@@ -160,8 +160,8 @@ Edit ``/etc/ldap/ldap.conf`` and add the following line:
 
     TLS_REQCERT never
 
-Test the above LDAPS config
----------------------------
+Testing the above LDAPS config
+------------------------------
 
 ::
 
@@ -169,7 +169,7 @@ Test the above LDAPS config
      -w password -b "dc=example,dc=com" -H "ldaps://ldap.example.org" "objectClass=*"
 
 
-Customize phpLDAPadmin config and templates
+Customizing phpLDAPadmin config and templates
 -------------------------------------------
 You can customize template configurations (``/etc/phpldapadmin/config.php``).
 
@@ -194,8 +194,8 @@ Customize themes and styles:
 -  /usr/share/phpldapadmin/lib/page.php
 -  /usr/share/phpldapadmin/htdocs/css/tango/style.css
  
-Add a user with SSH public key in phpLDAPadmin
-----------------------------------------------
+Adding a user with SSH public key in phpLDAPadmin
+-------------------------------------------------
 
 First, create a user with the "Generic: User Account" template. Then, go to the "objectClass" attribute section, click "add value", and choose the "ldapPublicKey" attribute. After you submit, go back to the user edit page, click "Add new attribute" on the top part, and choose "sshPublicKey", paste the public key into the text area, and finally click "Update Object".
 
