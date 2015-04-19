@@ -94,5 +94,5 @@ Configure NSS, login access control and sudo
 
 .. author:: default
 .. categories:: none
-.. tags:: none
+.. tags:: OpenLDAP,Ubuntu,SSH
 .. comments::
