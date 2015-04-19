@@ -170,7 +170,8 @@ Testing the above LDAPS config
 
 
 Customizing phpLDAPadmin config and templates
--------------------------------------------
+---------------------------------------------
+
 You can customize template configurations (``/etc/phpldapadmin/config.php``).
 
 For example, change the base uid and gid to a greater value:

@@ -4,6 +4,8 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   
+   2015/04/19/setup_openldap_client_server_with_ssh_access_on_ubuntu
    2015/04/17/setup_openldap_server_with_openssh_lpk_on_ubuntu
    2015/01/06/tunneling_rdp_over_ssh_with_xrdp_and_xfreerdp
    2014/12/22/rabbitmq_clustering_and_high_availability_on_ubuntu_ec2_servers
