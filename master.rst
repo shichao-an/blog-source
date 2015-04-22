@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/04/22/auditing_user_tty_and_root_commands_with_auditd_on_ubuntu
    
    2015/04/19/setup_openldap_client_server_with_ssh_access_on_ubuntu
    2015/04/17/setup_openldap_server_with_openssh_lpk_on_ubuntu
