@@ -31,8 +31,14 @@ Email
 
 Links
 -----
+
 * Twitter: `@moleculea <https://twitter.com/moleculea>`_
 * GitHub: `github.com/shichao-an <https://github.com/shichao-an>`_
+
+Notes
+-----
+
+* `Shichao's Notes <https://notes.shichao.io>`_
 
 For more information, see `shichao.io <https://shichao.io/>`_.
 
