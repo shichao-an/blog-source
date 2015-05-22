@@ -10,7 +10,7 @@ So I decide to use nss-ldapd that comes with the ``libnss-ldapd`` package.
     apt-get install libpam-ldap nscd ldap-utils libnss-ldapd
 
 
-Running the above command will automatically remove the ``libnss-ldap`` package and prompts an interacive post-install steps for you to setup the LDAP parameters. You can disable this interactive behavior and directly place your config in ``/etc/nslcd.conf`` with the following command:
+Running the above command will automatically remove the ``libnss-ldap`` package and prompt interacive post-install steps for you to configure the LDAP parameters. You can disable this interactive behavior and directly place your config in ``/etc/nslcd.conf`` with the following command:
 
 
 ::
@@ -33,7 +33,7 @@ Then, put your config in ``/etc/nslcd.conf``:
  
 The last line ``nss_initgroups_ignoreusers ALLLOCAL`` prevents group membership lookups through LDAP for all local users.
 
-The other settings for PAM, sudoers and access.conf are essentially the same as the old nss-ldap setup. Just make sure to restart the LDAP nameservice daemon, nslcd, after making changes to ``/etc/nslcd.conf``.
+The remaining settings for PAM, sudoers and access.conf are essentially the same as the old nss-ldap setup. Just make sure to restart the LDAP nameservice daemon, nslcd, after making changes to ``/etc/nslcd.conf``:
 
 ::
 
