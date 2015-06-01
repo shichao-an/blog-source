@@ -30,6 +30,8 @@ Then, put your config in ``/etc/nslcd.conf``:
     bindpw password
     tls_reqcert never
     nss_initgroups_ignoreusers ALLLOCAL
+    bind_timelimit 3
+    timelimit 3
  
 The last line ``nss_initgroups_ignoreusers ALLLOCAL`` prevents group membership lookups through LDAP for all local users.
 
