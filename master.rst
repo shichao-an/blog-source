@@ -4,9 +4,9 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2015/07/22/relationships_among_nice_priority_and_weight_in_linux_kernel
    2015/05/21/setup_nss_ldapd_on_ubuntu_14_04
    2015/04/22/auditing_user_tty_and_root_commands_with_auditd_on_ubuntu
-   
    2015/04/19/setup_openldap_client_server_with_ssh_access_on_ubuntu
    2015/04/17/setup_openldap_server_with_openssh_lpk_on_ubuntu
    2015/01/06/tunneling_rdp_over_ssh_with_xrdp_and_xfreerdp
