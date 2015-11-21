@@ -1,5 +1,5 @@
-Setup virtualenvwrapper with pyenv using pyenv-virtualenvwrapper
-================================================================
+Setting up virtualenvwrapper with pyenv using pyenv-virtualenvwrapper
+=====================================================================
 
 Typically on OS X, I'm prone to use `pyenv <https://github.com/yyuu/pyenv>`_ to manage multiple Python versions, particularly 2.7 and 3.3. I always keep the 2.7.x Python (system version) that ships with OS X, and install extra versions using pyenv, and develop under virtualenvs. It seems `virtualenv <https://github.com/pypa/virtualenv/>`_ and `virtualenvwrapper <https://bitbucket.org/dhellmann/virtualenvwrapper/>`_ do not natively work well with pyenv's shims when creating new virtualenvs, and it also seems the author of pyenv already gives the solution, `pyenv-virtualenvwrapper <https://github.com/yyuu/pyenv-virtualenvwrapper>`_.
 
@@ -37,7 +37,7 @@ Then you can enable virtualenvwrapper with ``pyenv virtualenvwrapper``, and you 
 
 .. highlight:: shell-session
 
-Now, you can normally create new virtualenvs. 
+Now, you can normally create new virtualenvs.
 
 Create a virtualenv from the system version::
 

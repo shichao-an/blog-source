@@ -1,5 +1,5 @@
-Setup OpenLDAP server with OpenSSH-LPK on Ubuntu 14.04
-======================================================
+Setting up OpenLDAP server with OpenSSH-LPK on Ubuntu 14.04
+===========================================================
 
 .. |s1| image:: phpldapadmin_objectclass.png
    :width: 450px
@@ -7,7 +7,7 @@ Setup OpenLDAP server with OpenSSH-LPK on Ubuntu 14.04
 .. |s2| image:: phpldapadmin_add_attr.png
    :width: 450px
 
-This post documents how to setup a secure OpenLDAP server that is able to make OpenLDAP client servers accept authorized SSH access requests from users. 
+This post documents how to set up a secure OpenLDAP server that is able to make OpenLDAP client servers accept authorized SSH access requests from users.
 The following steps assume the OpenLDAP server (slapd) and phpLDAPadmin are installed as referenced in the `initial setup <https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-a-basic-ldap-server-on-an-ubuntu-12-04-vps>`__.
 
 Instructions and references
@@ -41,7 +41,7 @@ Importing openssh-lpk scheme
 
 ::
 
-    ldapadd -Y EXTERNAL -H ldapi:/// -f openssh-lpk.ldif 
+    ldapadd -Y EXTERNAL -H ldapi:/// -f openssh-lpk.ldif
 
 where ``openssh-lpk.ldif`` is:
 
@@ -50,13 +50,13 @@ where ``openssh-lpk.ldif`` is:
     dn: cn=openssh-lpk,cn=schema,cn=config
     objectClass: olcSchemaConfig
     cn: openssh-lpk
-    olcAttributeTypes: ( 1.3.6.1.4.1.24552.500.1.1.1.13 NAME 'sshPublicKey' 
-      DESC 'MANDATORY: OpenSSH Public key' 
+    olcAttributeTypes: ( 1.3.6.1.4.1.24552.500.1.1.1.13 NAME 'sshPublicKey'
+      DESC 'MANDATORY: OpenSSH Public key'
       EQUALITY octetStringMatch
       SYNTAX 1.3.6.1.4.1.1466.115.121.1.40 )
     olcObjectClasses: ( 1.3.6.1.4.1.24552.500.1.1.2.0 NAME 'ldapPublicKey' SUP top AUXILIARY
       DESC 'MANDATORY: OpenSSH LPK objectclass'
-      MAY ( sshPublicKey $ uid ) 
+      MAY ( sshPublicKey $ uid )
       )
 
 Forcing authentication
@@ -194,7 +194,7 @@ Customize themes and styles:
 
 -  /usr/share/phpldapadmin/lib/page.php
 -  /usr/share/phpldapadmin/htdocs/css/tango/style.css
- 
+
 Adding a user with SSH public key in phpLDAPadmin
 -------------------------------------------------
 

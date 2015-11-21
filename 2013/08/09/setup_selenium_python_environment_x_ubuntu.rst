@@ -1,5 +1,5 @@
-Set up Selenium Python environment with X virtual framebuffer on Ubuntu server
-==============================================================================
+Setting up Selenium Python environment with X virtual framebuffer on Ubuntu server
+==================================================================================
 
 .. highlight:: shell-session
 
@@ -31,8 +31,8 @@ Set up Selenium Python environment with X virtual framebuffer on Ubuntu server
 
        from selenium import webdriver
        from selenium.webdriver.common.keys import Keys
-        
-        
+
+
        driver = webdriver.Firefox()
        driver.get("http://www.python.org")
        assert "Python" in driver.title

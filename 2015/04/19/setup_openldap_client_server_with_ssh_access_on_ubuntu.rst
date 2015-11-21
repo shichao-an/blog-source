@@ -1,7 +1,7 @@
-Setup OpenLDAP client server with SSH access on Ubuntu 14.04
-============================================================
+Setting up OpenLDAP client server with SSH access on Ubuntu 14.04
+=================================================================
 
-This post documents how to setup an OpenLDAP client server (Ubuntu 14.04) that can make its OpenSSH server to load authorized keys from a pre-configured OpenLDAP server with ``ldaps://`` available (discussed in the :doc:`previous post <../17/setup_openldap_server_with_openssh_lpk_on_ubuntu>`, please read this first if you haven't). Users are able to SSH access this client server, while their SSH public keys are stored on the OpenLDAP server. The SSH authentication process on the client server is mainly facilitated by `ssh-ldap-pubkey <https://github.com/jirutka/ssh-ldap-pubkey>`_.
+This post documents how to set up an OpenLDAP client server (Ubuntu 14.04) that can make its OpenSSH server to load authorized keys from a pre-configured OpenLDAP server with ``ldaps://`` available (discussed in the :doc:`previous post <../17/setup_openldap_server_with_openssh_lpk_on_ubuntu>`, please read this first if you haven't). Users are able to SSH access this client server, while their SSH public keys are stored on the OpenLDAP server. The SSH authentication process on the client server is mainly facilitated by `ssh-ldap-pubkey <https://github.com/jirutka/ssh-ldap-pubkey>`_.
 
 Script
 ~~~~~~
