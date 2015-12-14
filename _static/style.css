@@ -3,6 +3,7 @@
 body {
   font-size: 1em;
   font-family: 'Source Sans Pro', 'PT Sans', Helvetica, Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.75);
 }
 
 header h1 {
@@ -20,4 +21,20 @@ h1 {
 code, kbd, pre, samp {
   font-family: Monaco ,'Source Code Pro', monospace, serif;
   line-height: 1.4em;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-weight: 400;
+}
+
+a, a:hover {
+  font-weight: 400;
+}
+
+div.postmeta {
+  font-weight: 300;
+}
+
+header h2 {
+  font-weight: 300;
 }
