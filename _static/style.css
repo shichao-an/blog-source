@@ -3,7 +3,7 @@
 body {
   font-size: 1em;
   font-family: 'Source Sans Pro', 'PT Sans', Helvetica, Arial, sans-serif;
-  color: rgba(0, 0, 0, 0.75);
+  color: rgba(0,0,0,0.75);
 }
 
 header h1 {
@@ -25,6 +25,7 @@ code, kbd, pre, samp {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-weight: 400;
+  color: rgba(50,50,50,0.75);
 }
 
 a, a:hover {
@@ -37,4 +38,12 @@ div.postmeta {
 
 header h2 {
   font-weight: 300;
+}
+
+article h1 a, article h1 a:visited, article h1 a:hover, article h1 a:active {
+  color: rgba(50,50,50,0.75);
+}
+
+header a, header a:visited, header a:hover, header a:active {
+  color: rgba(50,50,50,0.75);
 }

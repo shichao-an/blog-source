@@ -3,7 +3,7 @@ Personal Hotspot Backup Plan
 
 Although I have bought two ISPs for Internet access at home and have set up a dual WAN router to use them, it often sucks at busy nights when both ISPs churn me up with an over 80% packet loss for several hours due to a range of crappy outbound nodes of AT&T. These can be easily observed with ``mtr`` and ``ping``. In short, I simply cannot use the Internet with a normal mood.
 
-Therefore, I decided to make use of the LTE network of my iPhone via personal hotspot. The problem is to connect to the hotspot from my primary MacBook Pro (named ASC-MBP) while maintaining access to existing home network (named TOKI-MASTER), since I need accessing the NAS. The obvious way is to hack the routing table, so I wrote the following two scripts, along with a backup plan.
+Therefore, I decided to make use of the LTE network of my iPhone via personal hotspot. The problem is to connect to the hotspot from my primary MacBook Pro (named ASC-MBP) while maintaining access to existing home network (named TOKI-MASTER), since I need accessing the NAS through Ethernet. The obvious way is to hack the routing table, so I wrote the following two scripts, along with a backup plan.
 
 * `switch-default-route <https://gist.github.com/shichao-an/5be6baa2c6ebc2191ad7#file-switch-default-route>`_
 * `restore-default-route <https://gist.github.com/shichao-an/5be6baa2c6ebc2191ad7#file-restore-default-route>`_
