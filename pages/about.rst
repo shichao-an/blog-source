@@ -4,7 +4,7 @@ About
 Intro
 -----
 
-I'm Shichao An and I'm enthusiastic about free and open source software, I like Python, Ruby, and Go. I am very active on GitHub. I regularly use Fedora and OS X as my desktop operating systems, and I also use Ubuntu.
+I'm Shichao An, an open-source software enthusiast. I use Python a lot, but I'm also learning Ruby and Go. I am very active on GitHub. Although regularly using Fedora and OS X as my desktop operating systems, I play around with Ubuntu on the server side most of the time.
 
 Interest
 --------
