@@ -19,6 +19,12 @@ On ASC-MBP, where Ethernet is plugged to TOKI-MASTER (10.0.1.1):
 
 By default, the iPhone Hotspot's gateway address is 172.20.10.1, which is why it is in the script.
 
+**UPDATE: February 24, 2016**
+
+Turning on/off WiFi and connecting to the hotspot is automated in the scripts. Thus, there is no need to manually connect to the hotspot.
+
+I also created another script `sbcsucks.sh <https://gist.github.com/shichao-an/dee61d0ac7d9134e3e5c#file-sbcsucks-sh>`_ that tests whether the ISP is stable. When the ISP is stable with no significant packet loss, the script, which is running on a separate local machine, will send a notification to ASC-MBP. This script can be run in the background using such tools as GNU Screen.
+
 .. author:: default
 .. categories:: none
 .. tags:: OS X,Network

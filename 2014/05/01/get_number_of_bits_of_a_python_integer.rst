@@ -10,8 +10,8 @@ The following function helps determine number of bits of an integer and returns 
 .. code-block:: python
 
     import sys
-     
-     
+
+
     def get_int_bits():
         if hasattr(sys, 'maxsize'):
             max_int = getattr(sys, 'maxsize')
@@ -24,15 +24,15 @@ The following function helps determine number of bits of an integer and returns 
 
 Check out the code on GitHub Gist from `this link <https://gist.github.com/shichao-an/b447d24f0a5381b0fa92>`_.
 
-**Updated Jun 10, 2014**
+**UPDATE: June 10, 2014**
 
 After an exploration of the `built-in types <https://docs.python.org/2/library/stdtypes.html#int.bit_length>`_, it is clear that ``int.bit_length`` can be used more easily than bit manipulation.:
 
 .. code-block:: python
 
     import sys
-     
-     
+
+
     def get_int_bits():
         if hasattr(sys, 'maxsize'):
             max_int = getattr(sys, 'maxsize')
