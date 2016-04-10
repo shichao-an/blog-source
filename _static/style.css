@@ -47,3 +47,13 @@ article h1 a, article h1 a:visited, article h1 a:hover, article h1 a:active {
 header a, header a:visited, header a:hover, header a:active {
   color: rgba(50,50,50,0.75);
 }
+
+.docutils.literal {
+  background: rgba(0,0,0,0.04);
+  color: rgba(50,50,50,0.75);
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 90%;
+}
+
