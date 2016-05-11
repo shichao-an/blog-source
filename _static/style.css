@@ -41,7 +41,7 @@ header h2 {
 }
 
 article h1 a, article h1 a:visited, article h1 a:hover, article h1 a:active {
-  color: rgba(50,50,50,0.75);
+  color: #419eda;
 }
 
 header a, header a:visited, header a:hover, header a:active {
@@ -55,5 +55,25 @@ header a, header a:visited, header a:hover, header a:active {
   padding: 2px 4px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 90%;
+}
+
+a, a:visited {
+  color: #419eda;
+}
+
+a:hover {
+  color: #419eda;
+}
+
+blockquote {
+  border-left: 10px solid #419eda;
+}
+
+h2, h3 {
+  color: #f04c5c;
+}
+
+h1 {
+  color: #419eda;
 }
 
