@@ -77,3 +77,9 @@ h1 {
   color: #419eda;
 }
 
+.highlight {
+  background-color: #004454;
+  color: #93A1A1;
+  border: 1px solid #004454;
+  border-radius: 4px;
+}
