@@ -4,6 +4,7 @@ Sitemap
 .. toctree::
    :maxdepth: 1
 
+   2016/10/03/circumventing_internet_censorship_in_china
    2015/12/13/personal_hotspot_backup_plan
    2015/07/22/relationships_among_nice_priority_and_weight_in_linux_kernel
    2015/05/21/setup_nss_ldapd_on_ubuntu_14_04
