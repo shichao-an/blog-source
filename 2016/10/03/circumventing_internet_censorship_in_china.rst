@@ -8,8 +8,8 @@ AT&T Passport Data
 
 AT&T Passport is the international data roaming plan by AT&T. With this plan enabled, you are able to select available network carriers (such as China Unicom) while in China, but need no further censorship circumvention, as if you were using a non-China network carrier directly. I'm not clear if other mobile network providers behave similarly. However, this method has its limitations of data usage, so you cannot use it freely.
 
-ocserv-docker
--------------
+ocserv
+------
 
 OpenConnect VPN server (ocserv) works best of all means. It is fast and stable.
 
@@ -44,7 +44,7 @@ Then, you can install Cisco AnyConnect clients on both your computer and mobile 
 Shadowsocks
 -----------
 
-Shadowsocks also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`_, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
+[Shadowsocks](https://shadowsocks.org) also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`_, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
 
 ExpressVPN
 ----------
