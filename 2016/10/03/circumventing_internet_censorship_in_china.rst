@@ -44,7 +44,7 @@ Then, you can install Cisco AnyConnect clients on both your computer and mobile 
 Shadowsocks
 -----------
 
-[Shadowsocks](https://shadowsocks.org) also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`_, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
+`Shadowsocks <https://shadowsocks.org>`_ also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`_, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
 
 ExpressVPN
 ----------
