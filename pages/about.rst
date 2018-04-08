@@ -4,15 +4,13 @@ About
 Intro
 -----
 
-I'm Shichao An, an open-source software enthusiast. I use Python a lot, but I'm also learning Ruby and Go. I am very active on GitHub. Although regularly using Fedora and OS X as my desktop operating systems, I play around with Ubuntu on the server side most of the time.
+* Name: Shichao An
+* Descriptiom: a Python 2+3 compatible, GitHub-addicted and macOS-reliant software engineer.
+* Fields of interest:
 
-Interest
---------
+  * Site reliability engineering
+  * Distributed data systems
 
-* Anime
-* Films
-* Touhou Project (東方Project)
-* Oto MAD (音MAD)
 
 Email
 -----

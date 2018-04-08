@@ -11,7 +11,7 @@ import tinkerer.paths
 project = 'Shichao\'s Blog'
 
 # Change this to the tagline of your blog
-tagline = 'Recording molecular stuff'
+tagline = 'Inspirative, test-driven frobnications'
 
 # Change this to the description of your blog
 description = 'Personal Blogging Site of Shichao An'

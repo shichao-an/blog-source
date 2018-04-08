@@ -13,7 +13,7 @@ ocserv
 
 OpenConnect VPN server (ocserv) works best of all means. It is fast and stable.
 
-To ease the server-side setup, I used `ocserv-docker <https://github.com/wppurking/ocserv-docker>`_ on a DigitalOcean box and a Linode box. By the time I was setting it up, there was some dependency errors, so I forked it into my `own GitHub repo <https://github.com/shichao-an/ocserv-docker>`_, fixed the errors, and built a `Docker image <https://hub.docker.com/r/shichaoan/ocserv-docker/>`_. I ran the following commands on an Ubuntu 14.04 system that uses UFW:
+To ease the server-side setup, I used `ocserv-docker <https://github.com/wppurking/ocserv-docker>`_ on a DigitalOcean box and a Linode box. By the time I was setting it up, there was some dependency errors, so I forked it into my `own GitHub repo <https://github.com/shichao-an/ocserv-docker>`_, fixed the errors, and built a `Docker image <https://hub.docker.com/r/shichaoan/ocserv-docker/>`__. I ran the following commands on an Ubuntu 14.04 system that uses UFW:
 
 .. highlight:: shell-session
 
@@ -44,7 +44,7 @@ Then, you can install Cisco AnyConnect clients on both your computer and mobile 
 Shadowsocks
 -----------
 
-`Shadowsocks <https://shadowsocks.org>`_ also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`_, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
+`Shadowsocks <https://shadowsocks.org>`_ also works well. It's just that I didn't bother to set it up my mobile devices, that is, iPhone and iPad. I set up the server side with my `Docker image <https://hub.docker.com/r/shichaoan/shadowsocks-libev/>`__, whose source is `shichao-an/docker-shadowsocks-libev <https://github.com/shichao-an/docker-shadowsocks-libev>`_.
 
 ExpressVPN
 ----------
