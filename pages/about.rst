@@ -5,12 +5,11 @@ Intro
 -----
 
 * Name: Shichao An
-* Descriptiom: a Python 2+3 compatible, GitHub-addicted and macOS-reliant software engineer.
+* Description: a Python 2+3 compatible, GitHub-addicted and macOS-reliant software engineer.
 * Fields of interest:
 
   * Site reliability engineering
   * Distributed data systems
-
 
 Email
 -----
